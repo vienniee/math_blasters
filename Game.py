@@ -61,7 +61,7 @@ def createRandomSortedList(num, start, end):
     return arr
 
 orderlist = createRandomSortedList(len(question_list),0,len(question_list)-1)
-print(orderlist)
+
 
 
 
