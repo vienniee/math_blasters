@@ -76,8 +76,6 @@ print(reorderQlist)
 
 
 
-
-
 #function to draw bg
 def draw_bg():
     screen.blit(background_img,(-200,-bottom_panel))
