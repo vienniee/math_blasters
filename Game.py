@@ -450,7 +450,6 @@ while run:
             if action_cd >= action_wait_time:
                 player.attack(enemies)
                 action_cd = 0
-            print("correct")
         else:
             while action_cd < action_wait_time:
                 action_cd += 1
@@ -482,7 +481,6 @@ while run:
             if action_cd >= action_wait_time:
                 player.attack(enemies)
                 action_cd = 0
-            print("correct")
         else:
             while action_cd < action_wait_time:
                 action_cd += 1
@@ -515,7 +513,6 @@ while run:
             if action_cd >= action_wait_time:
                 player.attack(enemies)
                 action_cd = 0
-            print("correct")
         else:
             while action_cd < action_wait_time:
                 action_cd += 1
@@ -547,7 +544,6 @@ while run:
             if action_cd >= action_wait_time:
                 player.attack(enemies)
                 action_cd = 0
-            print("correct")
         else:
             while action_cd < action_wait_time:
                 action_cd += 1
