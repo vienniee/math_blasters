@@ -11,7 +11,7 @@ firebaseConfig = {
   'measurementId': "G-L2L2H64FDN",
   "databaseURL": ""
 }
-print('hi')
+
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 
