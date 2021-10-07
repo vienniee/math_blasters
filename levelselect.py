@@ -11,24 +11,21 @@ SCREEN_WIDTH = 1000
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 #load background image
-sky_surface = pygame.image.load('image\sky1.png').convert()
-ground_surface = pygame.image.load('image\ground1.png').convert()
+background_surface = pygame.image.load('image\level_select.png').convert()
 
 #load button images
 lvl1_img = pygame.image.load("image\Castle_level_1.png").convert_alpha()
 lvl2_img = pygame.image.load("image\Castle_level_2.png").convert_alpha()
 lvl3_img = pygame.image.load("image\Castle_level_3.png").convert_alpha()
 
-lvl1_img_rect = lvl1_img.get_rect()
-lvl2_img_rect = lvl1_img.get_rect()
-lvl3_img_rect = lvl1_img.get_rect()
-
 #load fonts
 #font style and size
-font = pygame.font.Font(None,18)
-level1text = font.render("LEVEL 1", True, [0,0,0])
-level2text = font.render("LEVEL 2", True,[0,0,0])
-level3text = font.render("LEVEL 3", True,[0,0,0])
+font1 = pygame.font.Font(None,18)
+font2 = pygame.font.Font(None,35)
+level1text = font1.render("LEVEL 1", True, [0,0,0])
+level2text = font1.render("LEVEL 2", True,[0,0,0])
+level3text = font1.render("LEVEL 3", True,[0,0,0])
+levelheading = font2.render("LEVEL SELECTION", True,[0,0,0])
 
 
 #button class
@@ -61,32 +58,30 @@ class Button():
 
         return action
 
-print(lvl1_img_rect)
-
 #create button instances
-level1_button = Button(160,150,lvl1_img,2.5)
-level2_button = Button(310,150,lvl2_img,2.5)
-level3_button = Button(460,150,lvl3_img,2.5)
+level1_button = Button(258,220,lvl1_img,2.5)
+level2_button = Button(408,220,lvl2_img,2.5)
+level3_button = Button(558,220,lvl3_img,2.5)
+#160,310,460
 
 #game loop
 run = True
 while run:
     screen.fill((202, 228, 241))
-    screen.blit(sky_surface, (0, 0))
-    screen.blit(ground_surface, (0, 300))
+    screen.blit(background_surface, (0, 0))
 
-    #difficulty select
-    
+    #difficulty select 
     if level1_button.draw() == True:
-        print('level 1')
+        print('level 1 selected')
     if level2_button.draw() == True:
-        print('level 2')
+        print('level 2 selected')
     if level3_button.draw() == True:
-        print('level 3')
+        print('level 3 selected')
 
-    screen.blit(level1text, (215,320))
-    screen.blit(level2text, (415,320))
-    screen.blit(level3text, (615,320))
+    screen.blit(levelheading, (373,200))
+    screen.blit(level1text, (315,390))
+    screen.blit(level2text, (465,390))
+    screen.blit(level3text, (615,390))
 
     
     
