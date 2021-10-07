@@ -1,6 +1,6 @@
 import pygame
 import random
-from random import randrange
+from pygame.locals import *
 
 
 pygame.init()
@@ -33,15 +33,15 @@ background_img = pygame.image.load('Image/castlebackground.png').convert_alpha()
 panel_img = pygame.image.load('Image/panel.png').convert_alpha()
 #button image
 button_img = pygame.image.load('Image/button.png').convert_alpha()
-#Question_panel
-questionpnl_img = pygame.image.load('Image/Qpanel.png').convert_alpha()
 
 #define gaming variables
 current_turn = 1
+clicked = False
 total_turn = 2
 action_cd = 0
 action_wait_time = 90
 game_over = 0 # 1 means player win, -1 player lost
+score = 0
 
 #function to draw text
 def draw_text(text,font,text_col,x,y):
@@ -51,7 +51,7 @@ def draw_text(text,font,text_col,x,y):
 #load question list
 #sample, first digit is the passing score
 #questions with 4 options, last is answer
-questionlist = ["2",["1 + 1 - ?", "1", "2", "3", "4", "2"], ["2 + 2 = ?", "1", "2", "3", "4"],["3 + 3 = ?", "2", "4", "6", "8"]]
+questionlist = ["2",["1 + 1 = ?", "1", "2", "3", "4", "2"], ["2 + 2 = ?", "2", "1", "4", "3","4"],["3 + 3 = ?", "2", "4", "6", "8", "6"]]
 question_list = questionlist[1:]
 passingmark = int(questionlist[0])
 
@@ -71,10 +71,6 @@ reorderQlist = []
 for i in orderlist:
     reorderQlist.append(question_list[i])
 
-print(reorderQlist)
-
-
-
 
 #function to draw bg
 def draw_bg():
@@ -87,58 +83,134 @@ def draw_pnl():
     draw_text(f'{player.name} HP:{player.hp}', font, red, 210, screen_height - bottom_panel + 5)
     draw_text(f'{enemies.name} HP:{enemies.hp}', font, red, 560, screen_height - bottom_panel + 5)
 
-class question_panel():
-    def __init__(self, x, y, image, wscale, hscale):
-        width = image.get_width()
-        height = image.get_height()
-        self.image = pygame.transform.scale(image, (int(width *wscale),int(height*hscale)))
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
+#Question panel
+class questionpanel():
+    text_col = black
+    def __init__(self, x, y,width,height, text):
+        self.x = x
+        self.y = y
+        self.text = text
+        self.width = width
+        self.height = height
 
     def draw(self):
-        #draw panel on screen
-        screen.blit(self.image,(self.rect.x,self.rect.y))
+
+        # create pygame Rect object for the label
+        label_rect = Rect(self.x, self.y, self.width, self.height)
+
+        pygame.draw.rect(screen, (229, 229, 229) , label_rect)
+
+        # add shading to label
+        pygame.draw.line(screen, white, (self.x, self.y), (self.x + self.width, self.y), 2)
+        pygame.draw.line(screen, white, (self.x, self.y), (self.x, self.y + self.height), 2)
+        pygame.draw.line(screen, black, (self.x, self.y + self.height), (self.x + self.width, self.y + self.height), 2)
+        pygame.draw.line(screen, black, (self.x + self.width, self.y), (self.x + self.width, self.y + self.height), 2)
+
+        # add text to button
+        text_img = font.render(self.text, True, self.text_col)
+        text_len = text_img.get_width()
+        screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y+5))
 
 #define button
 #button class
-class Button():
-    def __init__(self, x, y, image, wscale, hscale):
-        width = image.get_width()
-        height = image.get_height()
-        self.image = pygame.transform.scale(image, (int(width *wscale),int(height*hscale)))
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
-        self.clicked = False
+class button():
+    # colours for button and text
+    button_col = (229, 229, 229)
+    hover_col = (153, 153, 153)
+    click_col = (191, 191, 191)
+    text_col = black
+
+
+    def __init__(self, x, y,width,height, text):
+        self.x = x
+        self.y = y
+        self.text = text
+        self.width = width
+        self.height = height
 
     def draw(self):
+
+        global clicked
         action = False
-        #getting mouse position
+
+        # get mouse position
         pos = pygame.mouse.get_pos()
 
-        #check mouseover and clicked conditions
-        if self.rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-                self.clicked = True
-                #test check, remove when complete
+        # create pygame Rect object for the button
+        button_rect = Rect(self.x, self.y, self.width, self.height)
+
+        # check mouseover and clicked conditions
+        if button_rect.collidepoint(pos):
+            if pygame.mouse.get_pressed()[0] == 1:
+                clicked = True
+                pygame.draw.rect(screen, self.click_col, button_rect)
+            elif pygame.mouse.get_pressed()[0] == 0 and clicked == True:
+                clicked = False
                 action = True
+            else:
+                pygame.draw.rect(screen, self.hover_col, button_rect)
+        else:
+            pygame.draw.rect(screen, self.button_col, button_rect)
 
-        if pygame.mouse.get_pressed()[0] == 0:
-            self.clicked = False
+        # add shading to button
+        pygame.draw.line(screen, white, (self.x, self.y), (self.x + self.width, self.y), 2)
+        pygame.draw.line(screen, white, (self.x, self.y), (self.x, self.y + self.height), 2)
+        pygame.draw.line(screen, black, (self.x, self.y + self.height), (self.x + self.width, self.y + self.height), 2)
+        pygame.draw.line(screen, black, (self.x + self.width, self.y), (self.x + self.width, self.y + self.height), 2)
 
-        #draw button on screen
-        screen.blit(self.image,(self.rect.x,self.rect.y))
-
+        # add text to button
+        text_img = font.render(self.text, True, self.text_col)
+        text_len = text_img.get_width()
+        screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y+5))
         return action
 
-#create button instances
-option1_button = Button(20,470,button_img,0.55,0.175)
-option2_button = Button(440,470,button_img,0.55,0.175)
-option3_button = Button(20,530,button_img,0.55,0.175)
-option4_button = Button(440,530,button_img,0.55,0.175)
-abandon_button = Button(850,490,button_img,0.18,0.175)
+#create button/label instances/answer_list
+questionbuttonlist1 = []
+questionbuttonlist2 = []
+questionbuttonlist3 = []
+questionbuttonlist4 = []
+questions = []
+answers = []
+for i in range(len(reorderQlist)):
+    questionbuttonlist1.append(button(20,470,380,40,reorderQlist[i][1]))
+    questionbuttonlist2.append(button(440,470,380,40,reorderQlist[i][2]))
+    questionbuttonlist3.append(button(20,530,380,40,reorderQlist[i][3]))
+    questionbuttonlist4.append(button(440,530,380,40,reorderQlist[i][4]))
+    questions.append(questionpanel(260,100,450,80,reorderQlist[i][0]))
+    answers.append(reorderQlist[i][5])
 
-#create question panel
-quest_panel = question_panel(20,-130,questionpnl_img,1.7,1.3)
+
+
+abandon_button = button(850,490,140,40,"Abandon")
+
+#define curse sprite
+class curselogo():
+    def __init__(self, x, y, scale):
+        self.animation_list = []
+        self.frame_index= 0
+        self.update_time = pygame.time.get_ticks()
+        #load curse logo
+        for i in range(15):
+            img = pygame.image.load(f'Image/curse/{i}.png')
+            img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
+            self.animation_list.append(img)
+        self.image = self.animation_list[self.frame_index]
+        self.rect = self.image.get_rect()
+        self.rect.center = (x,y)
+
+    def update(self):
+        animation_cooldown = 150
+        # update animation
+        self.image = self.animation_list[self.frame_index]
+        if pygame.time.get_ticks() - self.update_time > animation_cooldown:
+            self.update_time = pygame.time.get_ticks()
+            self.frame_index += 1
+        if self.frame_index >= len(self.animation_list):
+            self.frame_index = 0
+
+    def draw(self):
+        screen.blit(self.image, self.rect)
+
 
 #define curse
 class curse():
@@ -147,7 +219,6 @@ class curse():
         self.frame_index= 0
         self.update_time = pygame.time.get_ticks()
         #load ignite images
-        temp_list = []
         for i in range(14):
             img = pygame.image.load(f'Image/ignite/{i}.png')
             img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
@@ -170,9 +241,10 @@ class curse():
     def draw(self):
         screen.blit(self.image,self.rect)
 
-#create character instance
+#create curse instance
 playercurse = curse(280,290,2.5)
 enemiescurse = curse(650,290,2.5)
+logo = curselogo(670,45,0.2)
 
 #define player
 class character():
@@ -328,6 +400,9 @@ enemies_hp = healthbar(560,screen_height-bottom_panel+40,enemies.hp,enemies.max_
 
 progress_bar = progressbar(screen_width/3,40,enemies.max_hp-enemies.hp,passingmark)
 
+questionnum = 0
+
+
 run = True
 while run:
     clock.tick(fps)
@@ -338,10 +413,10 @@ while run:
     #draw hp
     player_hp.draw(player.hp)
     enemies_hp.draw(enemies.hp)
-
-    #draw progress bar
+    #draw progress bar/curse
     progress_bar.draw(enemies.max_hp-enemies.hp)
-
+    logo.update()
+    logo.draw()
 
     #draw and update character animation
     player.update()
@@ -353,7 +428,6 @@ while run:
     damage_text_group.update()
     damage_text_group.draw(screen)
 
-    quest_panel.draw()
 
     if enemies.alive == False:
         enemiescurse.update()
@@ -363,39 +437,135 @@ while run:
         playercurse.update()
         playercurse.draw()
 
+    #load question
+    questions[questionnum].draw()
+
     #draw button
-    if option1_button.draw() == True:
-        #button action ~ player
-        if player.alive:
-            if current_turn == 1:
-                while action_cd < action_wait_time:
-                    action_cd += 1
-                if action_cd >= action_wait_time:
-                    player.attack(enemies)
-                    current_turn = 2
-                    action_cd = 0
+    if questionbuttonlist1[questionnum].draw() == True:
+        currentanswer = answers[questionnum]
+        if currentanswer == reorderQlist[questionnum][1]:
+            score += 1
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                player.attack(enemies)
+                action_cd = 0
         else:
-            game_over = -1
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                enemies.attack(player)
+                action_cd = 0
+        questionnum += 1
+        if questionnum >= len(question_list):
+            questionnum = len(question_list) - 1
+            if score == passingmark:
+                enemies.hp = 0
+                enemiescurse.update()
+                enemiescurse.draw()
+                enemies.alive = False
+                enemies.death()
+            else:
+                player.hp = 0
+                playercurse.update()
+                playercurse.draw()
+                player.alive = False
+                player.death()
 
-
-    if option2_button.draw() == True:
-        # button action ~ enemies
-        if enemies.alive:
-            if current_turn == 2:
-                while action_cd < action_wait_time:
-                    action_cd += 1
-                if action_cd >= action_wait_time:
-                    enemies.attack(player)
-                    current_turn = 1
-                    action_cd = 0
+    if questionbuttonlist2[questionnum].draw() == True:
+        currentanswer = answers[questionnum]
+        if currentanswer == reorderQlist[questionnum][2]:
+            score += 1
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                player.attack(enemies)
+                action_cd = 0
         else:
-            game_over = 1
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                enemies.attack(player)
+                action_cd = 0
+        questionnum += 1
+        if questionnum >= len(question_list):
+            questionnum = len(question_list)-1
+            if score == passingmark:
+                enemies.hp = 0
+                enemiescurse.update()
+                enemiescurse.draw()
+                enemies.alive = False
+                enemies.death()
+            else:
+                player.hp = 0
+                playercurse.update()
+                playercurse.draw()
+                player.alive = False
+                player.death()
 
 
-    if option3_button.draw() == True:
-        print('C')
-    if option4_button.draw() ==True:
-        print('D')
+    if questionbuttonlist3[questionnum].draw() == True:
+        currentanswer = answers[questionnum]
+        if currentanswer == reorderQlist[questionnum][3]:
+            score += 1
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                player.attack(enemies)
+                action_cd = 0
+        else:
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                enemies.attack(player)
+                action_cd = 0
+        questionnum += 1
+        if questionnum >= len(question_list):
+            questionnum = len(question_list)-1
+            if score == passingmark:
+                enemies.hp = 0
+                enemiescurse.update()
+                enemiescurse.draw()
+                enemies.alive = False
+                enemies.death()
+            else:
+                player.hp = 0
+                playercurse.update()
+                playercurse.draw()
+                player.alive = False
+                player.death()
+
+    if questionbuttonlist4[questionnum].draw() ==True:
+        currentanswer = answers[questionnum]
+        if currentanswer == reorderQlist[questionnum][4]:
+            score += 1
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                player.attack(enemies)
+                action_cd = 0
+        else:
+            while action_cd < action_wait_time:
+                action_cd += 1
+            if action_cd >= action_wait_time:
+                enemies.attack(player)
+                action_cd = 0
+        questionnum += 1
+        if questionnum >= len(question_list):
+            questionnum = len(question_list)-1
+            if score == passingmark:
+                enemies.hp = 0
+                enemiescurse.update()
+                enemiescurse.draw()
+                enemies.alive = False
+                enemies.death()
+            else:
+                player.hp = 0
+                playercurse.update()
+                playercurse.draw()
+                player.alive = False
+                player.death()
+
     if abandon_button.draw() ==True:
         print('Abandon')
 
