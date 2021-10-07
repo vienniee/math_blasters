@@ -1,87 +1,139 @@
-import pygame
-from sys import exit
-from random import randint, choice
-import os
-import sys
+from tkinter import *
+import pyrebase
 
-pygame.init()
-screen = pygame.display.set_mode((1000,600))
-pygame.display.set_caption('MathBlasters')
-clock = pygame.time.Clock()
-base_font = pygame.font.Font('font/Pixeltype.ttf', 50)
-user_text = ''
-game_active = True
-start_time = 0
-score = 0
-bg_music = pygame.mixer.Sound('audio/music.wav')
-bg_music.play(loops = -1)	
-registration_page = pygame.image.load('Image/Registration.png').convert()
+firebaseConfig = {
+  'apiKey': "AIzaSyBEOlShI29lUu4NhonKtqFH-NSt85ZvGVI",
+  'authDomain': "math-blasters.firebaseapp.com",
+  'projectId': "math-blasters",
+  'storageBucket': "math-blasters.appspot.com",
+  'messagingSenderId': "1022427765658",
+  'appId': "1:1022427765658:web:f5319e28731afca5783823",
+  'measurementId': "G-L2L2H64FDN",
+  "databaseURL": ""
+}
 
-#input box for user input
-#140 pixels wide, 32 pixels height
-input_rect1 = pygame.Rect(450, 235, 180, 28)
-input_rect2 = pygame.Rect(450, 285, 180, 28)
-input_rect3 = pygame.Rect(450, 325, 180, 28)
-input_rect4 = pygame.Rect(450, 375, 180, 28)
-color_active = pygame.Color('lightskyblue3')
-color_passive = pygame.Color('chartreuse4')
-color = color_passive
+firebase = pyrebase.initialize_app(firebaseConfig)
+auth = firebase.auth()
 
-
-obstacle_timer = pygame.USEREVENT + 1
-pygame.time.set_timer(obstacle_timer,1500)
-
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:                
-            pygame.quit()
-            exit()
-        
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if input_rect1.collidepoint(event.pos):
-                active = True
-            else:
-                active = False
-
-        #check if any event was pressed 
-        if event.type == pygame.KEYDOWN:
-
-            # Check for backspace
-            if event.key == pygame.K_BACKSPACE:
-                # get text input from 0 to -1 i.e. end.
-                user_text = user_text[:-1]
-
-            # else if event.key == pygame.K_ENTER:
-                
-            # Unicode standard is used for string
-            # formation
-            else:
-                user_text += event.unicode
-
-    if game_active:
-        screen.blit(registration_page, (0,0))
-        color = color_active
-
-    else:
-        color = color_passive
-                
-    # draw rectangle and argument passed which should
-    # be on screen
-    for i in range(1, 5, 1):
-        current_input_rect = 'input_rect%s' %i
-        pygame.draw.rect(screen, color, current_input_rect)
-
-    text_surface = base_font.render(user_text, True, (255, 255, 255))
+def signup(email, password):
+    try:
+      user = auth.create_user_with_email_and_password(email, password)
+      print("Successfully created")
     
-    # render at position stated in arguments
-    screen.blit(text_surface, (input_rect1.x+5, input_rect1.y+5))
+    except:
+      print("Email already exist")
+
+
+def btn_clicked():
+    print("Button Clicked")
+    uniqueId1 = email.get()
+    password1 = password.get()
+    signup(uniqueId1, password1)
     
-    # set width of textfield so that text cannot get
-    # outside of user's text input
-    input_rect1.w = max(180, text_surface.get_width()+10)
-
-    pygame.display.update()
-    clock.tick(60)
 
 
+
+window = Tk()
+window.title('MathBlasters')
+
+window.geometry("1000x600")
+window.configure(bg = "#ffffff")
+canvas = Canvas(
+    window,
+    bg = "#ffffff",
+    height = 600,
+    width = 1000,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge")
+canvas.place(x = 0, y = 0)
+
+background_img = PhotoImage(file = './Registration/background.png')
+background = canvas.create_image(
+    500.0, 300.0,
+    image=background_img)
+
+entry0_img = PhotoImage(file = './Registration/img_textBox0.png')
+entry0_bg = canvas.create_image(
+    539.0, 237.0,
+    image = entry0_img)
+
+username = Entry(
+    bd = 0,
+    bg = "#ffffff",
+    highlightthickness = 0)
+
+username.place(
+    x = 442.0, y = 221,
+    width = 194.0,
+    height = 30)
+
+entry1_img = PhotoImage(file = './Registration/img_textBox1.png')
+entry1_bg = canvas.create_image(
+    539.0, 284.0,
+    image = entry1_img)
+
+
+email = Entry(
+    bd = 0,
+    bg = "#ffffff",
+    highlightthickness = 0)
+
+email.place(
+    x = 442.0, y = 268,
+    width = 194.0,
+    height = 30)
+
+entry2_img = PhotoImage(file = './Registration/img_textBox3.png')
+entry2_bg = canvas.create_image(
+    543.0, 331.5,
+    image = entry2_img)
+
+classLevel = Entry(
+    bd = 0,
+    bg = "#ffffff",
+    highlightthickness = 0)
+
+classLevel.place(
+    x = 446.0, y = 315,
+    width = 194.0,
+    height = 31)
+
+entry3_img = PhotoImage(file = './Registration/img_textBox2.png')
+entry3_bg = canvas.create_image(
+    543.0, 378.5,
+    image = entry3_img)
+
+password = Entry(
+    bd = 0,
+    bg = "#ffffff",
+    highlightthickness = 0,
+    show="*",
+    width=20)
+
+password.place(
+    x = 446.0, y = 363,
+    width = 194.0,
+    height = 29)
+
+
+img0 = PhotoImage(file = './Registration/img0.png')
+
+b0 = Button(
+    image = img0,
+    borderwidth = 0,
+    highlightthickness = 0,
+    command = btn_clicked,
+    relief = "flat",
+
+    )
+
+b0.place(
+    x = 388, y = 402,
+    width = 190,
+    height = 54)
+
+
+
+window.resizable(False, False)
+window.mainloop()
