@@ -1,5 +1,6 @@
 from tkinter import *
 import pyrebase
+from tkinter import messagebox
 
 firebaseConfig = {
   'apiKey': "AIzaSyBEOlShI29lUu4NhonKtqFH-NSt85ZvGVI",
@@ -24,13 +25,18 @@ def login_clicked():
 def register_clicked():
     print("Register Clicked")
 
+
 def login(email, password):
     try:
         print("Logging in")
         login = auth.sign_in_with_email_and_password(email, password)
         print("Successfully logged in!")
+        #used to test logic, can just add the linking function here
+        # window.destroy()
+        
     except:
         print("Invalid email or password")
+        messagebox.showerror("Error", "Invalid email or password")
 
 window = Tk()
 
@@ -46,12 +52,12 @@ canvas = Canvas(
     relief = "ridge")
 canvas.place(x = 0, y = 0)
 
-background_img = PhotoImage(file = './Login/background.png')
+login_img = PhotoImage(file = './Image/Login/background.png')
 background = canvas.create_image(
     500.0, 300.0,
-    image=background_img)
+    image=login_img)
 
-entry0_img = PhotoImage(file = './Login/img_textBox0.png')
+entry0_img = PhotoImage(file = './Image/Login/img_textBox0.png')
 entry0_bg = canvas.create_image(
     531.0, 267.0,
     image = entry0_img)
@@ -66,7 +72,7 @@ email.place(
     width = 194.0,
     height = 30)
 
-entry1_img = PhotoImage(file = './Login/img_textBox1.png')
+entry1_img = PhotoImage(file = './Image/Login/img_textBox1.png')
 entry1_bg = canvas.create_image(
     531.0, 316.0,
     image = entry1_img)
@@ -83,21 +89,22 @@ password.place(
     width = 194.0,
     height = 30)
 
-img0 = PhotoImage(file = './Login/img0.png')
-b0 = Button(
+img0 = PhotoImage(file = './Image/Login/img0.png')
+loginButton = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
     command = login_clicked,
     relief = "flat")
 
-b0.place(
+loginButton.place(
     x = 491, y = 351,
     width = 145,
     height = 47)
 
-img1 = PhotoImage(file = './Login/img1.png')
-b1 = Button(
+img1 = PhotoImage(file = './Image/Login/img1.png')
+registerButton = Button(
+
     image = img1,
     borderwidth = 0,
     highlightthickness = 0,
@@ -105,7 +112,7 @@ b1 = Button(
     relief = "flat",
    )
 
-b1.place(
+registerButton.place(
     x = 320, y = 360,
     width = 138,
     height = 37)

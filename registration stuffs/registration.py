@@ -48,12 +48,12 @@ canvas = Canvas(
     relief = "ridge")
 canvas.place(x = 0, y = 0)
 
-background_img = PhotoImage(file = './Registration/background.png')
+registration_img = PhotoImage(file = './Image/Registration/background.png')
 background = canvas.create_image(
     500.0, 300.0,
-    image=background_img)
+    image=registration_img)
 
-entry0_img = PhotoImage(file = './Registration/img_textBox0.png')
+entry0_img = PhotoImage(file = './Image/Registration/img_textBox0.png')
 entry0_bg = canvas.create_image(
     539.0, 237.0,
     image = entry0_img)
@@ -68,7 +68,7 @@ username.place(
     width = 194.0,
     height = 30)
 
-entry1_img = PhotoImage(file = './Registration/img_textBox1.png')
+entry1_img = PhotoImage(file = './Image/Registration/img_textBox1.png')
 entry1_bg = canvas.create_image(
     539.0, 284.0,
     image = entry1_img)
@@ -84,7 +84,7 @@ email.place(
     width = 194.0,
     height = 30)
 
-entry2_img = PhotoImage(file = './Registration/img_textBox3.png')
+entry2_img = PhotoImage(file = './Image/Registration/img_textBox3.png')
 entry2_bg = canvas.create_image(
     543.0, 331.5,
     image = entry2_img)
@@ -99,7 +99,7 @@ classLevel.place(
     width = 194.0,
     height = 31)
 
-entry3_img = PhotoImage(file = './Registration/img_textBox2.png')
+entry3_img = PhotoImage(file = './Image/Registration/img_textBox2.png')
 entry3_bg = canvas.create_image(
     543.0, 378.5,
     image = entry3_img)
@@ -117,7 +117,7 @@ password.place(
     height = 29)
 
 
-img0 = PhotoImage(file = './Registration/img0.png')
+img0 = PhotoImage(file = './Image/Registration/img0.png')
 
 b0 = Button(
     image = img0,
