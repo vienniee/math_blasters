@@ -1,7 +1,6 @@
 import pygame, sys
 import pygame_textinput
-
-
+import question2
 
 
 # Setup pygame/window ---------------------------------------- #
@@ -61,34 +60,51 @@ class Button():
 click = False
 
 
-def main_menu():
+def question(qn):
+    running = True
     click = False
 
-    #load background image
-    background_surface = pygame.image.load("Image/teacherdashboard_background.png").convert()
-    buttonimage1 = pygame.image.load("Image/teacherdashboard_img0.png").convert_alpha()
-    buttonimage2 = pygame.image.load("Image/teacherdashboard_img1.png").convert_alpha()
-    buttonimage3 = pygame.image.load("Image/teacherdashboard_img2.png").convert_alpha()
+    background_surface = pygame.image.load("Image/modifyquestion_background.png").convert()
+    buttonimage = pygame.image.load("Image/generatereportselect_img1.png").convert_alpha()
+    largebuttonimage = pygame.image.load("Image/modifyquestion_img0.png").convert_alpha()
 
-    button_1 = Button(w/2-160, 260, buttonimage1, 1)
-    button_2 = Button(w/2-160, 330, buttonimage2, 1)
-    button_3 = Button(w/2-160, 400, buttonimage3, 1)
+    names = ["Option 1", "Option 2", "Option 3", "Option 4"]
 
-    while True:
+    while running:
         screen.fill((255, 255, 255))
         screen.blit(background_surface, (0, 0))
 
+        scale = 1
+        button1pos = 155
+        button6pos = 521
+        button_1 = Button(154, 138, largebuttonimage, scale)
+        button_3 = Button(button1pos, 400, buttonimage, scale)
+        button_4 = Button(button1pos, 488, buttonimage, scale)
+        button_8 = Button(button6pos, 400, buttonimage, scale)
+        button_9 = Button(button6pos, 488, buttonimage, scale)
+
+        nameText1 = smallfont.render(names[0], True, (0, 0, 0))
+        nameText2 = smallfont.render(names[1], True, (0, 0, 0))
+        nameText3 = smallfont.render(names[2], True, (0, 0, 0))
+        nameText4 = smallfont.render(names[3], True, (0, 0, 0))
+        nameText5 = bigfont.render(qn, True, (0, 0, 0))
+
         if button_1.draw() == True and click:
-            import generateReport
-            generateReport.generateReport(1)
-        if button_2.draw() == True and click:
-            import modifyQuestion
-            modifyQuestion.modifyQuestion(1)  
+            question2.question2()
         if button_3.draw() == True and click:
-            import assignQuest
-            assignQuest.assignQuest(1)
-        
-        click = False
+            question2.question2()
+        if button_4.draw() == True and click:
+            question2.question2()
+        if button_8.draw() == True and click:
+            question2.question2()
+        if button_9.draw() == True and click:
+            question2.question2()
+
+        screen.blit(nameText1, (button1pos+10, 405))
+        screen.blit(nameText2, (button1pos+10, 493))
+        screen.blit(nameText3, (button6pos+10, 405))
+        screen.blit(nameText4, (button6pos+10, 493))
+        screen.blit(nameText5, (180, 160))
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -96,8 +112,7 @@ def main_menu():
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
+                    running = False
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
@@ -105,5 +120,3 @@ def main_menu():
 
         pygame.display.update()
         mainClock.tick(60)
-
-main_menu()
