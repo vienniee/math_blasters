@@ -1,228 +1,76 @@
-from tkinter import *
-import tkinter as tk
-from PyQt5 import QtWidgets  
-import sys, importlib
+import pygame, sys,importlib
+import pygame_textinput
 import firebase as FB
 importlib.reload(sys.modules['firebase'])
 
-PATH = "Image/characterSelect/"
+import assets as assets
 
-class Window:
+mainClock = pygame.time.Clock()
+from pygame.locals import *
 
-    WINDOW_WIDTH = 800
-    WINDOW_HEIGHT = 500
-    BACKGROUND_COLOR = "#FFFFFF"
+pygame.init()
 
-    def setInterface(self):
-        self.window =  Tk()
-        self.window.configure(bg = Window.BACKGROUND_COLOR)
-        self.canvas = Canvas(
-            self.window,
-            bg = Window.BACKGROUND_COLOR,
-            height = Window.WINDOW_HEIGHT,
-            width = Window.WINDOW_WIDTH,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge")
-        self.canvas.place(x = 0, y = 0)
+h = 500    
+w = 800
+
+screen = pygame.display.set_mode((w,h))
 
 
-class CharacterSelect(Window):
+TEXT_CHARACTER_SELECTED = "Character Select"
+TEXT_DEMON_SELECTED = "Demon Selected"
+TEXT_WARRIOR_SELECTED = "Warrior Selected"
+TEXT_NO_OPTION_SELECTED = "Invalid Selection"
 
-    TEXT_ID=0
+TEMP_STUDENT_DATA = {"name":"student 1","age":15}
+TEMP_STUDENT_ID = "MATH-BLASTER-USR"
+
+def characterSelect(pageNum):
     CHAR_SELECT=None
-    TEXT_CHARACTER_SELECTED = "Character Select"
-    TEXT_DEMON_SELECTED = "Demon Selected"
-    TEXT_WARRIOR_SELECTED = "Warrior Selected"
-    TEXT_NO_OPTION_SELECTED = "Select a character to proceed!"
+    running = True
+    click = False
+    background_surface = pygame.image.load("Image/characterSelect/background.png").convert()
+    demonImage = pygame.image.load("Image/characterSelect/img0.png").convert_alpha()
+    warriorImage = pygame.image.load("Image/characterSelect/img1.png").convert_alpha()
+    confirmImage = pygame.image.load("Image/characterSelect/img2.png").convert_alpha()
 
-    
+    firebaseDatabase = FB.FirebaseDatabase()
 
-    TEMP_STUDENT_DATA = {"name":"student 1","age":15}
-    TEMP_STUDENT_ID = "TESTID"
+    TEXT_OPTION=TEXT_CHARACTER_SELECTED
 
 
-    def __init__(self):
-        self.firebaseDatabase = FB.FirebaseDatabase()
+    while running:
+        screen.blit(background_surface, (0, 0))
+        btn_warrior = assets.Button(screen=screen,id='warrior',image=warriorImage,scale=1,x=423,y=216)
+        btn_demon = assets.Button(screen=screen,id='demon',image=demonImage,scale=1,x=297,y=216)
+        btn_confirm = assets.Button(screen=screen,id='confirm',image=confirmImage,scale=1,x=358,y=331)
+
         
+        assets.create_text(screen,TEXT_OPTION,assets.SMALL_FONT,assets.COLOR_BLACK,330,185)
 
-    def Onclick_btn_demon(self):
-        print("Demon has been selected")
-        self.createText(CharacterSelect.TEXT_DEMON_SELECTED)
-        CharacterSelect.CHAR_SELECT = "Demon"
-    
-    def OnClick_btn_warrior(self):
-        print("Warrior has been selected")
-        self.createText(CharacterSelect.TEXT_WARRIOR_SELECTED)
-        CharacterSelect.CHAR_SELECT = "Warrior"
-
-    
-    def OnClick_btn_confirm(self):
-        if(CharacterSelect.CHAR_SELECT == None):
-            print("No character selected")
-            self.createText(CharacterSelect.TEXT_NO_OPTION_SELECTED)
-            #self.refresh()
-            self.window.destroy()
-            temporaryMenu = TemporaryMenu()
-            temporaryMenu.placeInterface()      
-        
-        else:
-            print("Confirm selected")
-            CharacterSelect.TEMP_STUDENT_DATA['character'] = CharacterSelect.CHAR_SELECT
-            self.firebaseDatabase.setStudentData(CharacterSelect.TEMP_STUDENT_ID,CharacterSelect.TEMP_STUDENT_DATA)
-            print(self.firebaseDatabase.getStudentData(CharacterSelect.TEMP_STUDENT_ID))
-
-    def buttonPlace(self,button:Button,position:tuple,shape:tuple):
-        button.place(
-        x = position[0], y = position[1],
-        width = shape[0],
-        height = shape[1])
-
-    def createText(self,TEXT):
-        if(self.getTextID() == 0):
-            ID = self.canvas.create_text(
-            410, 190,
-            text = TEXT,
-            fill = "#000000",
-            font = ("Rowdies-Regular", int(16)))
-            self.setTextID(ID)
-        
-        else:
-            self.canvas.delete(self.getTextID())
-            ID = self.canvas.create_text(
-            410, 190,
-            text = TEXT,
-            fill = "#000000",
-            font = ("Rowdies-Regular", int(16)))
-            self.setTextID(ID)
-
-    def getTextID(self):
-        return CharacterSelect.TEXT_ID
-
-    def setTextID(self,id):
-        CharacterSelect.TEXT_ID = id
-
-    def placeInterface(self):
-        self.setInterface()
-        self.loadAssets()
-        background = self.canvas.create_image(
-        400.0, 300.0,
-        image=self.background_img)
-
-        self.placeAssets()
-        self.center_window()
-        self.window.resizable(False, False)
-        self.window.mainloop()
-
-    def center_window(self,width=800, height=500):
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
-        x = (screen_width/2) - (width/2)
-        y = (screen_height/2) - (height/2)
-        self.window.geometry('%dx%d+%d+%d' % (width, height, x, y))
-
-    def placeAssets(self):
-
-        self.button_demon = Button(
-        image = self.img_demon,
-        borderwidth = 0,
-        highlightthickness = 0,
-        command = self.Onclick_btn_demon,
-        relief = "flat")
-
-        self.button_warrior = Button(
-            image = self.img_warrior,
-            borderwidth = 0,
-            highlightthickness = 0,
-            command = self.OnClick_btn_warrior,
-            relief = "flat")
-
-
-        self.button_confirm = Button(
-            image = self.img_confirm,
-            borderwidth = 0,
-            highlightthickness = 0,
-            command = self.OnClick_btn_confirm,
-            relief = "flat")
-
-        self.createText(CharacterSelect.TEXT_CHARACTER_SELECTED)
-        self.buttonPlace(self.button_demon,(297,216),(83,90))
-        self.buttonPlace(self.button_warrior,(423,216),(83,90))
-        self.buttonPlace(self.button_confirm,(358,331),(84,32))
-
-
-    def loadAssets(self):
-        self.background_img = PhotoImage(file = PATH+"background.png")
-        self.img_demon = PhotoImage(file = PATH+"img0.png")
-        self.img_warrior = PhotoImage(file = PATH+"img1.png")
-        self.img_confirm = PhotoImage(file = PATH+"img2.png")
-
-    
-    def main(self):
-        self.placeInterface()
-
-    def refresh(self):
-        self.window.destroy()
-        self.main()
+        for event in pygame.event.get():
+            if btn_warrior.draw():
+                TEXT_OPTION = TEXT_WARRIOR_SELECTED 
+                CHAR_SELECT = "Warrior"
             
+            if btn_demon.draw():
+                TEXT_OPTION = TEXT_DEMON_SELECTED 
+                CHAR_SELECT = "Demon"
+            
+            if(btn_confirm.draw()):
+                if(CHAR_SELECT == None):
+                    TEXT_OPTION = TEXT_NO_OPTION_SELECTED 
+                else:
+                    TEMP_STUDENT_DATA['character'] = CHAR_SELECT
+                    firebaseDatabase.setStudentData(TEMP_STUDENT_ID,TEMP_STUDENT_DATA)
+                    print(firebaseDatabase.getStudentData(TEMP_STUDENT_ID))
+                    
+                    #NEXT SCREEN HERE
 
-#This is a sample implementation: use window super class to set interface
-class TemporaryMenu:
-    def loadAssets(self):
-        self.background_img = PhotoImage(file = PATH+"background.png")
-        self.img_demon = PhotoImage(file = PATH+"img0.png")
-        self.img_warrior = PhotoImage(file = PATH+"img1.png")
-        self.img_confirm = PhotoImage(file = PATH+"img2.png")
+        
 
-    def placeInterface(self):
-        self.window =  Tk()
-        self.window.configure(bg = "#ffffff")
-        self.canvas = Canvas(
-            self.window,
-            bg = "#ffffff",
-            height = 500,
-            width = 800,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge")
-        self.canvas.place(x = 0, y = 0)
-
-        self.loadAssets()
-        background = self.canvas.create_image(
-        400.0, 300.0,
-        image=self.background_img)
-
-        self.center_window()
-        self.window.resizable(False, False)
-        self.window.mainloop()
-
-    def center_window(self,width=800, height=500):
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
-        x = (screen_width/2) - (width/2)
-        y = (screen_height/2) - (height/2)
-        self.window.geometry('%dx%d+%d+%d' % (width, height, x, y))
+        pygame.display.update()
+        mainClock.tick(60)
 
 
-
-#refer to OnClick_btn_confirm function for UI change
-characterSelect = CharacterSelect()      
-characterSelect.main()  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+characterSelect(1)
 
