@@ -64,6 +64,7 @@ def characterSelect(pageNum):
                     firebaseDatabase.setStudentData(TEMP_STUDENT_ID,TEMP_STUDENT_DATA)
                     print(firebaseDatabase.getStudentData(TEMP_STUDENT_ID))
                     
+                    #NEXT SCREEN HERE
 
         
 
