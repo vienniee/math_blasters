@@ -18,8 +18,6 @@ smallfont = pygame.font.SysFont('Corbel', 35)
 bigfont = pygame.font.SysFont('Corbel', 60)
 
 
-
-
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()

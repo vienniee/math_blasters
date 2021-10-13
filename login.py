@@ -1,138 +1,156 @@
-from tkinter import *
-import pyrebase
-from tkinter import messagebox
+import pygame, sys,importlib
 import firebase as FB
-
-firebaseConfig = {
-  'apiKey': "AIzaSyBEOlShI29lUu4NhonKtqFH-NSt85ZvGVI",
-  'authDomain': "math-blasters.firebaseapp.com",
-  'projectId': "math-blasters",
-  'storageBucket': "math-blasters.appspot.com",
-  'messagingSenderId': "1022427765658",
-  'appId': "1:1022427765658:web:f5319e28731afca5783823",
-  'measurementId': "G-L2L2H64FDN",
-  "databaseURL": ""
-}
-
-firebase = pyrebase.initialize_app(firebaseConfig)
-auth = firebase.auth()
+importlib.reload(sys.modules['firebase'])
+from pygame.locals import *
+import assets as assets
+import shelve
 
 
+mainClock = pygame.time.Clock()
+pygame.init()
+
+h = 600    
+w = 1000
+
+# But more customization possible: Pass your own font object
+font = pygame.font.SysFont("Consolas", 24)
+# Create own manager with custom input validator
+
+white = (255, 255, 255)
+black = (0, 0, 0)
+slategrey = (112,128,144)
+
+SAVE_DATA = shelve.open("Save Data")
+
+screen = pygame.display.set_mode((w,h))
+
+def Login():
+    email = ""
+    password = ""
+    emailActive = False
+    passwordActive = False
+
+    running = True
+    click = False
+    background_img = pygame.image.load("Login/background.png").convert()
+    loginImage = pygame.image.load("Login/img0.png").convert_alpha()
+    registrationImage = pygame.image.load("Login/img1.png").convert_alpha()
+
+    firebaseDatabase = FB.FirebaseDatabase()
 
 
-class Window:
-    def setInterface(self):
-        self.window = Tk()
-        self.window.geometry("1000x600")
-        self.window.configure(bg = "#ffffff")
-        self.canvas = Canvas(
-            self.window,
-            bg = "#ffffff",
-            height = 600,
-            width = 1000,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge")
-        self.canvas.place(x = 0, y = 0)
-
-class Login(Window):
-
-    def __init__(self):
-            self.firebaseDatabase = FB.FirebaseDatabase()
-
-    def placeInterface(self):
-        self.setInterface()
-        self.loadAssets()
-        
-        background = self.canvas.create_image(
-        500.0, 300.0,
-        image=self.background_img)
-        
-        entry0_bg = self.canvas.create_image(
-            531.0, 267.0,
-            image = self.entry0_img)
-
-        entry1_bg = self.canvas.create_image(
-            531.0, 316.0,
-            image = self.entry1_img)
-
-        self.placeAssets()
-        self.window.resizable(False, False)
-        self.window.mainloop()
-
-    def loadAssets(self):
-        self.entry0_img = PhotoImage(file = './Login/img_textBox0.png')
-        self.entry1_img = PhotoImage(file = './Login/img_textBox1.png')
-        self.img0 = PhotoImage(file = './Login/img0.png')
-        self.img1 = PhotoImage(file = './Login/img1.png')
-        self.background_img = PhotoImage(file = './Login/background.png')
-
-    def placeAssets(self):
-        self.b0 = Button(
-            image = self.img0,
-            borderwidth = 0,
-            highlightthickness = 0,
-            command = self.login_clicked,
-            relief = "flat")
-
-        self.b1 = Button(
-            image = self.img1,
-            borderwidth = 0,
-            highlightthickness = 0,
-            command = self.register_clicked,
-            relief = "flat")
-
-        self.email = Entry(
-            bd = 0,
-            bg = "#ffffff",
-            highlightthickness = 0)
-
-        self.email.place(
-            x = 434.0, y = 251,
-            width = 194.0,
-            height = 30)
-
-        self.password = Entry(
-            bd = 0,
-            bg = "#ffffff",
-            highlightthickness = 0,
-            show="*",
-            width=20)
-
-        self.password.place(
-            x = 434.0, y = 300,
-            width = 194.0,
-            height = 30)
-
-        self.b0.place(
-            x = 491, y = 351,
-            width = 145,
-            height = 47)
-
-        self.b1.place(
-            x = 320, y = 360,
-            width = 138,
-            height = 37)
-
-    def login_clicked(self):
-        print("Login Clicked")
-        self.uniqueId1 = self.email.get()
-        self.password1 = self.password.get()
-        self.login(self.uniqueId1, self.password1)
-
-    def register_clicked(self):
+    def register_clicked():
         print("Register Clicked")
 
-    def login(self, email, password):
+
+    def login(email, password):
         try:
             print("Logging in")
-            auth.sign_in_with_email_and_password(email, password)
+            firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
             print("Successfully logged in!")
+            import characterSelect
         except:
             print("Invalid email or password")
-            # self.messagebox.showerror("Error", "Invalid email or password")
 
-    def main(self):
-        self.placeInterface()
+    while running:
+        screen.blit(background_img, (0, 0))
+        # email_txtbox = assets.Button(screen=screen,id='emailTextbox',image=email_txtbox,scale=1,x=531,y=267)
+        # password_txtbox = assets.Button(screen=screen,id='passwordTextbox',image=password_txtbox,scale=1,x=531,y=316)
+        btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=491,y=351)
+        btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=320,y=360)
+       
+        emailSurface = font.render(email, True, black)
+        
+        passwordSurface = font.render('*'*len(password), True, black)
+        # Create the border around the text box with .Rect
+        # left, top, width, height
+        emailBorder = pygame.Rect(((w - emailSurface.get_width()) / 2) +25, h * .42,
+                                     emailSurface.get_width() + 10, 30)
+        passwordBorder = pygame.Rect(((w - passwordSurface.get_width()) / 2) +25, h * .5,
+                                     passwordSurface.get_width() + 10, 30)
+        # This is the text surface when the user types in their name
+        screen.blit(emailSurface, ((w - emailSurface.get_width()) / 2 +25, h * .42))
+        screen.blit(passwordSurface, ((w - passwordSurface.get_width()) / 2 +25, h * .5))  
+        for event in pygame.event.get():
+           
+            if btn_registration.draw():
+                register_clicked 
+                import characterSelect 
+
+            if btn_login.draw():
+                print(SAVE_DATA['email'])
+                print(SAVE_DATA['password'])
+                login(SAVE_DATA['email'], SAVE_DATA['password'])
+                
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+
+            # Mouse and Keyboard events
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if emailBorder.collidepoint(event.pos):
+                    emailActive = True
+
+                elif passwordBorder.collidepoint(event.pos):
+                    passwordActive = True
+                else:
+                    emailActive = False
+                    passwordActive = False
+
+            if event.type == pygame.KEYDOWN:
+                if emailActive:
+                    passwordActive = False
+                    if event.key == pygame.K_BACKSPACE:
+                        email = email[:-1]
+                    else:
+                        email += event.unicode
+                if passwordActive:
+                    emailActive = False
+                    if event.key == pygame.K_BACKSPACE:
+                        password = password[:-1]
+                    else:
+                        password += event.unicode        
+
+        if emailActive:
+            pygame.draw.rect(screen, white, emailBorder, 1)
+        else:
+            pygame.draw.rect(screen, slategrey, emailBorder, 2)
+
+        if passwordActive:
+            pygame.draw.rect(screen, white, passwordBorder, 1)
+        else:
+            pygame.draw.rect(screen, slategrey, passwordBorder, 2)    
+
+        # screen.blit(userNamePrompt, ((w - userNamePrompt.get_width()) / 2,
+        #                              (h * .20) + userNameSurface.get_height()))
+
+        if btn_login:
+            if email != "":
+                email = email
+                SAVE_DATA['email'] = email
+            else:
+                pass
+            if password != "":
+                password = password
+                SAVE_DATA['password'] = password
+            else:
+                pass
+           
+        pygame.display.update()
+        mainClock.tick(60)
+
+Login()
+
+
+
     
-Login().main()
+        
+
+    
+    
+

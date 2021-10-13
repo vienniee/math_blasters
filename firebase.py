@@ -24,6 +24,7 @@ class FirebaseDatabase:
     self.firebase = pyrebase.initialize_app(self.firebaseConfig)
     self.auth = self.firebase.auth()
     self.database = self.firebase.database()
+    
 
 
   def setStudentData(self,ID,data):
@@ -31,3 +32,5 @@ class FirebaseDatabase:
 
   def getStudentData(self,ID):
     return self.database.child(STUDENTS).child(ID).get().val()
+
+
