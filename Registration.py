@@ -5,7 +5,6 @@ from pygame.locals import *
 import assets as assets
 import shelve
 
-
 mainClock = pygame.time.Clock()
 pygame.init()
 
@@ -35,7 +34,6 @@ def Registration():
     passwordActive = False
 
     running = True
-    click = False
     background_img = pygame.image.load("Registration/background.png").convert()
     
     registrationImage = pygame.image.load("Registration/img0.png").convert_alpha()
@@ -44,11 +42,12 @@ def Registration():
 
     def signup(email, password):
         try:
+            print("Registering...")
             firebaseDatabase.auth.create_user_with_email_and_password(email, password)
-            print("Successfully created")
-            import login
+            print("Successfully created!")
+            login
         except:
-            print("Email already exist")
+            print("Email already exist!")
 
 
     while running:
