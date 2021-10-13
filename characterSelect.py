@@ -37,7 +37,6 @@ def characterSelect(pageNum):
 
     TEXT_OPTION=TEXT_CHARACTER_SELECTED
 
-
     while running:
         screen.blit(background_surface, (0, 0))
         btn_warrior = assets.Button(screen=screen,id='warrior',image=warriorImage,scale=1,x=423,y=216)

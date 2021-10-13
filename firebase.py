@@ -26,7 +26,6 @@ class FirebaseDatabase:
     self.database = self.firebase.database()
     
 
-
   def setStudentData(self,ID,data):
     self.database.child(STUDENTS).child(ID).set(data)
 
