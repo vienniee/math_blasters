@@ -26,6 +26,16 @@ class FirebaseDatabase:
     self.database = self.firebase.database()
 
 
+  def signup():
+      email = input("Enter email: ")
+      password = input("Enter password: ")
+      try:
+        user = auth.create_user_with_email_and_password(email, password)
+        print("Successfully created")
+      except:
+        print("Email already exist")
+
+
   def setStudentData(self,ID,data):
     self.database.child(STUDENTS).child(ID).set(data)
 
