@@ -1,3 +1,23 @@
-import firebase
+from FirebaseConfig import db
 
-fire
+
+emptyQuestion = {
+    "minigame":"",
+    "level":"",
+    "questionText":"",
+    "optionA":"",
+    "optionB":"",
+    "optionC":"",
+    "optionD":"",
+    "correctAnswer":"",
+}
+
+
+def add_questions(question):
+    db.child("/Questions").push(question)
+
+def get_questions():
+    questionList = db.child("/Questions").get()
+    return questionList
+
+add_questions(emptyQuestion)
