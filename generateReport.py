@@ -2,6 +2,7 @@ import pygame, sys
 import pygame_textinput
 import report
 
+
 # Setup pygame/window ---------------------------------------- #
 mainClock = pygame.time.Clock()
 from pygame.locals import *
