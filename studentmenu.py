@@ -14,19 +14,9 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 background_surface = pygame.image.load('Image/student_menu.png').convert()
 
 #load button images
-play_img = pygame.image.load('Image/student_button.png').convert_alpha()
-achievements_img = pygame.image.load('Image/student_button.png').convert_alpha()
-leaderboard_img = pygame.image.load('Image/student_button.png').convert_alpha()
-
-#load fonts
-#font style and size
-font1 = pygame.font.Font(None,18)
-font2 = pygame.font.Font(None,35)
-menu1text = font1.render("Play", True, [0,0,0])
-menu2text = font1.render("Achievements", True,[0,0,0])
-menu3text = font1.render("Leaderboard", True,[0,0,0])
-menuheading = font2.render("Student Main Menu", True,[0,0,0])
-
+play_img = pygame.image.load('Image/play_button.png').convert_alpha()
+achievements_img = pygame.image.load('Image/achievements_button.png').convert_alpha()
+leaderboard_img = pygame.image.load('Image/leaderboard_button.png').convert_alpha()
 
 #button class
 class Button():
@@ -77,13 +67,6 @@ while run:
         print('achievements selected')
     if leaderboard_button.draw() == True:
         print('leaderboard selected')
-
-    screen.blit(menuheading, (373,200))
-    screen.blit(menu1text, (315,390))
-    screen.blit(menu2text, (465,390))
-    screen.blit(menu3text, (615,390))
-
-    
     
 
     #event handler
