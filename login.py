@@ -75,7 +75,7 @@ def Login():
            
             if btn_registration.draw():
                 register_clicked 
-                import characterSelect 
+                import Registration
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])
