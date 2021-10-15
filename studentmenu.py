@@ -11,22 +11,12 @@ SCREEN_WIDTH = 1000
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 #load background image
-background_surface = pygame.image.load('image\level_select.png').convert()
+background_surface = pygame.image.load('Image/student_menu.png').convert()
 
 #load button images
-play_img = pygame.image.load('Image/button.png').convert_alpha()
-achievements_img = pygame.image.load('Image/button.png').convert_alpha()
-leaderboard_img = pygame.image.load('Image/button.png').convert_alpha()
-
-#load fonts
-#font style and size
-font1 = pygame.font.Font(None,18)
-font2 = pygame.font.Font(None,35)
-menu1text = font1.render("PLAY", True, [0,0,0])
-menu2text = font1.render("ACHIEVEMENTS", True,[0,0,0])
-menu3text = font1.render("LEADERBOARD", True,[0,0,0])
-menuheading = font2.render("STUDENT MAIN MENU", True,[0,0,0])
-
+play_img = pygame.image.load('Image/play_button.png').convert_alpha()
+achievements_img = pygame.image.load('Image/achievements_button.png').convert_alpha()
+leaderboard_img = pygame.image.load('Image/leaderboard_button.png').convert_alpha()
 
 #button class
 class Button():
@@ -59,9 +49,9 @@ class Button():
         return action
 
 #create button instances
-play_button = Button(258,220,play_img,2.5)
-achievements_button = Button(408,220,achievements_img,2.5)
-leaderboard_button = Button(558,220,leaderboard_img,2.5)
+play_button = Button(SCREEN_WIDTH/2-160, 260, play_img, 1)
+achievements_button = Button(SCREEN_WIDTH/2-160, 330, achievements_img, 1)
+leaderboard_button = Button(SCREEN_WIDTH/2-160, 400, leaderboard_img, 1)
 
 
 #game loop
@@ -77,13 +67,6 @@ while run:
         print('achievements selected')
     if leaderboard_button.draw() == True:
         print('leaderboard selected')
-
-    screen.blit(menuheading, (373,200))
-    screen.blit(menu1text, (315,390))
-    screen.blit(menu2text, (465,390))
-    screen.blit(menu3text, (615,390))
-
-    
     
 
     #event handler
@@ -95,4 +78,3 @@ while run:
     pygame.display.update()
 
 pygame.quit()
-

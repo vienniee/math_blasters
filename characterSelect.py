@@ -2,6 +2,7 @@ import pygame, sys,importlib
 import pygame_textinput
 import firebase as FB
 importlib.reload(sys.modules['firebase'])
+from pygame.locals import *
 
 import assets as assets
 
@@ -50,10 +51,13 @@ def characterSelect(pageNum):
             if btn_warrior.draw():
                 TEXT_OPTION = TEXT_WARRIOR_SELECTED 
                 CHAR_SELECT = "Warrior"
+                import studentmenu
+                
             
             if btn_demon.draw():
                 TEXT_OPTION = TEXT_DEMON_SELECTED 
                 CHAR_SELECT = "Demon"
+                import studentmenu
             
             if(btn_confirm.draw()):
                 if(CHAR_SELECT == None):
