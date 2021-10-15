@@ -36,6 +36,14 @@ class StudentDB:
     def get_student(self):
         return db.child("students").get()
 
+    def update_student(key,newStudent):
+        db.child("students").child(key).update(newStudent)
+
+    def delete_student(key):
+        db.child("students").child(key).remove()
+
+    
+
 
 if __name__ == "__main__":
 
