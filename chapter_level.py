@@ -6,11 +6,11 @@ from CastleText import CastleText
 def load_assets():
     # group sprite
     castles = pygame.sprite.Group()
-    castles.add(Castle(600,1))
-    castles.add(Castle(800,2))
+    castles.add(Castle(400,1,"Algebra"))
+    castles.add(Castle(800,2,"Fractions"))
 
     castlesNames = pygame.sprite.Group()
-    castlesNames.add(CastleText(600,"Algebra"))
+    castlesNames.add(CastleText(400,"Algebra"))
     castlesNames.add(CastleText(800,"Fractions"))
 
     backPortal = pygame.sprite.GroupSingle()
@@ -30,8 +30,8 @@ def chapter_selection(player,screen, castles, castleName, backPortal):
     castles.draw(screen)
     castleName.draw(screen)
     backPortal.draw(screen)
-
     player.draw(screen)
+
     player.update()
 
 

@@ -2,7 +2,7 @@ import pygame
 
 
 class Castle(pygame.sprite.Sprite):
-    def __init__(self, xpos,level):
+    def __init__(self, xpos,level,chapter):
         super().__init__()
         # image imports
 
@@ -16,6 +16,11 @@ class Castle(pygame.sprite.Sprite):
             castle_image = pygame.image.load('graphics\castle\castle_level3.png').convert_alpha()
             castle_image = pygame.transform.rotozoom(castle_image, 0, 5)
         
-        
+        self.chapter= chapter
         self.image = castle_image
         self.rect = self.image.get_rect(midbottom=(xpos, 400))
+
+
+    def returnChapter(self):
+        print(self.chapter)
+        return self.chapter
