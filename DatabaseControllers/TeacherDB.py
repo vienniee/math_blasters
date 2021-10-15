@@ -3,7 +3,7 @@ from FirebaseConfig import db
 emptyTeacher = {
     "name":"",
     "email":"",
-    "listOfQuestID":[test]
+    "listOfQuestID":["test"]
 }
 
 
