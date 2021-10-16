@@ -1,7 +1,9 @@
 from FirebaseConfig import db
 
 emptyScore = {
+    "studentID":"",
     "minigame":"",
+    "level":"",
     "TotalScore":0
 }
 

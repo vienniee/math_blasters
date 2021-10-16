@@ -58,6 +58,7 @@ def subject_Chapter_selection():
                 
                 if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and collision_sprite(portal):
                     print("teleport to chapter")
+                    print(portal_names)
                     state = States.CHAPTER_LEVEL
                     player.sprite.rect.x = 100
                     teleportCooldownState = True
@@ -90,4 +91,4 @@ def subject_Chapter_selection():
         clock.tick(60)
 
 
-subject_Chapter_selection()
+#subject_Chapter_selection()
