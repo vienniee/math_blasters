@@ -55,26 +55,27 @@ leaderboard_button = Button(SCREEN_WIDTH/2-160, 400, leaderboard_img, 1)
 
 
 #game loop
-run = True
-while run:
-    screen.fill((202, 228, 241))
-    screen.blit(background_surface, (0, 0))
+def studentMenu():
+    run = True
+    while run:
+        screen.fill((202, 228, 241))
+        screen.blit(background_surface, (0, 0))
 
-    #menu option select 
-    if play_button.draw() == True:
-        print('play selected')
-    if achievements_button.draw() == True:
-        print('achievements selected')
-    if leaderboard_button.draw() == True:
-        print('leaderboard selected')
-    
+        #menu option select 
+        if play_button.draw() == True:
+            print('play selected')
+        if achievements_button.draw() == True:
+            print('achievements selected')
+        if leaderboard_button.draw() == True:
+            print('leaderboard selected')
+        
 
-    #event handler
-    for event in pygame.event.get():
-        #quit game 
-        if event.type == pygame.QUIT:
-            run = False
+        #event handler
+        for event in pygame.event.get():
+            #quit game 
+            if event.type == pygame.QUIT:
+                run = False
 
-    pygame.display.update()
+        pygame.display.update()
 
-pygame.quit()
+    pygame.quit()
