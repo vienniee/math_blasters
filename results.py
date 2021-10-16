@@ -1,5 +1,6 @@
 #import libraries
 import pygame
+from DatabaseControllers import ScoresDB
 
 
 #start pygame
@@ -39,17 +40,16 @@ class Button():
 
         return action
 
-def results(subject, topic, level, score):
+def results(topic, level, score):
     cont = pygame.image.load('Image\cont.png').convert_alpha()
-
 
     # Background
     background = pygame.image.load('image\level_select.png').convert()
 
     #logo - icon made by Freepik from www.flaticon.com
-    pygame.display.set_caption("MathBlasters!")
-    icon = pygame.image.load('Image\mathblasters.png')
-    pygame.display.set_icon(icon)
+    #pygame.display.set_caption("MathBlasters!")
+    #icon = pygame.image.load('Image\mathblasters.png')
+    #pygame.display.set_icon(icon)
 
     #score text
     passScore = 3
@@ -72,17 +72,9 @@ def results(subject, topic, level, score):
             resultText = resultFont.render("YOU LOSE!", True, (0, 0, 0))
             screen.blit(resultText, (resultTextX-10, resultTextY))
 
-    #TODO: continue button
-    #try to take from levelselect later
-
-    #button class
 
     #button instance
     contButton = Button(352,340,cont,0.25)
-
-
-
-
 
     #game runner
     running = True
@@ -98,6 +90,15 @@ def results(subject, topic, level, score):
             showResults(scoreTextX,scoreTextY,True)
         else:
             showResults(scoreTextX,scoreTextY,False)
+
+        #add to database
+        studentScore = {
+            "minigame":topic,
+            "level":level,
+            "TotalScore":score
+        }
+
+        ScoresDB.ScoreDB.update_score("student1",studentScore)
 
         if contButton.draw() == True:
             print('continue button selected')
