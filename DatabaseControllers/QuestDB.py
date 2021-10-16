@@ -1,4 +1,5 @@
-from FirebaseConfig import db
+from DatabaseControllers.FirebaseConfig import db
+
 
 emptyQuest = {
     "listofQuestionID":["test1"],
