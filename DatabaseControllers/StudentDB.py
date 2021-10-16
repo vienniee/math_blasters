@@ -1,4 +1,4 @@
-from FirebaseConfig import firebase
+from DatabaseControllers.FirebaseConfig import db
 
 db = firebase.database()
 
