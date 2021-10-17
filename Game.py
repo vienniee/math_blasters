@@ -35,12 +35,9 @@ clicked = False
 def Game(topic,level):
 
     #define gaming variables
-    total_turn = 2
     action_cd = 0
     action_wait_time = 90
-    game_over = 0 # 1 means player win, -1 player lost
     score = 0
-    current_turn = 1
 
     #load images
     #background images
