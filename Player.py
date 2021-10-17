@@ -16,14 +16,14 @@ class Player(pygame.sprite.Sprite):
             MwalkR5 = pygame.image.load('Image/male/walk/adventurer-run-04.png').convert_alpha()
             MwalkR6 = pygame.image.load('Image/male/walk/adventurer-run-05.png').convert_alpha()
 
-            MwalkL1 = pygame.image.load('Image/male/walk/adventurer-runL-00.png').convert_alpha()
-            MwalkL2 = pygame.image.load('Image/male/walk/adventurer-runL-01.png').convert_alpha()
-            MwalkL3 = pygame.image.load('Image/male/walk/adventurer-runL-02.png').convert_alpha()
-            MwalkL4 = pygame.image.load('Image/male/walk/adventurer-runL-03.png').convert_alpha()
-            MwalkL5 = pygame.image.load('Image/male/walk/adventurer-runL-04.png').convert_alpha()
-            MwalkL6 = pygame.image.load('Image/male/walk/adventurer-runL-05.png').convert_alpha()
+            MwalkL1 = pygame.image.load('Image/male/walkL/adventurer-runL-00.png').convert_alpha()
+            MwalkL2 = pygame.image.load('Image/male/walkL/adventurer-runL-01.png').convert_alpha()
+            MwalkL3 = pygame.image.load('Image/male/walkL/adventurer-runL-02.png').convert_alpha()
+            MwalkL4 = pygame.image.load('Image/male/walkL/adventurer-runL-03.png').convert_alpha()
+            MwalkL5 = pygame.image.load('Image/male/walkL/adventurer-runL-04.png').convert_alpha()
+            MwalkL6 = pygame.image.load('Image/male/walkL/adventurer-runL-05.png').convert_alpha()
 
-            MidleL = pygame.image.load('Image/male/idle/L0.png').convert_alpha()
+            MidleL = pygame.image.load('Image/male/idleL/L0.png').convert_alpha()
             MidleR = pygame.image.load('Image/male/idle/0.png').convert_alpha()
 
             # crop
@@ -82,16 +82,16 @@ class Player(pygame.sprite.Sprite):
             FwalkR8 = pygame.image.load('Image/female/walk/7.png').convert_alpha()
             
 
-            FwalkL1 = pygame.image.load('Image/female/walk/L0.png').convert_alpha()
-            FwalkL2 = pygame.image.load('Image/female/walk/L1.png').convert_alpha()
-            FwalkL3 = pygame.image.load('Image/female/walk/L2.png').convert_alpha()
-            FwalkL4 = pygame.image.load('Image/female/walk/L3.png').convert_alpha()
-            FwalkL5 = pygame.image.load('Image/female/walk/L4.png').convert_alpha()
-            FwalkL6 = pygame.image.load('Image/female/walk/L5.png').convert_alpha()
-            FwalkL7 = pygame.image.load('Image/female/walk/L6.png').convert_alpha()
-            FwalkL8 = pygame.image.load('Image/female/walk/L7.png').convert_alpha()
+            FwalkL1 = pygame.image.load('Image/female/walkL/L0.png').convert_alpha()
+            FwalkL2 = pygame.image.load('Image/female/walkL/L1.png').convert_alpha()
+            FwalkL3 = pygame.image.load('Image/female/walkL/L2.png').convert_alpha()
+            FwalkL4 = pygame.image.load('Image/female/walkL/L3.png').convert_alpha()
+            FwalkL5 = pygame.image.load('Image/female/walkL/L4.png').convert_alpha()
+            FwalkL6 = pygame.image.load('Image/female/walkL/L5.png').convert_alpha()
+            FwalkL7 = pygame.image.load('Image/female/walkL/L6.png').convert_alpha()
+            FwalkL8 = pygame.image.load('Image/female/walkL/L7.png').convert_alpha()
 
-            FidleL = pygame.image.load('Image/female/idle/L0.png').convert_alpha()
+            FidleL = pygame.image.load('Image/female/idleL/L0.png').convert_alpha()
             FidleR = pygame.image.load('Image/female/idle/0.png').convert_alpha()
 
             scale=3

@@ -91,4 +91,4 @@ def subject_Chapter_selection(character_gender):
         clock.tick(60)
 
 
-subject_Chapter_selection("female")
+# subject_Chapter_selection("female")
