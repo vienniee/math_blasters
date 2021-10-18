@@ -1,4 +1,4 @@
-from FirebaseConfig import db
+from DatabaseControllers.FirebaseConfig import db
 
 emptyTeacher = {
     "name":"",

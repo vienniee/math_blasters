@@ -6,7 +6,7 @@ from chapter_level import load_assets as load_assets_chapter, chapter_selection
 from enum import Enum
 
 
-def subject_Chapter_selection():
+def subject_Chapter_selection(character_gender):
     class States(Enum):
         SUBJECT_LEVEL = 1
         CHAPTER_LEVEL = 2
@@ -34,7 +34,7 @@ def subject_Chapter_selection():
     ground_surface = pygame.transform.rotozoom(ground_surface, 0, 1.5)
 
     player = pygame.sprite.GroupSingle()
-    player.add(Player("male"))
+    player.add(Player(character_gender))
 
     portal, portal_names = load_assets_subject()
     castles, castleName, backPortal = load_assets_chapter()
@@ -58,6 +58,7 @@ def subject_Chapter_selection():
                 
                 if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and collision_sprite(portal):
                     print("teleport to chapter")
+                    print(portal_names)
                     state = States.CHAPTER_LEVEL
                     player.sprite.rect.x = 100
                     teleportCooldownState = True
@@ -90,4 +91,4 @@ def subject_Chapter_selection():
         clock.tick(60)
 
 
-subject_Chapter_selection()
+# subject_Chapter_selection("female")

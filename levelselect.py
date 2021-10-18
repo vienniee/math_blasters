@@ -41,7 +41,7 @@ class Button():
 
         return action
 
-def levelselect(topic):
+def levelselect():
     #load background image
     background_surface = pygame.image.load('image\levelselect.png').convert()
 

@@ -35,12 +35,9 @@ clicked = False
 def Game(topic,level):
 
     #define gaming variables
-    total_turn = 2
     action_cd = 0
     action_wait_time = 90
-    game_over = 0 # 1 means player win, -1 player lost
     score = 0
-    current_turn = 1
 
     #load images
     #background images
@@ -204,8 +201,9 @@ def Game(topic,level):
 
     #define player
     class character():
-        def __init__(self, x, y, name, max_hp,scale):
+        def __init__(self, x, y, name, gender, max_hp,scale):
             self.name = name
+            self.gender = gender
             self.max_hp = max_hp
             self.hp = max_hp
             self.alive = True
@@ -213,31 +211,34 @@ def Game(topic,level):
             self.frame_index= 0
             self.action = 0#0:idle, 1:attack, 2:hurt, 3:death, if player answer question wrong, the enemies will attack
             self.update_time = pygame.time.get_ticks()
+
+            if self.name == "enemies":
+                self.gender = "enemies"
             #load idle images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.name}/idle/{i}.png')
+                img = pygame.image.load(f'Image/{self.gender}/idle/{i}.png')
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
             #load attack images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.name}/attack/{i}.png')
+                img = pygame.image.load(f'Image/{self.gender}/attack/{i}.png')
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
             #load hurt images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.name}/hurt/{i}.png')
+                img = pygame.image.load(f'Image/{self.gender}/hurt/{i}.png')
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
             #load death images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.name}/death/{i}.png')
+                img = pygame.image.load(f'Image/{self.gender}/death/{i}.png')
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
@@ -348,8 +349,8 @@ def Game(topic,level):
     damage_text_group = pygame.sprite.Group()
 
     #create character instance
-    player = character(280,310,'player',len(questionlist)-1,3.5)
-    enemies = character(650,310,'enemies',len(questionlist)-1,2.5)
+    player = character(280,310,'player name',"male",len(questionlist)-1,3.5)
+    enemies = character(650,310,'enemies',"",len(questionlist)-1,2.5)
 
     player_hp = healthbar(210,screen_height-bottom_panel+40,player.hp,player.max_hp)
     enemies_hp = healthbar(560,screen_height-bottom_panel+40,enemies.hp,enemies.max_hp)

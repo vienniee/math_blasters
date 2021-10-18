@@ -1,6 +1,7 @@
-from FirebaseConfig import firebase
+from DatabaseControllers.FirebaseConfig import db
+# import firebase as firebase
 
-db = firebase.database()
+# db = firebase.database()
 
 student = {
     "name":"",
@@ -28,12 +29,14 @@ student = {
     "Quests":[]
 }
 
+#Changed to static implementation
+
 class StudentDB:
 
-    def add_student(self,studentData):
+    def add_student(studentData):
         db.child("students").push(studentData)
 
-    def get_student(self):
+    def get_student():
         return db.child("students").get()
 
     def update_student(key,newStudent):
