@@ -33,14 +33,14 @@ clicked = False
 
 
 
-def Game(topic,level,gender,name):
+def Game(topic,level,gender,Pname):
 
     #define gaming variables
     action_cd = 0
     action_wait_time = 90
     score = 0
     charselect = gender
-    charname = name
+    charname = Pname
     game_over = 0
 
     #load images
@@ -212,7 +212,7 @@ def Game(topic,level,gender,name):
 
     #define player
     class character():
-        def __init__(self, x, y, gender, max_hp,scale):
+        def __init__(self, x, y, name, max_hp,scale):
             self.name = name
             self.gender = gender
             self.max_hp = max_hp
