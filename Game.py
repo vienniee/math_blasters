@@ -16,6 +16,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Battle')
 
 #define fonts
+bigfont = pygame.font.SysFont('Times New Roman',40)
 font = pygame.font.SysFont('Times New Roman',26)
 
 #define colours
@@ -32,12 +33,15 @@ clicked = False
 
 
 
-def Game(topic,level):
+def Game(topic,level,gender,name):
 
     #define gaming variables
     action_cd = 0
     action_wait_time = 90
     score = 0
+    charselect = gender
+    charname = name
+    game_over = 0
 
     #load images
     #background images
@@ -46,6 +50,9 @@ def Game(topic,level):
     panel_img = pygame.image.load('Image/panel.png').convert_alpha()
     #button image
     button_img = pygame.image.load('Image/button.png').convert_alpha()
+    #victory and defeat image
+    victory_img = pygame.image.load('Image/victory.png').convert_alpha()
+    defeat_img = pygame.image.load('Image/defeat.png').convert_alpha()
 
     #function to draw text
     def draw_text(text,font,text_col,x,y):
@@ -84,7 +91,7 @@ def Game(topic,level):
     def draw_pnl():
         screen.blit(panel_img,(0,screen_height-bottom_panel))
         #show stats
-        draw_text(f'{player.name} HP:{player.hp}', font, red, 210, screen_height - bottom_panel + 5)
+        draw_text(f'{charname} HP:{player.hp}', font, red, 210, screen_height - bottom_panel + 5)
         draw_text(f'{enemies.name} HP:{enemies.hp}', font, red, 560, screen_height - bottom_panel + 5)
 
     #Question panel
@@ -131,10 +138,14 @@ def Game(topic,level):
         questionbuttonlist4.append(button(440,530,380,40,reorderQlist[i][4]))
         questions.append(questionpanel(260,100,450,80,reorderQlist[i][0]))
         answers.append(reorderQlist[i][5])
+    #end of questions
+    questionbuttonlist1.append(button(20, 470, 380, 40,'-'))
+    questionbuttonlist2.append(button(440, 470, 380, 40, '-'))
+    questionbuttonlist3.append(button(20, 530, 380, 40, '-'))
+    questionbuttonlist4.append(button(440, 530, 380, 40, '-'))
 
-
-
-    abandon_button = button(850,490,140,40,"Abandon")
+    abandon_button = button(850,490,140,40,"ABANDON")
+    next_button = button(430,180,100,45,"NEXT")
 
     #define curse sprite
     class curselogo():
@@ -349,8 +360,16 @@ def Game(topic,level):
     damage_text_group = pygame.sprite.Group()
 
     #create character instance
+<<<<<<< HEAD
+    if charselect == "male":
+        player = character(280, 310, charselect, len(questionlist) - 1, 3.5)
+    else:
+        player = character(280, 310, charselect, len(questionlist) - 1, 3.5)
+    enemies = character(650,310,'enemies',len(questionlist)-1,2.5)
+=======
     player = character(280,310,'player name',"male",len(questionlist)-1,3.5)
     enemies = character(650,310,'enemies',"",len(questionlist)-1,2.5)
+>>>>>>> origin/main
 
     player_hp = healthbar(210,screen_height-bottom_panel+40,player.hp,player.max_hp)
     enemies_hp = healthbar(560,screen_height-bottom_panel+40,enemies.hp,enemies.max_hp)
@@ -360,8 +379,34 @@ def Game(topic,level):
     questionnum = 0
 
 
+    def pause():
+        paused = True
+
+        while paused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_c:
+                        paused = False
+                    elif event.key == pygame.K_q:
+                        print("change to castle screen")
+                        pygame.quit() # change to castle screen
+                        quit()
+
+            screen.fill(gray)
+            draw_text("Are you going to abandon the mission?", bigfont, black, 200, 200)
+            draw_text("Press C to Continue, Q to Quit",font,black,350,320)
+            pygame.display.update()
+            clock.tick(15)
+
+
+
+
     run = True
     while run:
+
         clock.tick(fps)
         #draw background
         draw_bg()
@@ -386,19 +431,32 @@ def Game(topic,level):
         damage_text_group.draw(screen)
 
 
+
         if enemies.alive == False:
+            game_over = 1
             enemiescurse.update()
             enemiescurse.draw()
+            screen.blit(victory_img,(350,100))
+            if next_button.draw():
+                print("return score portion")
+                return score
 
         if player.alive == False:
+            game_over = 1
             playercurse.update()
             playercurse.draw()
+            screen.blit(defeat_img,(370,100))
+            if next_button.draw():
+                print("return score portion")
+                return score
+
 
         #load question
-        questions[questionnum].draw()
+        if game_over == 0:
+            questions[questionnum].draw()
 
         #draw button
-        if questionbuttonlist1[questionnum].draw() == True:
+        if questionbuttonlist1[questionnum].draw() == True and game_over == 0:
             currentanswer = answers[questionnum]
             if currentanswer == reorderQlist[questionnum][1]:
                 score += 1
@@ -415,23 +473,16 @@ def Game(topic,level):
                     action_cd = 0
             questionnum += 1
             if questionnum >= len(question_list):
-                questionnum = len(question_list) - 1
-                if score == passingmark:
+                if score >= passingmark:
                     enemies.hp = 0
-                    enemiescurse.update()
-                    enemiescurse.draw()
                     enemies.alive = False
                     enemies.death()
-                    return score
                 else:
                     player.hp = 0
-                    playercurse.update()
-                    playercurse.draw()
                     player.alive = False
                     player.death()
-                    return score
 
-        if questionbuttonlist2[questionnum].draw() == True:
+        if questionbuttonlist2[questionnum].draw() == True and game_over == 0:
             currentanswer = answers[questionnum]
             if currentanswer == reorderQlist[questionnum][2]:
                 score += 1
@@ -448,24 +499,16 @@ def Game(topic,level):
                     action_cd = 0
             questionnum += 1
             if questionnum >= len(question_list):
-                questionnum = len(question_list)-1
-                if score == passingmark:
+                if score >= passingmark:
                     enemies.hp = 0
-                    enemiescurse.update()
-                    enemiescurse.draw()
                     enemies.alive = False
                     enemies.death()
-                    return score
                 else:
                     player.hp = 0
-                    playercurse.update()
-                    playercurse.draw()
                     player.alive = False
                     player.death()
-                    return score
 
-
-        if questionbuttonlist3[questionnum].draw() == True:
+        if questionbuttonlist3[questionnum].draw() == True and game_over == 0:
             currentanswer = answers[questionnum]
             if currentanswer == reorderQlist[questionnum][3]:
                 score += 1
@@ -482,23 +525,17 @@ def Game(topic,level):
                     action_cd = 0
             questionnum += 1
             if questionnum >= len(question_list):
-                questionnum = len(question_list)-1
-                if score == passingmark:
+                if score >= passingmark:
                     enemies.hp = 0
-                    enemiescurse.update()
-                    enemiescurse.draw()
                     enemies.alive = False
                     enemies.death()
-                    return score
+
                 else:
                     player.hp = 0
-                    playercurse.update()
-                    playercurse.draw()
                     player.alive = False
                     player.death()
-                    return score
 
-        if questionbuttonlist4[questionnum].draw() ==True:
+        if questionbuttonlist4[questionnum].draw() == True and game_over == 0:
             currentanswer = answers[questionnum]
             if currentanswer == reorderQlist[questionnum][4]:
                 score += 1
@@ -515,33 +552,27 @@ def Game(topic,level):
                     action_cd = 0
             questionnum += 1
             if questionnum >= len(question_list):
-                questionnum = len(question_list)-1
-                if score == passingmark:
+                if score >= passingmark:
                     enemies.hp = 0
-                    enemiescurse.update()
-                    enemiescurse.draw()
                     enemies.alive = False
                     enemies.death()
-                    return score
                 else:
                     player.hp = 0
-                    playercurse.update()
-                    playercurse.draw()
                     player.alive = False
                     player.death()
-                    return score
 
-        if abandon_button.draw() ==True:
-            print('Abandon')
-        
+
+        if abandon_button.draw() == True and game_over == 0:
+            pause()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
 
         pygame.display.update()
-        
+
     pygame.quit()
-    
+
 
 #define button
 #button class
@@ -595,3 +626,5 @@ class button():
         text_len = text_img.get_width()
         screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y+5))
         return action
+
+Game("math",2,"male","Alex")
