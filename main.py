@@ -17,9 +17,7 @@ import results
 #results.storescore(subject, topic, level,score)
 
 
-
-
-minigame = subject_chapter_selection.subject_Chapter_selection()
+minigame = subject_chapter_selection.subject_Chapter_selection("male")
 level = levelselect.levelselect() #'algebra'
 score = Game.Game(minigame,level) #'algebra'
 results.results(minigame,level,score)
