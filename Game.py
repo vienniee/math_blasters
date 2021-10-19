@@ -212,7 +212,7 @@ def Game(topic,level,gender,name):
 
     #define player
     class character():
-        def __init__(self, x, y, name, gender, max_hp,scale):
+        def __init__(self, x, y, gender, max_hp,scale):
             self.name = name
             self.gender = gender
             self.max_hp = max_hp
@@ -360,16 +360,14 @@ def Game(topic,level,gender,name):
     damage_text_group = pygame.sprite.Group()
 
     #create character instance
-<<<<<<< HEAD
+
     if charselect == "male":
-        player = character(280, 310, charselect, len(questionlist) - 1, 3.5)
+        player = character(280, 310, charselect, len(questionlist) - 1,3.5)
     else:
-        player = character(280, 310, charselect, len(questionlist) - 1, 3.5)
+        player = character(280, 310, charselect, len(questionlist) - 1,3.5)
     enemies = character(650,310,'enemies',len(questionlist)-1,2.5)
-=======
-    player = character(280,310,'player name',"male",len(questionlist)-1,3.5)
-    enemies = character(650,310,'enemies',"",len(questionlist)-1,2.5)
->>>>>>> origin/main
+
+
 
     player_hp = healthbar(210,screen_height-bottom_panel+40,player.hp,player.max_hp)
     enemies_hp = healthbar(560,screen_height-bottom_panel+40,enemies.hp,enemies.max_hp)
