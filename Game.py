@@ -1,6 +1,7 @@
 import pygame
 import random
 from pygame.locals import *
+from DatabaseControllers.QuestionDB import QuestionDB
 
 
 pygame.init()
@@ -42,6 +43,9 @@ def Game(topic,level,gender,Pname):
     charselect = gender
     charname = Pname
     game_over = 0
+    subject = topic
+    difficulty = level
+
 
     #load images
     #background images
@@ -60,11 +64,42 @@ def Game(topic,level,gender,Pname):
         screen.blit(img,(x,y))
 
     #load question list
-    #sample, first digit is the passing score
     #questions with 4 options, last is answer
-    questionlist = ["2",["1 + 1 = ?", "1", "2", "3", "4", "2"], ["2 + 2 = ?", "2", "1", "4", "3","4"],["3 + 3 = ?", "2", "4", "6", "8", "6"]]
-    question_list = questionlist[1:]
-    passingmark = int(questionlist[0])
+    qlist1 = QuestionDB.get_questions()
+    qlist2 = []
+    for i in qlist1:
+        qlist2.append(str(qlist1[i])) #converting into list
+    qlist3 = list(qlist2)
+    print(qlist3)
+    qlist4 = []
+    for i in range(len(qlist3)):
+        a = qlist3[i].replace("{'correctAnswer': ", "")
+        b = a.replace("'level': ", "")
+        c = b.replace("'optionA': ", "")
+        d = c.replace("'optionB': ","")
+        e = d.replace("'optionC': ","")
+        f = e.replace("'optionD': ","")
+        g = f.replace("'questionText': ", "")
+        k = g.replace("'minigame': ","")
+        j = k.replace("'","")
+        h = j.replace("}","")
+        i = h.replace(" ","")
+        qlist4.append(i)
+    qlist5=[]
+    order = [1,2,7,3,4,5,6,0]
+    for i in range(len(qlist4)):
+        output = qlist4[i].split(",")
+        output1 = [output[x] for x in order]
+        if output1[0] != "":
+            qlist5.append(output1)
+    qlist6=[]
+    for i in range(len(qlist5)):
+        if qlist5[i][0] == difficulty:
+            if qlist5[i][1] == subject:
+                qlist6.append(qlist5[i][2:8])
+
+    question_list = qlist6
+    passingmark = 1 # change to 6 later (and also create pick the first 10 questions after randoming)
 
     #function to randomise the question order
     def createRandomSortedList(num, start, end):
@@ -81,6 +116,7 @@ def Game(topic,level,gender,Pname):
     reorderQlist = []
     for i in orderlist:
         reorderQlist.append(question_list[i])
+    print(reorderQlist)
 
 
     #function to draw bg
@@ -362,10 +398,10 @@ def Game(topic,level,gender,Pname):
     #create character instance
 
     if charselect == "male":
-        player = character(280, 310, charselect, len(questionlist) - 1,3.5)
+        player = character(280, 310, charselect, len(question_list),3.5)
     else:
-        player = character(280, 310, charselect, len(questionlist) - 1,3.5)
-    enemies = character(650,310,'enemies',len(questionlist)-1,2.5)
+        player = character(280, 310, charselect, len(question_list),3.5)
+    enemies = character(650,310,'enemies',len(question_list),2.5)
 
 
 
@@ -625,4 +661,4 @@ class button():
         screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y+5))
         return action
 
-Game("math",2,"male","Alex")
+Game("test","test","male","Alex")
