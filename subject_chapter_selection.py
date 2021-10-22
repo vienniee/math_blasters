@@ -122,8 +122,8 @@ def subject_Chapter_selection(character_gender):
         elif state == States.SCI_SUBJ:
             chapter_selection(player=player, screen=screen, castles=sci_castles,
                             castleName=sci_castleName, backPortal=sci_backPortal)
-        print(state)
-        print(teleportCooldownState)
+        # print(state)
+        # print(teleportCooldownState)
         pygame.display.update()
         clock.tick(60)
 
