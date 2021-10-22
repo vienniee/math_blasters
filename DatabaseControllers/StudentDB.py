@@ -33,8 +33,8 @@ student = {
 
 class StudentDB:
 
-    def add_student(self,studentData):
-        db.child("students").push(studentData)
+    def add_student(self,key,studentData):
+        db.child("students").child(key).push(studentData)
 
     def get_student(self):
         return db.child("students").get()

@@ -2,7 +2,7 @@ from FirebaseConfig import db
 
 
 emptyQuestion = {
-    "minigame":"",
+    "topic":"",
     "level":"",
     "questionText":"",
     "optionA":"",
@@ -44,7 +44,11 @@ class QuestionDB:
 if __name__ == "__main__":
     temp = QuestionDB()
     result = temp.get_questions()
-    print(result["-MluRa7WuoXOOWc0gPGe"])
+    # print(result["-MluRa7WuoXOOWc0gPGe"]["level"])
+    for quest in result:
+            # if(quest.key() == questID):
+            #     return quest.val()
+            print(quest)
     # print(result['-MluRa7WuoXOOWc0gPGe'])
     # update_questions("-MluRa7WuoXOOWc0gPGe",newQuestion)
     # delete_questions("-MluQizsvARWcyLAlbqp")
