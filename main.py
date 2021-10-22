@@ -6,6 +6,7 @@ from pygame.locals import *
 import subject_chapter_selection
 import levelselect
 import Game
+import login
 import results
 import teacherDashboard
 
@@ -16,7 +17,7 @@ import teacherDashboard
 #score = minigame.score(topic, level)
 #results.storescore(subject, topic, level,score)
 
-
+login = login()
 minigame = subject_chapter_selection.subject_Chapter_selection("male")
 level = levelselect.levelselect() #'algebra'
 score = Game.Game(minigame,level) #'algebra'

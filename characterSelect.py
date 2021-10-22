@@ -74,6 +74,6 @@ def characterSelect(pageNum):
         pygame.display.update()
         mainClock.tick(60)
 
-
-characterSelect(1)
+if __name__ == "__main__":
+    characterSelect(1)
 
