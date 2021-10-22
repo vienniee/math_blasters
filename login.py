@@ -41,7 +41,7 @@ def Login():
 
     def register_clicked():
         print("Register Clicked")
-
+        import Registration
 
     def login(email, password):
         try:
@@ -74,8 +74,7 @@ def Login():
         for event in pygame.event.get():
            
             if btn_registration.draw():
-                register_clicked 
-                import Registration
+                register_clicked() 
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])
