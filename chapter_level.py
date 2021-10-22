@@ -3,15 +3,16 @@ from Castle import Castle
 from Portal import Portal
 from CastleText import CastleText
 
-def load_assets():
+
+def load_assets(chap_1, chap_1_level, chap_2, chap_2_level):
     # group sprite
     castles = pygame.sprite.Group()
-    castles.add(Castle(400,1,"Algebra"))
-    castles.add(Castle(800,2,"Fractions"))
+    castles.add(Castle(400, chap_1_level, chap_1))
+    castles.add(Castle(800, chap_2_level, chap_2))
 
     castlesNames = pygame.sprite.Group()
-    castlesNames.add(CastleText(400,"Algebra"))
-    castlesNames.add(CastleText(800,"Fractions"))
+    castlesNames.add(CastleText(400, chap_1))
+    castlesNames.add(CastleText(800, chap_2))
 
     backPortal = pygame.sprite.GroupSingle()
     backPortal.add(Portal(100))

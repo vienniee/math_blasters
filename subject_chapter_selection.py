@@ -9,13 +9,15 @@ from enum import Enum
 def subject_Chapter_selection(character_gender):
     class States(Enum):
         SUBJECT_LEVEL = 1
-        CHAPTER_LEVEL = 2
+        MATH_SUBJ = 2
+        SCI_SUBJ = 3
 
     def collision_sprite(group):
         if pygame.sprite.spritecollide(player.sprite,group,False):
             return True
         else:
             return False
+
 
 
     pygame.init()
@@ -37,7 +39,10 @@ def subject_Chapter_selection(character_gender):
     player.add(Player(character_gender))
 
     portal, portal_names = load_assets_subject()
-    castles, castleName, backPortal = load_assets_chapter()
+    math_castles, math_castleName, math_backPortal = load_assets_chapter(
+        "Fractions",2, "Algebra",3)
+    sci_castles, sci_castleName, sci_backPortal = load_assets_chapter(
+        "Science1",1, "Science2",3)
 
     teleportCooldownState = False
     teleportCooldownTimer = pygame.USEREVENT + 1
@@ -91,4 +96,4 @@ def subject_Chapter_selection(character_gender):
         clock.tick(60)
 
 
-# subject_Chapter_selection("female")
+subject_Chapter_selection("female")

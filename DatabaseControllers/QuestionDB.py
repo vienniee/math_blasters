@@ -1,4 +1,4 @@
-from DatabaseControllers.FirebaseConfig import db
+from FirebaseConfig import db
 
 
 emptyQuestion = {
@@ -24,22 +24,27 @@ emptyQuestion = {
 # }
 
 
-class QuestionDB():
-    def add_questions(question):
+class QuestionDB:
+    def add_questions(self,question):
         db.child("questions").push(question)
 
-    def get_questions():
+    def get_questions(self):
         questionList = db.child("questions").get()
         return questionList.val()
 
-    def update_questions(key,newQuestion):
+    def update_questions(self,key,newQuestion):
         db.child("questions").child(key).update(newQuestion)
 
-    def delete_questions(key):
+    def delete_questions(self,key):
         db.child("questions").child(key).remove()
 
-QuestionDB.add_questions(emptyQuestion)
-# result = get_questions()
-# print(result['-MluRa7WuoXOOWc0gPGe'])
-# update_questions("-MluRa7WuoXOOWc0gPGe",newQuestion)
-# delete_questions("-MluQizsvARWcyLAlbqp")
+# QuestionDB.add_questions(emptyQuestion)
+
+
+if __name__ == "__main__":
+    temp = QuestionDB()
+    result = temp.get_questions()
+    print(result["-MluRa7WuoXOOWc0gPGe"])
+    # print(result['-MluRa7WuoXOOWc0gPGe'])
+    # update_questions("-MluRa7WuoXOOWc0gPGe",newQuestion)
+    # delete_questions("-MluQizsvARWcyLAlbqp")
