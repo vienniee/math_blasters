@@ -10,14 +10,13 @@ import login
 import results
 import teacherDashboard
 
-#import subject_chapter_selection
-#subject = worldselect()
-#topic =world.levelselect(subject)
-#level = levelselect.levelselect(topic)
-#score = minigame.score(topic, level)
-#results.storescore(subject, topic, level,score)
+# global variable like student gender and name
 
 login = login()
+# login screen or register
+
+# main menu or teacher Main menu
+
 minigame = subject_chapter_selection.subject_Chapter_selection("male")
 level = levelselect.levelselect() #'algebra'
 score = Game.Game(minigame,level) #'algebra'

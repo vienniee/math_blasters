@@ -1,9 +1,15 @@
-from DatabaseControllers.FirebaseConfig import db
+from FirebaseConfig import db
 
 emptyTeacher = {
     "name":"",
     "email":"",
     "listOfQuestID":["test"]
+}
+
+teacher = {
+    "name":"hu soon",
+    "email":"husoon98@email.com",
+    "listOfQuestID":[]
 }
 
 
@@ -33,4 +39,7 @@ class TeacherDB:
         questList = teacher["listOfQuestID"]
         questList.append(questID)
         db.child("teachers").child(teacherID).update({"listOfQuestID":questList})
+
+teacherDB = TeacherDB()
+teacherDB.add_teacher(teacher)
 
