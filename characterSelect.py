@@ -16,8 +16,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 
 TEXT_CHARACTER_SELECTED = "Character Select"
-TEXT_DEMON_SELECTED = "Demon Selected"
-TEXT_WARRIOR_SELECTED = "Warrior Selected"
+TEXT_Male_SELECTED = "Male Selected"
+TEXT_Female_SELECTED = "Female Selected"
 TEXT_NO_OPTION_SELECTED = "Invalid Selection"
 TEXT_ERROR = 'FB Access Failed'
 
@@ -29,31 +29,31 @@ def characterSelect(pageNum):
     running = True
     click = False
     background_surface = pygame.image.load("Image/characterSelect/background.png").convert()
-    demonImage = pygame.image.load("Image/characterSelect/img0.png").convert_alpha()
-    warriorImage = pygame.image.load("Image/characterSelect/img1.png").convert_alpha()
+    femaleImage = pygame.image.load("Image/characterSelect/female.png").convert_alpha()
+    maleImage = pygame.image.load("Image/characterSelect/male.png").convert_alpha()
     confirmImage = pygame.image.load("Image/characterSelect/img2.png").convert_alpha()
 
     TEXT_OPTION=TEXT_CHARACTER_SELECTED
 
     while running:
         screen.blit(background_surface, (0, 0))
-        btn_warrior = assets.Button(screen=screen,id='warrior',image=warriorImage,scale=1,x=550,y=212)
-        btn_demon = assets.Button(screen=screen,id='demon',image=demonImage,scale=1,x=390,y=218)
-        btn_confirm = assets.Button(screen=screen,id='confirm',image=confirmImage,scale=1,x=460,y=331)
+        btn_male = assets.Button(screen=screen,id='Male',image=maleImage,scale=1,x=360,y=212)
+        btn_female = assets.Button(screen=screen,id='Female',image=femaleImage,scale=1,x=520,y=212)
+        btn_confirm = assets.Button(screen=screen,id='confirm',image=confirmImage,scale=1,x=460,y=338)
 
         
         assets.create_text(screen,TEXT_OPTION,assets.SMALL_FONT,assets.COLOR_BLACK,430,185)
 
         for event in pygame.event.get():
-            if btn_warrior.draw():
-                TEXT_OPTION = TEXT_WARRIOR_SELECTED 
-                CHAR_SELECT = "Warrior"
+            if btn_male.draw():
+                TEXT_OPTION = TEXT_Male_SELECTED 
+                CHAR_SELECT = "Male"
                 
                 
             
-            if btn_demon.draw():
-                TEXT_OPTION = TEXT_DEMON_SELECTED 
-                CHAR_SELECT = "Demon"
+            if btn_female.draw():
+                TEXT_OPTION = TEXT_Female_SELECTED 
+                CHAR_SELECT = "Female"
                 
             
             if(btn_confirm.draw()):
