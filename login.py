@@ -4,7 +4,7 @@ importlib.reload(sys.modules['firebase'])
 from pygame.locals import *
 import assets as assets
 import shelve
-
+from DatabaseControllers import TeacherDB
 
 mainClock = pygame.time.Clock()
 pygame.init()
@@ -46,7 +46,18 @@ def Login():
     def login(email, password):
         try:
             print("Logging in")
-            firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+            result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+            email = result["email"]
+            
+            teacherdb = TeacherDB()
+            teacherList =  teacherdb.get_teacher()
+
+            for teacher in teacherList:
+                if teacher[email] == email:
+                    # go teacher mainmenu
+                else:
+                    # go student mainmenu
+
             print("Successfully logged in!")
             import characterSelect
         except:
