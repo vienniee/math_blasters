@@ -6,8 +6,6 @@ from pygame.locals import *
 import assets as assets
 import shelve
 from DatabaseControllers.StudentDB import StudentDB
-from DatabaseControllers.TeacherDB import TeacherDB
-
 from teacherDashboard import main_menu
 from studentmenu import studentMenu
 
@@ -37,39 +35,16 @@ def Login():
     passwordActive = False
 
     running = True
-    click = False
     background_img = pygame.image.load("Login/background.png").convert()
     loginImage = pygame.image.load("Login/img0.png").convert_alpha()
     registrationImage = pygame.image.load("Login/img1.png").convert_alpha()
 
-
     firebaseDatabase = FB.FirebaseDatabase()
-
 
     def register_clicked():
         print("Register Clicked")
-        import Registration
-
-    # def login(email, password):
-    #     try:
-    #         print("Logging in")
-    #         result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
-    #         email1 = result["email"]
-            
-    #         teacherdb = TeacherDB()
-    #         teacherList =  teacherdb.get_teacher()
-
-    #         for teacher in teacherList:
-    #             if teacher[email] == email1:
-    #                 print("Successfully logged in!")
-    #                 import teacherDashboard
-    #             else:
-    #                 print("Successfully logged in!")
-    #                 import characterSelect
-    #     except:
-    #         print("Invalid email or password TRY AGAIN")
-    #         invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
-    #         screen.blit(invalidLogin, (100, 100))
+        import registration
+        print('hi')
 
     def login(email, password):
         try:
@@ -80,7 +55,6 @@ def Login():
                 if result['email']:
                     studentDB = StudentDB()
                     studentList =  studentDB.get_student()
-                    print(studentList)
                     studentFound = False
                     for key in studentList:
                         if studentList[key]["email"] == email:
@@ -121,7 +95,7 @@ def Login():
 
         for event in pygame.event.get():
             if btn_registration.draw():
-                register_clicked() 
+                register_clicked
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])

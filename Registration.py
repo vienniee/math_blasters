@@ -4,26 +4,28 @@ importlib.reload(sys.modules['firebase'])
 from pygame.locals import *
 import assets as assets
 import shelve
-
-mainClock = pygame.time.Clock()
-pygame.init()
-
-h = 600    
-w = 1000
-
-# But more customization possible: Pass your own font object
-font = pygame.font.SysFont("Consolas", 24)
-# Create own manager with custom input validator
-
-white = (255, 255, 255)
-black = (0, 0, 0)
-slategrey = (112,128,144)
-
-SAVE_DATA = shelve.open("Save Data")
-
-screen = pygame.display.set_mode((w,h))
+from login import Login
 
 def Registration():
+    mainClock = pygame.time.Clock()
+    pygame.init()
+
+    h = 600    
+    w = 1000
+
+    # But more customization possible: Pass your own font object
+    font = pygame.font.SysFont("Consolas", 24)
+    # Create own manager with custom input validator
+
+    white = (255, 255, 255)
+    black = (0, 0, 0)
+    slategrey = (112,128,144)
+
+    SAVE_DATA = shelve.open("Save Data")
+    SAVE_DATA['email'] = ""
+    SAVE_DATA['password'] = ""
+    screen = pygame.display.set_mode((w,h))
+
     name = ""
     email = ""
     classNum = ""
@@ -43,13 +45,14 @@ def Registration():
     def signup(email, password):
         try:
             print("Registering...")
+            print(email)
+            print(password)
             firebaseDatabase.auth.create_user_with_email_and_password(email, password)
             print("Successfully created!")
-            login
+            Login()
         except:
-            print("Email already exist!")
-
-
+            print("Existing User")
+           
     while running:
         screen.blit(background_img, (0, 0))
         
@@ -79,7 +82,7 @@ def Registration():
            
             if btn_registration.draw():
                 signup(SAVE_DATA['email'], SAVE_DATA['password'])
-                import login
+                
                 
             if event.type == QUIT:
                 pygame.quit()
@@ -157,9 +160,6 @@ def Registration():
         else:
             pygame.draw.rect(screen, slategrey, passwordBorder, 2)    
 
-        # screen.blit(userNamePrompt, ((w - userNamePrompt.get_width()) / 2,
-        #                              (h * .20) + userNameSurface.get_height()))
-
         if btn_registration:
             if email != "":
                 email = email
@@ -175,7 +175,9 @@ def Registration():
         pygame.display.update()
         mainClock.tick(60)
 
-Registration()
+
+if __name__ == '__main__':
+    Registration()
 
 
 
