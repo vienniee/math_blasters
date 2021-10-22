@@ -9,6 +9,6 @@ class Portal(pygame.sprite.Sprite):
         self.image = portal_image
         self.rect = self.image.get_rect(midbottom=(xpos, 400))
 
-    def return_subjec(self):
+    def return_subject(self):
         print(self.subject)
         return self.subject
