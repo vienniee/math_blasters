@@ -33,8 +33,9 @@ def Login():
     running = True
     click = False
     background_img = pygame.image.load("Login/background.png").convert()
-    loginImage = pygame.image.load("Login/img0.png").convert_alpha()
-    registrationImage = pygame.image.load("Login/img1.png").convert_alpha()
+    loginImage = pygame.image.load("Login/studentLogin.png").convert_alpha()
+    registrationImage = pygame.image.load("Login/Registration.png").convert_alpha()
+    teacherLoginImage = pygame.image.load("Login/teacherLogin.png").convert_alpha()
 
     firebaseDatabase = FB.FirebaseDatabase()
 
@@ -52,12 +53,22 @@ def Login():
         except:
             print("Invalid email or password")
 
+    def loginTeacher(email, password):
+        try:
+            print("Logging in")
+            firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+            print("Successfully logged in!")
+            import teacherDashboard
+        except:
+            print("Invalid email or password")
+
     while running:
         screen.blit(background_img, (0, 0))
         # email_txtbox = assets.Button(screen=screen,id='emailTextbox',image=email_txtbox,scale=1,x=531,y=267)
         # password_txtbox = assets.Button(screen=screen,id='passwordTextbox',image=password_txtbox,scale=1,x=531,y=316)
-        btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=491,y=351)
-        btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=320,y=360)
+        btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=503,y=338)
+        btn_teacherLogin = assets.Button(screen=screen,id='buttonTeacherLogin',image=teacherLoginImage,scale=1,x=317,y=338)
+        btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=434,y=392)
        
         emailSurface = font.render(email, True, black)
         
@@ -80,6 +91,11 @@ def Login():
                 print(SAVE_DATA['email'])
                 print(SAVE_DATA['password'])
                 login(SAVE_DATA['email'], SAVE_DATA['password'])
+
+            if btn_teacherLogin.draw():
+                print(SAVE_DATA['email'])
+                print(SAVE_DATA['password'])
+                loginTeacher(SAVE_DATA['email'], SAVE_DATA['password'])
                 
             if event.type == QUIT:
                 pygame.quit()
@@ -129,6 +145,18 @@ def Login():
         #                              (h * .20) + userNameSurface.get_height()))
 
         if btn_login:
+            if email != "":
+                email = email
+                SAVE_DATA['email'] = email
+            else:
+                pass
+            if password != "":
+                password = password
+                SAVE_DATA['password'] = password
+            else:
+                pass
+
+        if btn_teacherLogin:
             if email != "":
                 email = email
                 SAVE_DATA['email'] = email
