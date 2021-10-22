@@ -1,7 +1,7 @@
 import pygame, sys,importlib
-import firebase as FB
+
 from studentmenu import studentMenu
-importlib.reload(sys.modules['firebase'])
+import DatabaseControllers.FirebaseConfig as firebaseDatabase
 from pygame.locals import *
 import assets as assets
 import shelve
@@ -39,11 +39,10 @@ def Login():
     loginImage = pygame.image.load("Login/img0.png").convert_alpha()
     registrationImage = pygame.image.load("Login/img1.png").convert_alpha()
 
-    firebaseDatabase = FB.FirebaseDatabase()
 
     def register_clicked():
         print("Register Clicked")
-        import registration
+        import Registration
         print('hi')
 
     def login(email, password):
