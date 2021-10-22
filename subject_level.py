@@ -1,0 +1,27 @@
+import pygame
+from pygame.transform import rotozoom
+
+from Portal import Portal
+from PortalText import PortalText
+
+
+def load_assets():
+    # group sprite
+    portal = pygame.sprite.Group()
+    portal.add(Portal(600))
+    portal.add(Portal(800))
+
+    portal_names = pygame.sprite.Group()
+    portal_names.add(PortalText(600, "MATH"))
+    portal_names.add(PortalText(800, "SCIENCE"))
+
+    return portal,portal_names
+
+
+def subject_selection(player,screen,portal,portal_names):
+    portal.draw(screen)
+    portal_names.draw(screen)
+
+    # draw player
+    player.draw(screen)
+    player.update()
