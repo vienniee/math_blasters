@@ -14,20 +14,20 @@ teacher = {
 
 
 class TeacherDB:
-    def add_teacher(self,teacher):
+    def add_teacher(self, teacher):
         db.child("teachers").push(teacher)
 
-    def get_teacher():
+    def get_teacher(self):
         teacherList = db.child("teachers").get()
         return teacherList.val()
 
-    def update_teacher(key,newTeacher):
+    def update_teacher(self, key, newTeacher):
         db.child("teachers").child(key).update(newTeacher)
 
-    def delete_teacher(key):
+    def delete_teacher(self, key):
         db.child("teachers").child(key).remove()
 
-    def get_single_teacher(self,teacherID):
+    def get_single_teacher(self, teacherID):
         teacherList = db.child("teachers").get()
         for teacher in teacherList.each():
             if(teacher.key() == teacherID):

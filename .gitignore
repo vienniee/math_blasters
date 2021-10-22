@@ -1,3 +1,5 @@
+__pycache__/
+*.py[cod]
 __pycache__/assets.cpython-37.pyc
 __pycache__/Castle.cpython-37.pyc
 __pycache__/CastleText.cpython-37.pyc

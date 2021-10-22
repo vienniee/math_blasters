@@ -7,7 +7,7 @@ import subject_chapter_selection
 import levelselect
 import Game
 import results
-
+import teacherDashboard
 
 # global variable like student gender and name
 
@@ -19,6 +19,5 @@ minigame = subject_chapter_selection.subject_Chapter_selection("male")
 level = levelselect.levelselect() #'algebra'
 score = Game.Game(minigame,level) #'algebra'
 results.results(minigame,level,score)
-
-
+teacherdashboard = teacherDashboard.main_menu()
         
