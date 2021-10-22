@@ -47,31 +47,35 @@ def Login():
     def login(email, password):
         try:
             print("Logging in")
-            firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+            result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+            print(result)
+            email = result["email"]
             print("Successfully logged in!")
             import characterSelect
         except:
             print("Invalid email or password")
+            invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
+            screen.blit(invalidLogin, (100, 100))
 
     def loginTeacher(email, password):
         try:
             print("Logging in")
-            firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+            result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+            print(result)
             print("Successfully logged in!")
             import teacherDashboard
         except:
             print("Invalid email or password")
+            TEXT_OPTION="Invalid Email/Password"
 
+    TEXT_OPTION=""
     while running:
         screen.blit(background_img, (0, 0))
-        # email_txtbox = assets.Button(screen=screen,id='emailTextbox',image=email_txtbox,scale=1,x=531,y=267)
-        # password_txtbox = assets.Button(screen=screen,id='passwordTextbox',image=password_txtbox,scale=1,x=531,y=316)
         btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=503,y=338)
         btn_teacherLogin = assets.Button(screen=screen,id='buttonTeacherLogin',image=teacherLoginImage,scale=1,x=317,y=338)
         btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=434,y=392)
        
         emailSurface = font.render(email, True, black)
-        
         passwordSurface = font.render('*'*len(password), True, black)
         # Create the border around the text box with .Rect
         # left, top, width, height
@@ -82,8 +86,10 @@ def Login():
         # This is the text surface when the user types in their name
         screen.blit(emailSurface, ((w - emailSurface.get_width()) / 2 +25, h * .42))
         screen.blit(passwordSurface, ((w - passwordSurface.get_width()) / 2 +25, h * .5))  
+        #Printing login status on the screen
+        assets.create_text(screen,TEXT_OPTION,assets.SMALL_FONT,assets.COLOR_BLACK,330,100)
+
         for event in pygame.event.get():
-           
             if btn_registration.draw():
                 register_clicked() 
 
