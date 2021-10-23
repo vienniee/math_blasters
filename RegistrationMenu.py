@@ -4,9 +4,9 @@ import DatabaseControllers.FirebaseConfig as firebaseDatabase
 from pygame.locals import *
 import assets as assets
 import shelve
-from login import Login
 import characterSelect as characterselect
 import os
+
 def Registration():
     mainClock = pygame.time.Clock()
     pygame.init()

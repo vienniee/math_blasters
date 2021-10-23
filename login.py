@@ -1,14 +1,12 @@
 import pygame, sys,importlib
 
 from studentmenu import studentMenu
-import DatabaseControllers.FirebaseConfig as firebaseDatabase
 from pygame.locals import *
 import assets as assets
 import shelve
 from DatabaseControllers.StudentDB import StudentDB
 from teacherDashboard import main_menu
 from studentmenu import studentMenu
-from Registration import Registration
 
 def Login():
     mainClock = pygame.time.Clock()
@@ -43,8 +41,7 @@ def Login():
 
     def register_clicked():
         print("Register Clicked")
-        Registration()
-
+    
     def login(email, password):
         try:
             print("Logging in")
