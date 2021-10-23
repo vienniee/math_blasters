@@ -8,7 +8,7 @@ import shelve
 from DatabaseControllers.StudentDB import StudentDB
 from teacherDashboard import main_menu
 from studentmenu import studentMenu
-from registration import Registration
+from Registration import Registration
 
 def Login():
     mainClock = pygame.time.Clock()
