@@ -39,6 +39,7 @@ def chapter_selection(player,screen, castles, castleName, backPortal):
 def check_backportal(keys, backportal, teleportCooldownstate, player):
     if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and collision_sprite(player,backportal) and not teleportCooldownstate:
         print("teleport to subject")
+        return True
         
 
 def check_castles(keys, castles, teleportCooldownstate, player):

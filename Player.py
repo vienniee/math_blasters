@@ -94,8 +94,30 @@ class Player(pygame.sprite.Sprite):
             FidleL = pygame.image.load('Image/female/idleL/L0.png').convert_alpha()
             FidleR = pygame.image.load('Image/female/idle/0.png').convert_alpha()
 
-            scale=3
+            # crop
+            FwalkL1 = FwalkL1.subsurface((20,0,40,44))
+            FwalkL2 = FwalkL2.subsurface((20,0,40,44))
+            FwalkL3 = FwalkL3.subsurface((20,0,40,44))
+            FwalkL4 = FwalkL4.subsurface((20,0,40,44))
+            FwalkL5 = FwalkL5.subsurface((20,0,40,44))
+            FwalkL6 = FwalkL6.subsurface((20,0,40,44))
+            FwalkL7 = FwalkL7.subsurface((20,0,40,44))
+            FwalkL8 = FwalkL8.subsurface((20,0,40,44))
 
+            FwalkR1 = FwalkR1.subsurface((7,0,40,44))
+            FwalkR2 = FwalkR2.subsurface((7,0,40,44))
+            FwalkR3 = FwalkR3.subsurface((7,0,40,44))
+            FwalkR4 = FwalkR4.subsurface((7,0,40,44))
+            FwalkR5 = FwalkR5.subsurface((7,0,40,44))
+            FwalkR6 = FwalkR6.subsurface((7,0,40,44))
+            FwalkR7 = FwalkR7.subsurface((7,0,40,44))
+            FwalkR8 = FwalkR8.subsurface((7,0,40,44))
+
+            FidleL = FidleL.subsurface((20,0,40,44))
+            FidleR = FidleR.subsurface((7,0,40,44))
+
+            # scaling
+            scale=3
             FwalkR2 = pygame.transform.rotozoom(FwalkR2, 0, scale)
             FwalkR1 = pygame.transform.rotozoom(FwalkR1, 0, scale)
             FwalkR3 = pygame.transform.rotozoom(FwalkR3, 0, scale)

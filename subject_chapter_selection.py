@@ -80,7 +80,7 @@ def subject_Chapter_selection(character_gender):
 
 
                     teleportCooldownState = True
-                    pygame.time.set_timer(teleportCooldownTimer, 1000)
+                    pygame.time.set_timer(teleportCooldownTimer, 3000)
                     print("teleportCooldownState True")
 
             if state == States.MATH_SUBJ:
@@ -95,7 +95,6 @@ def subject_Chapter_selection(character_gender):
                         return castle.returnChapter()
 
             if state == States.SCI_SUBJ:
-
                 if check_backportal(keys, sci_backPortal, teleportCooldownState,player):
                     state = States.SUBJECT_LEVEL
                     teleportCooldownState = True

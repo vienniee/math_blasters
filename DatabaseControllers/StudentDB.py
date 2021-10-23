@@ -1,4 +1,4 @@
-from DatabaseControllers.FirebaseConfig import db
+from FirebaseConfig import db
 # import firebase as firebase
 
 # db = firebase.database()
@@ -29,12 +29,38 @@ student = {
     "Quests":[]
 }
 
+student1 = {
+    "name":"Hu Soon",
+    "email":"husoon01@gmail.com",
+    "class":"1A",
+    "character":"male",
+    "progress":{
+        "math":{
+            "minigame1":0,
+            "minigame2": 0
+        },
+        "science": {
+            "minigame1": 0,
+            "minigame2": 0
+        },
+    },
+    "achievements":{
+        "choose your character": {
+            "achievementDescription":"",
+            "achievement criteria":"",
+            "completed":False
+        }
+    }
+    ,
+    "Quests":[]
+}
+
 #Changed to static implementation
 
 class StudentDB:
 
-    def add_student(self,key,studentData):
-        db.child("students").child(key).push(studentData)
+    def add_student(self,studentData):
+        db.child("students").push(studentData)
 
     def get_student(self):
         return db.child("students").get()
@@ -78,8 +104,8 @@ if __name__ == "__main__":
 
     student_Controller = StudentDB()
 
-    # student_Controller.add_student(student)
+    student_Controller.add_student(student1)
     # print(student_Controller.get_student().key())
-    for user in student_Controller.get_student().each():
-        print(user.key())  # Morty
-        print(user.val())
+    # for user in student_Controller.get_student().each():
+    #     print(user.key())  # Morty
+    #     print(user.val())
