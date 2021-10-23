@@ -1,79 +1,82 @@
 import pygame, sys,importlib
-import firebase as FB
-importlib.reload(sys.modules['firebase'])
+
+from studentmenu import studentMenu
+import DatabaseControllers.FirebaseConfig as firebaseDatabase
 from pygame.locals import *
 import assets as assets
 import shelve
-from DatabaseControllers import TeacherDB
-
-mainClock = pygame.time.Clock()
-pygame.init()
-
-h = 600    
-w = 1000
-
-# But more customization possible: Pass your own font object
-font = pygame.font.SysFont("Consolas", 24)
-# Create own manager with custom input validator
-
-white = (255, 255, 255)
-black = (0, 0, 0)
-slategrey = (112,128,144)
-
-SAVE_DATA = shelve.open("Save Data")
-
-screen = pygame.display.set_mode((w,h))
+from DatabaseControllers.StudentDB import StudentDB
+from teacherDashboard import main_menu
+from studentmenu import studentMenu
+from Registration import Registration
 
 def Login():
+    mainClock = pygame.time.Clock()
+    pygame.init()
+
+    h = 600    
+    w = 1000
+
+    # But more customization possible: Pass your own font object
+    font = pygame.font.SysFont("Consolas", 24)
+    # Create own manager with custom input validator
+
+    white = (255, 255, 255)
+    black = (0, 0, 0)
+    slategrey = (112,128,144)
+
+    SAVE_DATA = shelve.open("Save Data")
+    SAVE_DATA['email'] = ""
+    SAVE_DATA['password'] = ""
+    screen = pygame.display.set_mode((w,h))
+
     email = ""
     password = ""
     emailActive = False
     passwordActive = False
 
     running = True
-    click = False
     background_img = pygame.image.load("Login/background.png").convert()
-    loginImage = pygame.image.load("Login/studentLogin.png").convert_alpha()
-    registrationImage = pygame.image.load("Login/Registration.png").convert_alpha()
-    teacherLoginImage = pygame.image.load("Login/teacherLogin.png").convert_alpha()
-
-    firebaseDatabase = FB.FirebaseDatabase()
+    loginImage = pygame.image.load("Login/img0.png").convert_alpha()
+    registrationImage = pygame.image.load("Login/img1.png").convert_alpha()
 
 
     def register_clicked():
         print("Register Clicked")
-        import Registration
+        Registration()
 
     def login(email, password):
         try:
             print("Logging in")
-            result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
-            print(result)
-            email = result["email"]
-            print("Successfully logged in!")
-            import characterSelect
+            print(password)
+            if password != "":
+                result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+                if result['email']:
+                    studentDB = StudentDB()
+                    studentList =  studentDB.get_student()
+                    studentFound = False
+                    for key in studentList:
+                        if studentList[key]["email"] == email:
+                            studentFound = True
+                            print("Successfully logged in for student!")
+                            break
+                    if studentFound == True:
+                        studentMenu()
+                    else: 
+                        main_menu()
+            
         except:
             print("Invalid email or password")
             invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
             screen.blit(invalidLogin, (100, 100))
 
-    def loginTeacher(email, password):
-        try:
-            print("Logging in")
-            result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
-            print(result)
-            print("Successfully logged in!")
-            import teacherDashboard
-        except:
-            print("Invalid email or password")
-            TEXT_OPTION="Invalid Email/Password"
 
     TEXT_OPTION=""
     while running:
+        
         screen.blit(background_img, (0, 0))
-        btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=503,y=338)
-        btn_teacherLogin = assets.Button(screen=screen,id='buttonTeacherLogin',image=teacherLoginImage,scale=1,x=317,y=338)
-        btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=434,y=392)
+        btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=500,y=338)
+        btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=340,y=348)
        
         emailSurface = font.render(email, True, black)
         passwordSurface = font.render('*'*len(password), True, black)
@@ -91,17 +94,12 @@ def Login():
 
         for event in pygame.event.get():
             if btn_registration.draw():
-                register_clicked() 
+                register_clicked()
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])
                 print(SAVE_DATA['password'])
                 login(SAVE_DATA['email'], SAVE_DATA['password'])
-
-            if btn_teacherLogin.draw():
-                print(SAVE_DATA['email'])
-                print(SAVE_DATA['password'])
-                loginTeacher(SAVE_DATA['email'], SAVE_DATA['password'])
                 
             if event.type == QUIT:
                 pygame.quit()
@@ -147,8 +145,7 @@ def Login():
         else:
             pygame.draw.rect(screen, slategrey, passwordBorder, 2)    
 
-        # screen.blit(userNamePrompt, ((w - userNamePrompt.get_width()) / 2,
-        #                              (h * .20) + userNameSurface.get_height()))
+   
 
         if btn_login:
             if email != "":
@@ -162,22 +159,12 @@ def Login():
             else:
                 pass
 
-        if btn_teacherLogin:
-            if email != "":
-                email = email
-                SAVE_DATA['email'] = email
-            else:
-                pass
-            if password != "":
-                password = password
-                SAVE_DATA['password'] = password
-            else:
-                pass
            
         pygame.display.update()
         mainClock.tick(60)
 
-Login()
+if __name__ == '__main__':
+    Login()
 
 
 

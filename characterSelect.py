@@ -1,10 +1,11 @@
+
 import pygame, sys,pygame_textinput
 from pygame.locals import *
 from DatabaseControllers.StudentDB import StudentDB
 
 import assets as assets
 import studentmenu
-
+import os
 
 mainClock = pygame.time.Clock()
 pygame.init()
@@ -21,10 +22,12 @@ TEXT_Female_SELECTED = "Female Selected"
 TEXT_NO_OPTION_SELECTED = "Invalid Selection"
 TEXT_ERROR = 'FB Access Failed'
 
-TEMP_STUDENT_DATA = {"name":"TEST_USER1","email":"TEST_USER@gmail.com","class":"Mathematics"}
 
 
-def characterSelect(pageNum):
+
+def characterSelect(STUDENT_DATA):
+    UUID = os.environ['USER']
+    print(UUID,STUDENT_DATA)
     CHAR_SELECT=None
     running = True
     click = False
@@ -61,8 +64,8 @@ def characterSelect(pageNum):
                     TEXT_OPTION = TEXT_NO_OPTION_SELECTED 
                 else:
                     try:
-                        TEMP_STUDENT_DATA['character'] = CHAR_SELECT
-                        StudentDB.add_student(TEMP_STUDENT_DATA)
+                        STUDENT_DATA['character'] = CHAR_SELECT
+                        StudentDB.add_student(UUID,STUDENT_DATA)
                         studentmenu.studentMenu()
                     except Exception as e:
                         print(e)
@@ -74,6 +77,6 @@ def characterSelect(pageNum):
         pygame.display.update()
         mainClock.tick(60)
 
-
-characterSelect(1)
+if __name__ == "__main__":
+    characterSelect()
 

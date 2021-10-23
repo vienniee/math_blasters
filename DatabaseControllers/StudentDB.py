@@ -62,13 +62,16 @@ class StudentDB:
     def add_student(self,studentData):
         db.child("students").push(studentData)
 
-    def get_student(self):
-        return db.child("students").get()
+    def get_student(key):
+        return db.child("students").child(key).get().val()
+    
+    def get_all_students():
+        return db.child("students").get().val()
 
-    def update_student(self, key, newStudent):
+    def update_student(key, newStudent):
         db.child("students").child(key).update(newStudent)
 
-    def delete_student(self, key):
+    def delete_student(key):
         db.child("students").child(key).remove()
 
     

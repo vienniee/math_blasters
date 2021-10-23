@@ -106,4 +106,5 @@ def main_menu():
         pygame.display.update()
         mainClock.tick(60)
 
-main_menu()
+if __name__ == "__main__":
+    main_menu()

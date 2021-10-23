@@ -6,11 +6,13 @@ from pygame.locals import *
 import subject_chapter_selection
 import levelselect
 import Game
+import login
 import results
 import teacherDashboard
 
 # global variable like student gender and name
 
+login = login()
 # login screen or register
 
 # main menu or teacher Main menu
