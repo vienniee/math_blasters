@@ -8,6 +8,7 @@ import shelve
 from DatabaseControllers.StudentDB import StudentDB
 from teacherDashboard import main_menu
 from studentmenu import studentMenu
+from registration import Registration
 
 def Login():
     mainClock = pygame.time.Clock()
@@ -43,8 +44,7 @@ def Login():
 
     def register_clicked():
         print("Register Clicked")
-        import registration
-        print('hi')
+        Registration()
 
     def login(email, password):
         try:
@@ -95,7 +95,7 @@ def Login():
 
         for event in pygame.event.get():
             if btn_registration.draw():
-                register_clicked
+                register_clicked()
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])
