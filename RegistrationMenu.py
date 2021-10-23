@@ -25,6 +25,8 @@ def Registration():
     SAVE_DATA = shelve.open("Save Data")
     SAVE_DATA['email'] = ""
     SAVE_DATA['password'] = ""
+    SAVE_DATA['name'] = ""
+    SAVE_DATA['classNum'] = ""
     screen = pygame.display.set_mode((w,h))
 
     name = ""
@@ -38,11 +40,14 @@ def Registration():
 
     running = True
     background_img = pygame.image.load("Registration/background.png").convert()
-    
     registrationImage = pygame.image.load("Registration/img0.png").convert_alpha()
+    back_img = pygame.image.load("Registration/backButton.png").convert_alpha()
 
+    
+    def backButton_clicked():
+        print("Back Button Clicked")
 
-    def signup(email, password):
+    def signup(name, email, classNum, password):
         try:
             print("Registering...")
             print(email)
@@ -53,6 +58,8 @@ def Registration():
             os.environ['USER'] = uuid
             STUDENT_DATA={}
             STUDENT_DATA['email']= email
+            STUDENT_DATA['name']= name
+            STUDENT_DATA['classNum']= classNum
             print("Successfully created!")
             characterselect.characterSelect(STUDENT_DATA)
         except Exception as e:
@@ -64,7 +71,7 @@ def Registration():
         screen.blit(background_img, (0, 0))
         
         btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=388,y=402)
-       
+        backButton = assets.Button(screen=screen,id='buttonRegistration',image=back_img,scale=1,x=20,y=20)
         nameSurface = font.render(name, True, black)
         emailSurface = font.render(email, True, black)
         classNumSurface = font.render(classNum, True, black)
@@ -88,9 +95,11 @@ def Registration():
         for event in pygame.event.get():
            
             if btn_registration.draw():
-                signup(SAVE_DATA['email'], SAVE_DATA['password'])
+                signup(SAVE_DATA['name'], SAVE_DATA['email'], SAVE_DATA['classNum'], SAVE_DATA['password'])
                 
-                
+            if backButton.draw():
+                backButton_clicked()
+
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
@@ -176,6 +185,16 @@ def Registration():
             if password != "":
                 password = password
                 SAVE_DATA['password'] = password
+            else:
+                pass
+            if name != "":
+                name = name
+                SAVE_DATA['name'] = name
+            else:
+                pass
+            if classNum != "":
+                classNum = classNum
+                SAVE_DATA['classNum'] = classNum
             else:
                 pass
            
