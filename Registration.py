@@ -1,11 +1,12 @@
+
 import pygame, sys,importlib
-import firebase as FB
-importlib.reload(sys.modules['firebase'])
+import DatabaseControllers.FirebaseConfig as firebaseDatabase
 from pygame.locals import *
 import assets as assets
 import shelve
 from login import Login
-
+import characterSelect as characterselect
+import os
 def Registration():
     mainClock = pygame.time.Clock()
     pygame.init()
@@ -40,18 +41,24 @@ def Registration():
     
     registrationImage = pygame.image.load("Registration/img0.png").convert_alpha()
 
-    firebaseDatabase = FB.FirebaseDatabase()
 
     def signup(email, password):
         try:
             print("Registering...")
             print(email)
             print(password)
-            firebaseDatabase.auth.create_user_with_email_and_password(email, password)
+            user = firebaseDatabase.auth.create_user_with_email_and_password(email, password)
+            uuid = user['localId']
+            print(uuid)
+            os.environ['USER'] = uuid
+            STUDENT_DATA={}
+            STUDENT_DATA['email']= email
             print("Successfully created!")
-            Login()
-        except:
-            print("Existing User")
+            characterselect.characterSelect(STUDENT_DATA)
+        except Exception as e:
+            print(e)
+                        
+
            
     while running:
         screen.blit(background_img, (0, 0))

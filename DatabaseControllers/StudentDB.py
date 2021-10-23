@@ -1,3 +1,4 @@
+
 from DatabaseControllers.FirebaseConfig import db
 # import firebase as firebase
 
@@ -33,16 +34,19 @@ student = {
 
 class StudentDB:
 
-    def add_student(self,key,studentData):
-        db.child("students").child(key).push(studentData)
+    def add_student(key,studentData):
+        db.child("students").child(key).set(studentData)
 
-    def get_student(self):
+    def get_student(key):
+        return db.child("students").child(key).get().val()
+    
+    def get_all_students():
         return db.child("students").get().val()
 
-    def update_student(self, key, newStudent):
+    def update_student(key, newStudent):
         db.child("students").child(key).update(newStudent)
 
-    def delete_student(self, key):
+    def delete_student(key):
         db.child("students").child(key).remove()
 
     
