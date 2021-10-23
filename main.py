@@ -9,10 +9,11 @@ import Game
 import login
 import results
 import teacherDashboard
-
+from RegistrationMenu import Registration
 # global variable like student gender and name
 
 login = login()
+Registration = Registration()
 # login screen or register
 
 # main menu or teacher Main menu
