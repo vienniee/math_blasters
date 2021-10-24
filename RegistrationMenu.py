@@ -26,7 +26,7 @@ def Registration():
     SAVE_DATA['email'] = ""
     SAVE_DATA['password'] = ""
     SAVE_DATA['name'] = ""
-    SAVE_DATA['classNum'] = ""
+    SAVE_DATA['class'] = ""
     screen = pygame.display.set_mode((w,h))
 
     name = ""
@@ -59,7 +59,7 @@ def Registration():
             STUDENT_DATA={}
             STUDENT_DATA['email']= email
             STUDENT_DATA['name']= name
-            STUDENT_DATA['classNum']= classNum
+            STUDENT_DATA['class']= classNum
             print("Successfully created!")
             characterselect.characterSelect(STUDENT_DATA)
         except Exception as e:
@@ -95,7 +95,7 @@ def Registration():
         for event in pygame.event.get():
            
             if btn_registration.draw():
-                signup(SAVE_DATA['name'], SAVE_DATA['email'], SAVE_DATA['classNum'], SAVE_DATA['password'])
+                signup(SAVE_DATA['name'], SAVE_DATA['email'], SAVE_DATA['class'], SAVE_DATA['password'])
                 
             if backButton.draw():
                 backButton_clicked()
@@ -194,7 +194,7 @@ def Registration():
                 pass
             if classNum != "":
                 classNum = classNum
-                SAVE_DATA['classNum'] = classNum
+                SAVE_DATA['class'] = classNum
             else:
                 pass
            

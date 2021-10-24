@@ -72,7 +72,6 @@ def characterSelect(STUDENT_DATA):
                         TEXT_OPTION = TEXT_ERROR 
                 
 
-        
 
         pygame.display.update()
         mainClock.tick(60)
