@@ -20,7 +20,7 @@ Registration = Registration()
 
 minigame = subject_chapter_selection.subject_Chapter_selection("male")
 level = levelselect.levelselect() #'algebra'
-score = Game.Game(minigame,level) #'algebra'
+score = Game.Game(minigame,level) #'algebra' #Game(questions,gender,name,quest/minigame*) #quest/minigames doesnt matter if main.py specify the logic
 results.results(minigame,level,score)
 teacherdashboard = teacherDashboard.main_menu()
         
