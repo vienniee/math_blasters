@@ -15,4 +15,16 @@ db=firestore.client()
 #For Vivien:
 #use this to populate database
 #use a loop to add records into the database and partition them by levels and question types
-db.collection('Students').add({'name':'John', 'age':'16'})
+#db.collection('Students').add({'Name':'John', 'Score':100})
+#db.collection('Students').add({'Name':'Adam', 'Score':80})
+#db.collection('Students').add({'Name':'Kenny', 'Score':70})
+#db.collection('Students').add({'Name':'Richard', 'Score':60})
+#db.collection('Students').add({'Name':'Damien', 'Score':50})
+#db.collection('Students').add({'Name':'Ben', 'Score':20})
+#db.collection('Students').add({'Name':'Xavier', 'Score':10})
+
+def getRanking():
+    #pull data of the top 5 students
+    scoreref = db.collection('Students')
+    query = scoreref.order_by('Score',direction=firestore.Query.DESCENDING).limit(5)
+    return query.get()
