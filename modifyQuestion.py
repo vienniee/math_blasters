@@ -1,7 +1,7 @@
 import pygame, sys
 import pygame_textinput
 import question
-
+from DatabaseControllers.QuestionDB import QuestionDB
 mainClock = pygame.time.Clock()
 from pygame.locals import *
 
@@ -60,13 +60,19 @@ click = False
 def modifyQuestion(pageNum):
     running = True
     click = False
-    background_surface = pygame.image.load("Image/modifyquestionselect_background.png").convert()
-    buttonimage = pygame.image.load("Image/generatereportselect_img1.png").convert_alpha()
-    nextpageimage = pygame.image.load("Image/generatereportselect_img8.png").convert_alpha()
-    prevpageimage = pygame.image.load("Image/generatereportselect_img9.png").convert_alpha()
+    background_surface = pygame.image.load("graphics/teacher/modifyquestionselect_background.png").convert()
+    buttonimage = pygame.image.load("graphics/teacher/generatereportselect_img1.png").convert_alpha()
+    nextpageimage = pygame.image.load("graphics/teacher/generatereportselect_img8.png").convert_alpha()
+    prevpageimage = pygame.image.load("graphics/teacher/generatereportselect_img9.png").convert_alpha()
 
-    names = ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5", "Question 6","Question 7","Question 8","Question 9","Question 10"]
+    names = []
+    questionid = []
+    questions = QuestionDB.get_questions(QuestionDB)
 
+
+    for i in questions:
+        names.append(questions[i]['questionText'])
+        questionid.append(i)
     while running:
 
         screen.blit(background_surface, (0, 0))
@@ -87,20 +93,24 @@ def modifyQuestion(pageNum):
         button_10 = Button(button6pos, 472, buttonimage, scale)
         button_11 = Button(885, 463, nextpageimage, 1)
         button_12 = Button(48, 463, prevpageimage, 1)
+        pageIterator = (pageNum-1) * 10
+        try:
+            nameText1 = smallfont.render(names[0+pageIterator], True, (0, 0, 0))
+            nameText2 = smallfont.render(names[1+pageIterator], True, (0, 0, 0))
+            nameText3 = smallfont.render(names[2+pageIterator], True, (0, 0, 0))
+            nameText4 = smallfont.render(names[3+pageIterator], True, (0, 0, 0))
+            nameText5 = smallfont.render(names[4+pageIterator], True, (0, 0, 0))
+            nameText6 = smallfont.render(names[5+pageIterator], True, (0, 0, 0))
+            nameText7 = smallfont.render(names[6+pageIterator], True, (0, 0, 0))
+            nameText8 = smallfont.render(names[7+pageIterator], True, (0, 0, 0))
+            nameText9 = smallfont.render(names[8+pageIterator], True, (0, 0, 0))
+            nameText10 = smallfont.render(names[9+pageIterator], True, (0, 0, 0))
+        except:
+            pass
 
-        nameText1 = smallfont.render(names[0], True, (0, 0, 0))
-        nameText2 = smallfont.render(names[1], True, (0, 0, 0))
-        nameText3 = smallfont.render(names[2], True, (0, 0, 0))
-        nameText4 = smallfont.render(names[3], True, (0, 0, 0))
-        nameText5 = smallfont.render(names[4], True, (0, 0, 0))
-        nameText6 = smallfont.render(names[5], True, (0, 0, 0))
-        nameText7 = smallfont.render(names[6], True, (0, 0, 0))
-        nameText8 = smallfont.render(names[7], True, (0, 0, 0))
-        nameText9 = smallfont.render(names[8], True, (0, 0, 0))
-        nameText10 = smallfont.render(names[9], True, (0, 0, 0))
 
         if button_1.draw() == True and click:
-            question.question(names[0])
+            question.question(questionid[0])
         if button_2.draw() == True and click:
             question.question(names[1])
         if button_3.draw() == True and click:
@@ -124,17 +134,19 @@ def modifyQuestion(pageNum):
         if button_12.draw() == True and click:
             if (pageNum!=1):
                 modifyQuestion(pageNum-1)
-
-        screen.blit(nameText1, (button1pos+10, 128))
-        screen.blit(nameText2, (button1pos+10, 215))
-        screen.blit(nameText3, (button1pos+10, 302))
-        screen.blit(nameText4, (button1pos+10, 390))
-        screen.blit(nameText5, (button1pos+10, 477))
-        screen.blit(nameText6, (button6pos+10, 128))
-        screen.blit(nameText7, (button6pos+10, 215))
-        screen.blit(nameText8, (button6pos+10, 302))
-        screen.blit(nameText9, (button6pos+10, 390))
-        screen.blit(nameText10, (button6pos+10, 477))
+        try:
+            screen.blit(nameText1, (button1pos+10, 128))
+            screen.blit(nameText2, (button1pos+10, 215))
+            screen.blit(nameText3, (button1pos+10, 302))
+            screen.blit(nameText4, (button1pos+10, 390))
+            screen.blit(nameText5, (button1pos+10, 477))
+            screen.blit(nameText6, (button6pos+10, 128))
+            screen.blit(nameText7, (button6pos+10, 215))
+            screen.blit(nameText8, (button6pos+10, 302))
+            screen.blit(nameText9, (button6pos+10, 390))
+            screen.blit(nameText10, (button6pos+10, 477))
+        except:
+            pass
 
         for event in pygame.event.get():
             if event.type == QUIT:

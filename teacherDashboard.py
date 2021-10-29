@@ -1,6 +1,8 @@
 import pygame, sys
 import pygame_textinput
-
+from DatabaseControllers.StudentDB import StudentDB
+import pandas as pd
+import sys
 
 
 
@@ -63,12 +65,12 @@ click = False
 
 def main_menu():
     click = False
-
+    
     #load background image
-    background_surface = pygame.image.load("Image/teacherdashboard_background.png").convert()
-    buttonimage1 = pygame.image.load("Image/teacherdashboard_img0.png").convert_alpha()
-    buttonimage2 = pygame.image.load("Image/teacherdashboard_img1.png").convert_alpha()
-    buttonimage3 = pygame.image.load("Image/teacherdashboard_img2.png").convert_alpha()
+    background_surface = pygame.image.load("graphics/teacher/teacherdashboard_background.png").convert()
+    buttonimage1 = pygame.image.load("graphics/teacher/teacherdashboard_img1.png").convert_alpha()
+    buttonimage2 = pygame.image.load("graphics/teacher/teacherdashboard_img0.png").convert_alpha()
+    buttonimage3 = pygame.image.load("graphics/teacher/teacherdashboard_img2.png").convert_alpha()
 
     button_1 = Button(w/2-160, 260, buttonimage1, 1)
     button_2 = Button(w/2-160, 330, buttonimage2, 1)
@@ -85,9 +87,9 @@ def main_menu():
             import modifyQuestion
             modifyQuestion.modifyQuestion(1)  
         if button_3.draw() == True and click:
-            import assignQuest
-            assignQuest.assignQuest(1)
-        
+            import manageQuest
+            manageQuest.manageQuest()
+
         click = False
 
         for event in pygame.event.get():
@@ -106,5 +108,4 @@ def main_menu():
         pygame.display.update()
         mainClock.tick(60)
 
-if __name__ == "__main__":
-    main_menu()
+main_menu()

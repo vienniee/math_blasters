@@ -29,13 +29,13 @@ class QuestDB:
         return -1
 
     def add_questionID(self,questID,questionID):
-        quest = self.get_single_quest(questID)
+        quest = self.get_single_quest(self,questID)
         questionList = quest["listofQuestionID"]
         questionList.append(questionID)
         db.child("quests").child(questID).update({"listofQuestionID":questionList})
 
     def add_studentID(self,questID,studentID):
-        quest = self.get_single_quest(questID)
+        quest = self.get_single_quest(QuestDB,questID)
         studentList = quest["listofStudentID"]
         studentList.append(studentID)
         db.child("quests").child(questID).update({"listofQuestionID":studentList})

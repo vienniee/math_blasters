@@ -1,6 +1,8 @@
 import pygame, sys
 import pygame_textinput
 import selectQuest
+from DatabaseControllers.StudentDB import StudentDB
+
 
 mainClock = pygame.time.Clock()
 from pygame.locals import *
@@ -60,12 +62,18 @@ click = False
 def assignQuest(pageNum):
     running = True
     click = False
-    background_surface = pygame.image.load("Image/assignquestselect_background.png").convert()
-    buttonimage = pygame.image.load("Image/generatereportselect_img1.png").convert_alpha()
-    nextpageimage = pygame.image.load("Image/generatereportselect_img8.png").convert_alpha()
-    prevpageimage = pygame.image.load("Image/generatereportselect_img9.png").convert_alpha()
+    background_surface = pygame.image.load("graphics/teacher/assignquestselect_background.png").convert()
+    buttonimage = pygame.image.load("graphics/teacher/generatereportselect_img1.png").convert_alpha()
+    nextpageimage = pygame.image.load("graphics/teacher/generatereportselect_img8.png").convert_alpha()
+    prevpageimage = pygame.image.load("graphics/teacher/generatereportselect_img9.png").convert_alpha()
 
-    names = ["Name 1", "Name 2", "Name 3", "Name 4", "Name 5", "Name 6","Name 7","Name 8","Name 9","Name 10"]
+    students = StudentDB.get_all_students()
+
+    studentid = []
+    names = []
+    for i in students:
+        names.append(students[i]['name'])
+        studentid.append(i)
 
     while running:
         screen.blit(background_surface, (0, 0))
@@ -87,52 +95,60 @@ def assignQuest(pageNum):
         button_10 = Button(button6pos, 472, buttonimage, scale)
         button_11 = Button(885, 463, nextpageimage, 1)
         button_12 = Button(48, 463, prevpageimage, 1)
-        nameText1 = smallfont.render(names[0], True, (0, 0, 0))
-        nameText2 = smallfont.render(names[1], True, (0, 0, 0))
-        nameText3 = smallfont.render(names[2], True, (0, 0, 0))
-        nameText4 = smallfont.render(names[3], True, (0, 0, 0))
-        nameText5 = smallfont.render(names[4], True, (0, 0, 0))
-        nameText6 = smallfont.render(names[5], True, (0, 0, 0))
-        nameText7 = smallfont.render(names[6], True, (0, 0, 0))
-        nameText8 = smallfont.render(names[7], True, (0, 0, 0))
-        nameText9 = smallfont.render(names[8], True, (0, 0, 0))
-        nameText10 = smallfont.render(names[9], True, (0, 0, 0))
+
+        pageIterator = (pageNum-1) * 10
+        try:
+            nameText1 = smallfont.render(names[0+pageIterator], True, (0, 0, 0))
+            nameText2 = smallfont.render(names[1+pageIterator], True, (0, 0, 0))
+            nameText3 = smallfont.render(names[2+pageIterator], True, (0, 0, 0))
+            nameText4 = smallfont.render(names[3+pageIterator], True, (0, 0, 0))
+            nameText5 = smallfont.render(names[4+pageIterator], True, (0, 0, 0))
+            nameText6 = smallfont.render(names[5+pageIterator], True, (0, 0, 0))
+            nameText7 = smallfont.render(names[6+pageIterator], True, (0, 0, 0))
+            nameText8 = smallfont.render(names[7+pageIterator], True, (0, 0, 0))
+            nameText9 = smallfont.render(names[8+pageIterator], True, (0, 0, 0))
+            nameText10 = smallfont.render(names[9+pageIterator], True, (0, 0, 0))
+        except:
+            pass
+
         if button_1.draw() == True and click:
-            selectQuest.selectQuest(1,names[0])
+            selectQuest.selectQuest(1,studentid[0+pageIterator])
         if button_2.draw() == True and click:
-            selectQuest.selectQuest(1,names[1])
+            selectQuest.selectQuest(1,studentid[1+pageIterator])
         if button_3.draw() == True and click:
-            selectQuest.selectQuest(1,names[2])
+            selectQuest.selectQuest(1,studentid[2+pageIterator])
         if button_4.draw() == True and click:
-            selectQuest.selectQuest(1,names[3])
+            selectQuest.selectQuest(1,studentid[3+pageIterator])
         if button_5.draw() == True and click:
-            selectQuest.selectQuest(1,names[4])
+            selectQuest.selectQuest(1,studentid[4+pageIterator])
         if button_6.draw() == True and click:
-            selectQuest.selectQuest(1,names[5])
+            selectQuest.selectQuest(1,studentid[5+pageIterator])
         if button_7.draw() == True and click:
-            selectQuest.selectQuest(1,names[6])
+            selectQuest.selectQuest(1,studentid[6+pageIterator])
         if button_8.draw() == True and click:
-            selectQuest.selectQuest(1,names[7])
+            selectQuest.selectQuest(1,studentid[7+pageIterator])
         if button_9.draw() == True and click:
-            selectQuest.selectQuest(1,names[8])
+            selectQuest.selectQuest(1,studentid[8+pageIterator])
         if button_10.draw() == True and click:
-            selectQuest.selectQuest(1,names[9])
+            selectQuest.selectQuest(1,studentid[9+pageIterator])
         if button_11.draw() == True and click:
             assignQuest(pageNum+1)
         if button_12.draw() == True and click: 
             if (pageNum!=1):
                 assignQuest(pageNum-1)
-
-        screen.blit(nameText1, (button1pos+10, 128))
-        screen.blit(nameText2, (button1pos+10, 215))
-        screen.blit(nameText3, (button1pos+10, 302))
-        screen.blit(nameText4, (button1pos+10, 390))
-        screen.blit(nameText5, (button1pos+10, 477))
-        screen.blit(nameText6, (button6pos+10, 128))
-        screen.blit(nameText7, (button6pos+10, 215))
-        screen.blit(nameText8, (button6pos+10, 302))
-        screen.blit(nameText9, (button6pos+10, 390))
-        screen.blit(nameText10, (button6pos+10, 477))
+        try:
+            screen.blit(nameText1, (button1pos+10, 128))
+            screen.blit(nameText2, (button1pos+10, 215))
+            screen.blit(nameText3, (button1pos+10, 302))
+            screen.blit(nameText4, (button1pos+10, 390))
+            screen.blit(nameText5, (button1pos+10, 477))
+            screen.blit(nameText6, (button6pos+10, 128))
+            screen.blit(nameText7, (button6pos+10, 215))
+            screen.blit(nameText8, (button6pos+10, 302))
+            screen.blit(nameText9, (button6pos+10, 390))
+            screen.blit(nameText10, (button6pos+10, 477))
+        except:
+            pass
 
         for event in pygame.event.get():
             if event.type == QUIT:

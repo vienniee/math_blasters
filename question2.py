@@ -1,6 +1,6 @@
 import pygame, sys
 import pygame_textinput
-
+from DatabaseControllers.QuestionDB import QuestionDB
 
 # Setup pygame/window ---------------------------------------- #
 mainClock = pygame.time.Clock()
@@ -59,13 +59,13 @@ class Button():
 click = False
 
 
-def question2():
+def question2(id,option):
     running = True
     click = False
 
     textinput = pygame_textinput.TextInputVisualizer()
-
-    background_surface = pygame.image.load("Image/modifyquestion2_background.png").convert()
+   
+    background_surface = pygame.image.load("graphics/teacher/modifyquestion2_background.png").convert()
 
     while running:
         screen.fill((225, 225, 225))
@@ -89,7 +89,12 @@ def question2():
                 if event.button == 1:
                     click = True
             if event.type == KEYDOWN and event.key == K_RETURN:
+                newOption = {option : textinput.value}
+                QuestionDB.update_questions(QuestionDB, id, newOption)
                 print(f"User pressed enter! Input so far: {textinput.value}")
+                import teacherDashboard
+                teacherDashboard.main_menu() 
+
 
         pygame.display.update()
         mainClock.tick(60)

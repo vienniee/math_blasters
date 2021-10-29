@@ -60,7 +60,7 @@ click = False
 
 def report(name):
     running = True
-    background_surface = pygame.image.load("Image/report_background.png").convert()
+    background_surface = pygame.image.load("graphics/teacher/report_background.png").convert()
     while running:
        
         screen.blit(background_surface, (0, 0))

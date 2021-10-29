@@ -1,7 +1,6 @@
 import pygame, sys
 import pygame_textinput
-import report
-from DatabaseControllers.StudentDB import StudentDB
+from DatabaseControllers.QuestDB import QuestDB
 
 # Setup pygame/window ---------------------------------------- #
 mainClock = pygame.time.Clock()
@@ -59,30 +58,29 @@ class Button():
 
 click = False
 
-def generateReport(pageNum):
+def selectQuest2(pageNum,questionid):
     running = True
     click = False
-    background_surface = pygame.image.load("graphics/teacher/generatereportselect_background.png").convert()
+    background_surface = pygame.image.load("graphics/teacher/assignquestselect2_background.png").convert()
     buttonimage = pygame.image.load("graphics/teacher/generatereportselect_img1.png").convert_alpha()
     nextpageimage = pygame.image.load("graphics/teacher/generatereportselect_img8.png").convert_alpha()
     prevpageimage = pygame.image.load("graphics/teacher/generatereportselect_img9.png").convert_alpha()
 
-    students = StudentDB.get_all_students()
+    quests = QuestDB.get_quest(QuestDB)
 
     names = []
-    for i in students:
-        names.append(students[i]['name'])
-
-
+    for i in quests:
+        names.append(i)
+ 
     while running:
-        screen.blit(background_surface, (0, 0))
-        scale = 1
-        button1pos = 155
-        button6pos = 521
 
+        screen.blit(background_surface, (0, 0))
         pageNumText = smallfont.render(str(pageNum), True, (0, 0, 0))
         screen.blit(pageNumText, (920, 40))
 
+        scale = 1
+        button1pos = 155
+        button6pos = 521
         button_1 = Button(button1pos, 123, buttonimage, scale)
         button_2 = Button(button1pos, 210, buttonimage, scale)
         button_3 = Button(button1pos, 297, buttonimage, scale)
@@ -95,9 +93,8 @@ def generateReport(pageNum):
         button_10 = Button(button6pos, 472, buttonimage, scale)
         button_11 = Button(885, 463, nextpageimage, 1)
         button_12 = Button(48, 463, prevpageimage, 1)
-
+        
         pageIterator = (pageNum-1) * 10
-
         try:
             nameText1 = smallfont.render(names[0+pageIterator], True, (0, 0, 0))
             nameText2 = smallfont.render(names[1+pageIterator], True, (0, 0, 0))
@@ -111,33 +108,52 @@ def generateReport(pageNum):
             nameText10 = smallfont.render(names[9+pageIterator], True, (0, 0, 0))
         except:
             pass
-        
+
         if button_1.draw() == True and click:
-            report.report(names[0+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[0+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_2.draw() == True and click:
-            report.report(names[1+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[1+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_3.draw() == True and click:
-            report.report(names[2+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[2+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_4.draw() == True and click:
-            report.report(names[3+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[3+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_5.draw() == True and click:
-            report.report(names[4+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[4+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_6.draw() == True and click:
-            report.report(names[5+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[5+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_7.draw() == True and click:
-            report.report(names[6+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[6+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_8.draw() == True and click:
-            report.report(names[7+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[7+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_9.draw() == True and click:
-            report.report(names[8+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[8+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_10.draw() == True and click:
-            report.report(names[9+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[9+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_11.draw() == True and click:
-            generateReport(pageNum+1)
+            selectQuest2(pageNum+1, name)
         if button_12.draw() == True and click:
             if (pageNum!=1):
-                generateReport(pageNum-1)
-
+                selectQuest2(pageNum-1, name)
         try:
             screen.blit(nameText1, (button1pos+10, 128))
             screen.blit(nameText2, (button1pos+10, 215))
