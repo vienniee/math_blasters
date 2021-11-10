@@ -23,8 +23,7 @@ if __name__ == '__main__':
 
 # global variable like student gender and name
 
-Login()
-# Registration = Registration()
+
 class States(Enum):
     login_or_registration = 1
     student_menu = 2
@@ -34,13 +33,10 @@ class States(Enum):
 
 state = States.login_or_registration
 
-pygame.init()
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode((1000, 600))
-pygame.display.set_caption("CZ3003 pygame")
-
 while True:
     if state == States.login_or_registration:
+        Login()
+        Registration = Registration()
         pass
     elif state == States.student_menu:
         pass

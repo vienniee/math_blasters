@@ -1,18 +1,14 @@
 import pygame
 
-class Portal(pygame.sprite.Sprite):
-    def __init__(self,xpos,subject):
+
+class Sky(pygame.sprite.Sprite):
+    def __init__(self, xpos):
         super().__init__()
         self.xpos = xpos
         # image imports
-        portal_image = pygame.image.load('graphics/portal.png').convert_alpha()
-        self.subject = subject
+        portal_image = pygame.image.load('graphics/Sky.png').convert_alpha()
         self.image = portal_image
         self.rect = self.image.get_rect(midbottom=(xpos, 400))
-
-    def return_subject(self):
-        print(self.subject)
-        return self.subject
 
     def change_xpos(self, change):
         self.xpos += change
