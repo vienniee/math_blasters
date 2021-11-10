@@ -2,7 +2,7 @@ import pygame
 from sys import exit
 from Player import Player
 from subject_level import load_assets as load_assets_subject, subject_selection
-from chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles
+from chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles,check_quest_house
 from enum import Enum
 
 
@@ -31,6 +31,7 @@ def subject_Chapter_selection(character_gender):
     # load sky
     sky_surface = pygame.image.load('graphics/Sky.png').convert()
     ground_surface = pygame.image.load('graphics/ground.png').convert()
+    
 
     sky_surface = pygame.transform.rotozoom(sky_surface, 0, 1.5)
     sky_pos = [0,0]
@@ -41,9 +42,9 @@ def subject_Chapter_selection(character_gender):
     player.add(Player(character_gender))
 
     portals, portal_names = load_assets_subject()
-    math_castles, math_castleName, math_backPortal = load_assets_chapter(
+    math_castles, math_castleName, math_backPortal, math_questHouse = load_assets_chapter(
         "Fractions",2, "Algebra",3)
-    sci_castles, sci_castleName, sci_backPortal = load_assets_chapter(
+    sci_castles, sci_castleName, sci_backPortal, sci_questHouse = load_assets_chapter(
         "Science1",1, "Science2",3)
 
     teleportCooldownState = False
@@ -58,37 +59,88 @@ def subject_Chapter_selection(character_gender):
             if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
                 LEFT_X_CHANGE = -2
 
-                sky_pos[0] += LEFT_X_CHANGE
-                ground_pos[0] += LEFT_X_CHANGE
+                if(sky_pos[0] == -800):
+                    pass
+                else:
+                    print(sky_pos[0])
+                    sky_pos[0] += LEFT_X_CHANGE
+                    ground_pos[0] += LEFT_X_CHANGE
 
-                for castle in math_castles:
-                    castle.change_xpos(LEFT_X_CHANGE)
+                    for castle in math_castles:
+                        castle.change_xpos(LEFT_X_CHANGE)
 
-                for castle_text in math_castleName:
-                    castle_text.change_xpos(LEFT_X_CHANGE)
+                    for castle_text in math_castleName:
+                        castle_text.change_xpos(LEFT_X_CHANGE)
 
-                for portal in math_backPortal:
-                    portal.change_xpos(LEFT_X_CHANGE)
-
-                print("left")
+                    for portal in math_backPortal:
+                        portal.change_xpos(LEFT_X_CHANGE)
+                    
+                    for questHouse in math_questHouse:
+                        questHouse.change_xpos(LEFT_X_CHANGE)
 
             if keys[pygame.K_a] or keys[pygame.K_LEFT]:
                 RIGHT_X_CHANGE = 2
-                sky_pos[0] += RIGHT_X_CHANGE
-                ground_pos[0] += RIGHT_X_CHANGE
+                if(sky_pos[0] == 0):
+                    pass
+                else:
+                    sky_pos[0] += RIGHT_X_CHANGE
+                    ground_pos[0] += RIGHT_X_CHANGE
 
-                for castle in math_castles:
-                    castle.change_xpos(RIGHT_X_CHANGE)
+                    for castle in math_castles:
+                        castle.change_xpos(RIGHT_X_CHANGE)
 
-                for castle_text in math_castleName:
-                    castle_text.change_xpos(RIGHT_X_CHANGE)
+                    for castle_text in math_castleName:
+                        castle_text.change_xpos(RIGHT_X_CHANGE)
 
-                for portal in math_backPortal:
-                    portal.change_xpos(RIGHT_X_CHANGE)
+                    for portal in math_backPortal:
+                        portal.change_xpos(RIGHT_X_CHANGE)
+                    
+                    for questHouse in math_questHouse:
+                        questHouse.change_xpos(RIGHT_X_CHANGE)
+        
+        if state == States.SCI_SUBJ:
 
-                
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+                LEFT_X_CHANGE = -2
 
-                print("right")
+                if(sky_pos[0] == -800):
+                    pass
+                else:
+                    sky_pos[0] += LEFT_X_CHANGE
+                    ground_pos[0] += LEFT_X_CHANGE
+
+                    for castle in sci_castles:
+                        castle.change_xpos(LEFT_X_CHANGE)
+
+                    for castle_text in sci_castleName:
+                        castle_text.change_xpos(LEFT_X_CHANGE)
+
+                    for portal in sci_backPortal:
+                        portal.change_xpos(LEFT_X_CHANGE)
+                    
+                    for questHouse in sci_questHouse:
+                        questHouse.change_xpos(LEFT_X_CHANGE)
+
+            if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+                RIGHT_X_CHANGE = 2
+                if(sky_pos[0] == 0):
+                    pass
+                else:
+                    sky_pos[0] += RIGHT_X_CHANGE
+                    ground_pos[0] += RIGHT_X_CHANGE
+
+                    for castle in sci_castles:
+                        castle.change_xpos(RIGHT_X_CHANGE)
+
+                    for castle_text in sci_castleName:
+                        castle_text.change_xpos(RIGHT_X_CHANGE)
+
+                    for portal in sci_backPortal:
+                        portal.change_xpos(RIGHT_X_CHANGE)
+                    
+                    for questHouse in sci_questHouse:
+                        questHouse.change_xpos(RIGHT_X_CHANGE)
+
 
         for event in pygame.event.get():
             if(event.type) == pygame.QUIT:
@@ -131,11 +183,16 @@ def subject_Chapter_selection(character_gender):
                     state = States.SUBJECT_LEVEL
                     teleportCooldownState = True
 
-                if check_castles(keys, math_castles, teleportCooldownState, player) and state == States.MATH_SUBJ:
+                if check_castles(keys, math_castles, teleportCooldownState, player):
                     hits = pygame.sprite.spritecollide(
                         player.sprite, math_castles, False)
                     for castle in hits:
                         return castle.returnChapter()
+                
+                if check_quest_house(keys, math_questHouse, teleportCooldownState, player):
+                    print("questHouse Hit")
+                
+                
 
             if state == States.SCI_SUBJ:
                 if check_backportal(keys, sci_backPortal, teleportCooldownState,player):
@@ -143,11 +200,15 @@ def subject_Chapter_selection(character_gender):
                     teleportCooldownState = True
                 
 
-                if check_castles(keys, sci_castles, teleportCooldownState, player) and state == States.SCI_SUBJ:
+                if check_castles(keys, sci_castles, teleportCooldownState, player):
                     hits = pygame.sprite.spritecollide(
                         player.sprite, sci_castles, False)
                     for castle in hits:
                         return castle.returnChapter()
+
+                if check_quest_house(keys, sci_questHouse, teleportCooldownState, player):
+                    print("questHouse Hit")
+                
 
 
         
@@ -155,15 +216,17 @@ def subject_Chapter_selection(character_gender):
         # draw the screen background
         screen.blit(sky_surface, (sky_pos[0], sky_pos[1]))
         screen.blit(ground_surface, (ground_pos[0], ground_pos[1]))
+        screen.blit(sky_surface, (sky_pos[0]+800, sky_pos[1]))
+        screen.blit(ground_surface, (ground_pos[0]+800, ground_pos[1]))
 
         if state == States.SUBJECT_LEVEL:
             subject_selection(player= player, screen=screen, portal=portals,portal_names=portal_names)
         elif state == States.MATH_SUBJ:
             chapter_selection(player=player, screen=screen, castles=math_castles,
-                              castleName=math_castleName, backPortal=math_backPortal)
+                              castleName=math_castleName, backPortal=math_backPortal, questHouse=math_questHouse)
         elif state == States.SCI_SUBJ:
             chapter_selection(player=player, screen=screen, castles=sci_castles,
-                            castleName=sci_castleName, backPortal=sci_backPortal)
+                            castleName=sci_castleName, backPortal=sci_backPortal, questHouse=sci_questHouse)
         # print(state)
         # print(teleportCooldownState)
         pygame.display.update()
