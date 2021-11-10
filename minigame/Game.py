@@ -1,3 +1,4 @@
+import os
 import pygame
 import random
 from pygame.locals import *
@@ -58,6 +59,8 @@ def Game(topic,level,gender,Pname):
 
     #load images
     #background images
+    path_parent = os.path.dirname(os.getcwd())
+    os.chdir(path_parent)
     background_img = pygame.image.load('Image/castlebackground.png').convert_alpha()
     #panel image
     panel_img = pygame.image.load('Image/panel.png').convert_alpha()
