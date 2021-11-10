@@ -33,7 +33,9 @@ def subject_Chapter_selection(character_gender):
     ground_surface = pygame.image.load('graphics/ground.png').convert()
 
     sky_surface = pygame.transform.rotozoom(sky_surface, 0, 1.5)
+    sky_pos = [0,0]
     ground_surface = pygame.transform.rotozoom(ground_surface, 0, 1.5)
+    ground_pos = [0,400]
 
     player = pygame.sprite.GroupSingle()
     player.add(Player(character_gender))
@@ -50,10 +52,51 @@ def subject_Chapter_selection(character_gender):
 
     while True:
         keys = pygame.key.get_pressed()
+
+        if state == States.MATH_SUBJ:
+
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+                LEFT_X_CHANGE = -2
+
+                sky_pos[0] += LEFT_X_CHANGE
+                ground_pos[0] += LEFT_X_CHANGE
+
+                for castle in math_castles:
+                    castle.change_xpos(LEFT_X_CHANGE)
+
+                for castle_text in math_castleName:
+                    castle_text.change_xpos(LEFT_X_CHANGE)
+
+                for portal in math_backPortal:
+                    portal.change_xpos(LEFT_X_CHANGE)
+
+                print("left")
+
+            if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+                RIGHT_X_CHANGE = 2
+                sky_pos[0] += RIGHT_X_CHANGE
+                ground_pos[0] += RIGHT_X_CHANGE
+
+                for castle in math_castles:
+                    castle.change_xpos(RIGHT_X_CHANGE)
+
+                for castle_text in math_castleName:
+                    castle_text.change_xpos(RIGHT_X_CHANGE)
+
+                for portal in math_backPortal:
+                    portal.change_xpos(RIGHT_X_CHANGE)
+
+                
+
+                print("right")
+
         for event in pygame.event.get():
             if(event.type) == pygame.QUIT:
                 pygame.quit()
                 exit()
+
+            
+                
 
             if event.type == teleportCooldownTimer:
                 teleportCooldownState = False
@@ -110,8 +153,8 @@ def subject_Chapter_selection(character_gender):
         
 
         # draw the screen background
-        screen.blit(sky_surface, (0, 0))
-        screen.blit(ground_surface, (0, 400))
+        screen.blit(sky_surface, (sky_pos[0], sky_pos[1]))
+        screen.blit(ground_surface, (ground_pos[0], ground_pos[1]))
 
         if state == States.SUBJECT_LEVEL:
             subject_selection(player= player, screen=screen, portal=portals,portal_names=portal_names)

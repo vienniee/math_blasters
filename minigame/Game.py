@@ -1,16 +1,18 @@
+import os
 import pygame
 import random
 from pygame.locals import *
+from DatabaseControllers.QuestionDB import QuestionDB
 
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from DatabaseControllers.QuestionDB import QuestionDB
-    else:
-        from ..DatabaseControllers.QuestionDB import QuestionDB
+# if __name__ == '__main__':
+#     if __package__ is None:
+#         import sys
+#         from os import path
+#         sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+#         from DatabaseControllers.QuestionDB import QuestionDB
+#     else:
+#         from ..DatabaseControllers.QuestionDB import QuestionDB
 
 
 pygame.init()
@@ -43,7 +45,7 @@ clicked = False
 
 
 
-def Game(topic,level,gender,Pname):
+def Game(gender,Pname,questions):
 
     #define gaming variables
     action_cd = 0
@@ -52,8 +54,6 @@ def Game(topic,level,gender,Pname):
     charselect = gender
     charname = Pname
     game_over = 0
-    subject = topic
-    difficulty = level
 
 
     #load images
@@ -72,43 +72,7 @@ def Game(topic,level,gender,Pname):
         img = font.render(text, True, text_col)
         screen.blit(img,(x,y))
 
-    #load question list
-    #questions with 4 options, last is answer
-    qn_db = QuestionDB()
-    qlist1 = qn_db.get_questions()
-    qlist2 = []
-    for i in qlist1:
-        qlist2.append(str(qlist1[i])) #converting into list
-    qlist3 = list(qlist2)
-    print(qlist3)
-    qlist4 = []
-    for i in range(len(qlist3)):
-        a = qlist3[i].replace("{'correctAnswer': ", "")
-        b = a.replace("'level': ", "")
-        c = b.replace("'optionA': ", "")
-        d = c.replace("'optionB': ","")
-        e = d.replace("'optionC': ","")
-        f = e.replace("'optionD': ","")
-        g = f.replace("'questionText': ", "")
-        k = g.replace("'minigame': ","")
-        j = k.replace("'","")
-        h = j.replace("}","")
-        i = h.replace(" ","")
-        qlist4.append(i)
-    qlist5=[]
-    order = [1,2,7,3,4,5,6,0]
-    for i in range(len(qlist4)):
-        output = qlist4[i].split(",")
-        output1 = [output[x] for x in order]
-        if output1[0] != "":
-            qlist5.append(output1)
-    qlist6=[]
-    for i in range(len(qlist5)):
-        if qlist5[i][0] == difficulty:
-            if qlist5[i][1] == subject:
-                qlist6.append(qlist5[i][2:8])
 
-    question_list = qlist6
     passingmark = 1 # change to 6 later (and also create pick the first 10 questions after randoming)
 
     #function to randomise the question order
@@ -120,7 +84,7 @@ def Game(topic,level,gender,Pname):
                 tmp = random.randint(start, end)
             arr.append(tmp)
         return arr
-
+    question_list = questions
     orderlist = createRandomSortedList(len(question_list),0,len(question_list)-1)
 
     reorderQlist = []
@@ -434,10 +398,11 @@ def Game(topic,level,gender,Pname):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_c:
                         paused = False
+                        return False
                     elif event.key == pygame.K_q:
-                        print("change to castle screen")
-                        pygame.quit() # change to castle screen
-                        quit()
+                        print("abc")
+                        return True
+                        #pygame.quit()
 
             screen.fill(gray)
             draw_text("Are you going to abandon the mission?", bigfont, black, 200, 200)
@@ -482,8 +447,7 @@ def Game(topic,level,gender,Pname):
             enemiescurse.draw()
             screen.blit(victory_img,(350,100))
             if next_button.draw():
-                print("return score portion")
-                return score
+                return score, True
 
         if player.alive == False:
             game_over = 1
@@ -491,8 +455,7 @@ def Game(topic,level,gender,Pname):
             playercurse.draw()
             screen.blit(defeat_img,(370,100))
             if next_button.draw():
-                print("return score portion")
-                return score
+                return score, True
 
 
         #load question
@@ -607,7 +570,9 @@ def Game(topic,level,gender,Pname):
 
 
         if abandon_button.draw() == True and game_over == 0:
-            pause()
+            if pause() == True:
+                return score, False
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -671,4 +636,4 @@ class button():
         screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y+5))
         return action
 
-Game("test","test","male","Alex")
+

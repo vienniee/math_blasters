@@ -3,6 +3,7 @@ import pygame
 
 class Castle(pygame.sprite.Sprite):
     def __init__(self, xpos,level,chapter):
+        self.xpos = xpos
         super().__init__()
         # image imports
 
@@ -19,6 +20,10 @@ class Castle(pygame.sprite.Sprite):
         self.chapter= chapter
         self.image = castle_image
         self.rect = self.image.get_rect(midbottom=(xpos, 400))
+
+    def change_xpos(self,change):
+        self.xpos += change
+        self.rect = self.image.get_rect(midbottom=(self.xpos, 400))
 
 
     def returnChapter(self):
