@@ -59,9 +59,11 @@ def LoginUser():
     registrationImage = pygame.image.load(
         os.path.join(os.path.dirname(__file__), 'login_images', 'img1.png')).convert_alpha()
 
-
+    
     def register_clicked():
         print("Register Clicked")
+        return True
+        
     
     def login(email, password):
         try:
@@ -84,19 +86,20 @@ def LoginUser():
                     if studentFound == True:
                         # studentMenu()
                         print("go to Student Main Menu")
+                        return 2, key
                     else: 
                         # main_menu()
                         print("go to Teacher Main Menu")
-        
+                        return 3, 0
         except:
             print("Invalid email or password")
             invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
             screen.blit(invalidLogin, (100, 100))
+            return 4, 0
 
 
     TEXT_OPTION=""
     while running:
-        
         screen.blit(background_img, (0, 0))
         btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=500,y=338)
         btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=340,y=348)
@@ -117,12 +120,13 @@ def LoginUser():
 
         for event in pygame.event.get():
             if btn_registration.draw():
-                register_clicked()
+                if register_clicked():
+                    return 1, 0
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])
                 print(SAVE_DATA['password'])
-                login(SAVE_DATA['email'], SAVE_DATA['password'])
+                return login(SAVE_DATA['email'], SAVE_DATA['password'])
                 
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -186,8 +190,7 @@ def LoginUser():
         pygame.display.update()
         mainClock.tick(60)
 
-if __name__ == '__main__':
-    Login()
+
 
 
 

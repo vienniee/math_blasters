@@ -6,10 +6,6 @@ from enum import Enum
 from minigame.Game import Game
 from minigame.filter import Questionfilter
 import os
-# import login
-# import results
-# import teacherDashboard
-# from RegistrationMenu import Registration
 path_parent = os.path.dirname(os.getcwd())
 os.chdir(path_parent)
 
@@ -22,12 +18,16 @@ if __name__ == '__main__':
         sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
         from Login.login import LoginUser
         from Login.RegistrationMenu import Registration
+        from mainmenu.studentmenu import studentMenu
+        import mainmenu.teacherDashboard as teacherDashboard
+        
     else:
         from .Login.login import LoginUser
         from .Login.RegistrationMenu import Registration
 
 # global variable like student gender and name
 gender = "male"
+studentID = None
 level = None
 subject = 'algebra' #put to none
 username = "Alex" #change to username later
@@ -46,7 +46,7 @@ class States(Enum):
     level_select = 9
     scorepage = 10
 
-state = States.register
+state = States.login
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -56,17 +56,26 @@ state = States.register
 while True:
     print(state)
     if state == States.login:
-        LoginUser()
-
+        result, userID = LoginUser()
+        if result == 1:
+            state = States.register
+        if result == 2:
+            state = States.student_menu
+            studentID = userID
+            print("STUDENT IDDDDDDDDDDDDDDDDDDD", studentID)
+        if result == 3:
+            state = States.teacher_menu
     elif state == States.register:
-        Registration = Registration()
-
+        result = Registration()
+        if result == 1:
+            state = States.login
     elif state == States.character_select:
         pass
     elif state == States.student_menu:
-        pass
+        studentMenu()
     elif state == States.teacher_menu:
-        pass
+        teacherDashboard.main_menu()
+        
     elif state == States.minigame:
         score, completion = Game(gender,username,questions)
         if completion:

@@ -1,5 +1,7 @@
 import pygame, sys
 import pygame_textinput
+import os
+from os import path
 
 if __name__ == '__main__':
     if __package__ is None:
@@ -76,11 +78,11 @@ click = False
 def main_menu():
     click = False
     
-    #load background image
-    background_surface = pygame.image.load("graphics/teacher/teacherdashboard_background.png").convert()
-    buttonimage1 = pygame.image.load("graphics/teacher/teacherdashboard_img1.png").convert_alpha()
-    buttonimage2 = pygame.image.load("graphics/teacher/teacherdashboard_img0.png").convert_alpha()
-    buttonimage3 = pygame.image.load("graphics/teacher/teacherdashboard_img2.png").convert_alpha()
+  
+    background_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), 'teacherdashboard_background.png')).convert()
+    buttonimage1 = pygame.image.load(os.path.join(os.path.dirname(__file__),  'teacherdashboard_img1.png')).convert_alpha()
+    buttonimage2 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'teacherdashboard_img0.png')).convert_alpha()
+    buttonimage3 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'teacherdashboard_img2.png')).convert_alpha()
 
     button_1 = Button(w/2-160, 260, buttonimage1, 1)
     button_2 = Button(w/2-160, 330, buttonimage2, 1)
@@ -118,4 +120,3 @@ def main_menu():
         pygame.display.update()
         mainClock.tick(60)
 
-main_menu()
