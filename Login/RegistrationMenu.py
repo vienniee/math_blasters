@@ -50,9 +50,9 @@ def Registration():
     passwordActive = False
 
     running = True
-    background_img = pygame.image.load("Registration/background.png").convert()
-    registrationImage = pygame.image.load("Registration/img0.png").convert_alpha()
-    back_img = pygame.image.load("Registration/backButton.png").convert_alpha()
+    background_img = pygame.image.load("Login/registration_images/background.png").convert()
+    registrationImage = pygame.image.load("Login/registration_images/img0.png").convert_alpha()
+    back_img = pygame.image.load("Login/registration_images/backButton.png").convert_alpha()
 
     
     def backButton_clicked():

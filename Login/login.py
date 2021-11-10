@@ -2,6 +2,9 @@ import pygame, sys,importlib
 import assets
 import shelve
 import os
+# import firebase
+# #need help with import
+import pyrebase
 
 if __name__ == '__main__':
     if __package__ is None:
@@ -55,7 +58,7 @@ def Login():
             print("Logging in")
             print(password)
             if password != "":
-                result = firebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+                result = pyrebase.auth.sign_in_with_email_and_password(email, password)
                 if result['email']:
                     studentDB = StudentDB()
                     studentList =  studentDB.get_student()
@@ -108,12 +111,12 @@ def Login():
                 print(SAVE_DATA['password'])
                 login(SAVE_DATA['email'], SAVE_DATA['password'])
                 
-            if event.type == QUIT:
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
 
