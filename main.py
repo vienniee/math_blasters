@@ -29,8 +29,8 @@ os.chdir(path_parent)
 
 # global variable like student gender and name
 gender = "male"
-level = "test" #put to none
-subject = "test" #put to none
+level = None
+subject = 'algebra' #put to none
 username = "Alex" #change to username later
 completion = None
 #Login()
@@ -70,13 +70,13 @@ while True:
         pass
     elif state == States.level_select:
         level = levelselect()
-        questions = Questionfilter(subject,"test")
+        questions = Questionfilter(subject,level)
         #level = 'test' #in database data change level to integer 1,2,3
         state = States.minigame
 
     elif state == States.world_select:
         #subject = subject_Chapter_selection(gender)
-        subject = 'test'
+        subject = 'algebra'
 
 # login screen or register
 

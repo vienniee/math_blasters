@@ -74,15 +74,15 @@ def levelselect():
         #difficulty select 
         if level1_button.draw() == True:
             print('level 1 selected')
-            return 'level 1'
+            return '1'
             #import Game
         if level2_button.draw() == True:
             print('level 2 selected')
-            return 'level 2'
+            return '2'
             #import Game
         if level3_button.draw() == True:
             print('level 3 selected')
-            return 'level 3'
+            return '3'
 
         screen.blit(level1text, (315,310))
         screen.blit(level2text, (465,310))
