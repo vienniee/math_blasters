@@ -4,8 +4,6 @@ from Player import Player
 from subject_level import load_assets as load_assets_subject, subject_selection
 from chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles
 from enum import Enum
-from Sky import Sky
-from Ground import Ground
 
 
 def subject_Chapter_selection(character_gender):
