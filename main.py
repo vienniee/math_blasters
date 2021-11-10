@@ -1,6 +1,3 @@
-
-#LINKING OF PAGES (from world selection onwards)
-#for pages that need trasnfer of parameters/data
 # import pygame, sys
 # from pygame.locals import *
 #from WorldSelection.subject_chapter_selection import subject_Chapter_selection
@@ -9,26 +6,28 @@ from enum import Enum
 from minigame.Game import Game
 from minigame.filter import Questionfilter
 import os
-# import login
-# import results
-# import teacherDashboard
-# from RegistrationMenu import Registration
 path_parent = os.path.dirname(os.getcwd())
 os.chdir(path_parent)
 
 
 # from .Login.login import Login
-# if __name__ == '__main__':
-#     if __package__ is None:
-#         import sys
-#         from os import path
-#         sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-#         from Login.login import Login
-#     else:
-#         from .Login.login import Login
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from Login.login import LoginUser
+        from Login.RegistrationMenu import Registration
+        from mainmenu.studentmenu import studentMenu
+        import mainmenu.teacherDashboard as teacherDashboard
+        
+    else:
+        from .Login.login import LoginUser
+        from .Login.RegistrationMenu import Registration
 
 # global variable like student gender and name
 gender = "male"
+studentID = None
 level = None
 subject = 'algebra' #put to none
 username = "Alex" #change to username later
@@ -36,16 +35,18 @@ completion = None
 #Login()
 # Registration = Registration()
 class States(Enum):
-    login_or_registration = 1
-    student_menu = 2
-    teacher_menu = 3
-    minigame =4
-    quest_menu = 5
-    world_select = 6
-    level_select = 7
-    scorepage = 8
+    login = 1
+    register = 2
+    character_select = 3
+    student_menu = 4
+    teacher_menu = 5
+    minigame =6
+    quest_menu = 7
+    world_select = 8
+    level_select = 9
+    scorepage = 10
 
-state = States.level_select
+state = States.login
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -54,14 +55,27 @@ state = States.level_select
 
 while True:
     print(state)
-    if state == States.login_or_registration:
-        Login()
-        Registration = Registration()
+    if state == States.login:
+        result, userID = LoginUser()
+        if result == 1:
+            state = States.register
+        if result == 2:
+            state = States.student_menu
+            studentID = userID
+            print("STUDENT IDDDDDDDDDDDDDDDDDDD", studentID)
+        if result == 3:
+            state = States.teacher_menu
+    elif state == States.register:
+        result = Registration()
+        if result == 1:
+            state = States.login
+    elif state == States.character_select:
         pass
     elif state == States.student_menu:
-        pass
+        studentMenu()
     elif state == States.teacher_menu:
-        pass
+        teacherDashboard.main_menu()
+        
     elif state == States.minigame:
         score, completion = Game(gender,username,questions)
         if completion:

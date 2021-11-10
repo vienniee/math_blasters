@@ -37,7 +37,8 @@ class StudentDB:
         db.child("students").child(key).push(studentData)
 
     def get_student(self):
-        return db.child("students").get()
+        studentlist = db.child("students").get()
+        return studentlist.val()
 
     def update_student(self, key, newStudent):
         db.child("students").child(key).update(newStudent)

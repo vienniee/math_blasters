@@ -1,7 +1,8 @@
 import pygame
 import pygame.freetype
 import random
-
+import os
+from os import path
 pygame.init()
 
 #create display window
@@ -11,12 +12,12 @@ SCREEN_WIDTH = 1000
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 #load background image
-background_surface = pygame.image.load('Image/student_menu.png').convert()
+background_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), 'student_menu.png')).convert()
 
 #load button images
-play_img = pygame.image.load('Image/play_button.png').convert_alpha()
-achievements_img = pygame.image.load('Image/achievements_button.png').convert_alpha()
-leaderboard_img = pygame.image.load('Image/leaderboard_button.png').convert_alpha()
+play_img = pygame.image.load(os.path.join(os.path.dirname(__file__),  'play_button.png')).convert_alpha()
+achievements_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'achievements_button.png')).convert_alpha()
+leaderboard_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'leaderboard_button.png')).convert_alpha()
 
 #button class
 class Button():

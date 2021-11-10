@@ -1,24 +1,33 @@
 import pygame, sys,importlib
-import assets
+
+# from pyrebase.pyrebase import Firebase
+
 import shelve
 import os
-# import firebase
-# #need help with import
-import pyrebase
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from DatabaseControllers.StudentDB import StudentDB
-    else:
-        from ..DatabaseControllers.StudentDB import StudentDB
+# from firebase import FirebaseDatabase
+
+
+# if __name__ == '__main__':
+    # if __package__ is None:
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from DatabaseControllers.StudentDB import StudentDB
+from DatabaseControllers import firebase 
+from Login import assets
+    # else:
+        # from ..DatabaseControllers.StudentDB import StudentDB
+        # from DatabaseControllers import firebase as fb
+        # import assets
+        
+      
+
 
 # from teacherDashboard import main_menu
 # from studentmenu import studentMenu
 
-def Login():
+def LoginUser():
     mainClock = pygame.time.Clock()
     pygame.init()
 
@@ -36,6 +45,7 @@ def Login():
     SAVE_DATA = shelve.open("Save Data")
     SAVE_DATA['email'] = ""
     SAVE_DATA['password'] = ""
+    FirebaseDatabase = firebase.FirebaseDatabase()
     screen = pygame.display.set_mode((w,h))
 
     email = ""
@@ -49,16 +59,21 @@ def Login():
     registrationImage = pygame.image.load(
         os.path.join(os.path.dirname(__file__), 'login_images', 'img1.png')).convert_alpha()
 
-
+    
     def register_clicked():
         print("Register Clicked")
+        return True
+        
     
     def login(email, password):
         try:
             print("Logging in")
             print(password)
             if password != "":
-                result = pyrebase.auth.sign_in_with_email_and_password(email, password)
+                print("ABCDE")
+                result = FirebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+                print(result)
+                print("FGHJK")
                 if result['email']:
                     studentDB = StudentDB()
                     studentList =  studentDB.get_student()
@@ -71,19 +86,20 @@ def Login():
                     if studentFound == True:
                         # studentMenu()
                         print("go to Student Main Menu")
+                        return 2, key
                     else: 
                         # main_menu()
                         print("go to Teacher Main Menu")
-            
+                        return 3, 0
         except:
             print("Invalid email or password")
             invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
             screen.blit(invalidLogin, (100, 100))
+            return 4, 0
 
 
     TEXT_OPTION=""
     while running:
-        
         screen.blit(background_img, (0, 0))
         btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=500,y=338)
         btn_registration = assets.Button(screen=screen,id='buttonRegistration',image=registrationImage,scale=1,x=340,y=348)
@@ -104,12 +120,13 @@ def Login():
 
         for event in pygame.event.get():
             if btn_registration.draw():
-                register_clicked()
+                if register_clicked():
+                    return 1, 0
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])
                 print(SAVE_DATA['password'])
-                login(SAVE_DATA['email'], SAVE_DATA['password'])
+                return login(SAVE_DATA['email'], SAVE_DATA['password'])
                 
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -173,8 +190,7 @@ def Login():
         pygame.display.update()
         mainClock.tick(60)
 
-if __name__ == '__main__':
-    Login()
+
 
 
 
