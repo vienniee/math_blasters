@@ -1,7 +1,16 @@
 import pygame
 import random
 from pygame.locals import *
-from DatabaseControllers.QuestionDB import QuestionDB
+
+
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from DatabaseControllers.QuestionDB import QuestionDB
+    else:
+        from ..DatabaseControllers.QuestionDB import QuestionDB
 
 
 pygame.init()
@@ -65,7 +74,8 @@ def Game(topic,level,gender,Pname):
 
     #load question list
     #questions with 4 options, last is answer
-    qlist1 = QuestionDB.get_questions()
+    qn_db = QuestionDB()
+    qlist1 = qn_db.get_questions()
     qlist2 = []
     for i in qlist1:
         qlist2.append(str(qlist1[i])) #converting into list

@@ -31,5 +31,8 @@
         ".cu": "cd $dir && nvcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "python": "$pythonPath -u $fullFileName"
     },
-    "code-runner.runInTerminal": true
+    "code-runner.runInTerminal": true,
+    "python.analysis.extraPaths": [
+        "./DatabaseControllers"
+    ]
 }

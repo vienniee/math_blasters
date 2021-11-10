@@ -1,10 +1,18 @@
 
 import pygame, sys,pygame_textinput
 from pygame.locals import *
-from DatabaseControllers.StudentDB import StudentDB
+
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from DatabaseControllers.StudentDB import StudentDB
+    else:
+        from ..DatabaseControllers.StudentDB import StudentDB
 
 import assets as assets
-import studentmenu
+# import studentmenu
 import os
 
 mainClock = pygame.time.Clock()
@@ -66,7 +74,7 @@ def characterSelect(STUDENT_DATA):
                     try:
                         STUDENT_DATA['character'] = CHAR_SELECT
                         StudentDB.add_student(UUID,STUDENT_DATA)
-                        studentmenu.studentMenu()
+                        # studentmenu.studentMenu()
                     except Exception as e:
                         print(e)
                         TEXT_OPTION = TEXT_ERROR 

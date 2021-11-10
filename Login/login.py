@@ -1,12 +1,19 @@
 import pygame, sys,importlib
-
-from studentmenu import studentMenu
-from pygame.locals import *
-import assets as assets
+import assets
 import shelve
-from DatabaseControllers.StudentDB import StudentDB
-from teacherDashboard import main_menu
-from studentmenu import studentMenu
+import os
+
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from DatabaseControllers.StudentDB import StudentDB
+    else:
+        from ..DatabaseControllers.StudentDB import StudentDB
+
+# from teacherDashboard import main_menu
+# from studentmenu import studentMenu
 
 def Login():
     mainClock = pygame.time.Clock()
@@ -34,9 +41,10 @@ def Login():
     passwordActive = False
 
     running = True
-    background_img = pygame.image.load("Login/background.png").convert()
-    loginImage = pygame.image.load("Login/img0.png").convert_alpha()
-    registrationImage = pygame.image.load("Login/img1.png").convert_alpha()
+    background_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'login_images', 'background.png')).convert()
+    loginImage = pygame.image.load(os.path.join(os.path.dirname(__file__), 'login_images', 'img0.png')).convert_alpha()
+    registrationImage = pygame.image.load(
+        os.path.join(os.path.dirname(__file__), 'login_images', 'img1.png')).convert_alpha()
 
 
     def register_clicked():
@@ -58,9 +66,11 @@ def Login():
                             print("Successfully logged in for student!")
                             break
                     if studentFound == True:
-                        studentMenu()
+                        # studentMenu()
+                        print("go to Student Main Menu")
                     else: 
-                        main_menu()
+                        # main_menu()
+                        print("go to Teacher Main Menu")
             
         except:
             print("Invalid email or password")

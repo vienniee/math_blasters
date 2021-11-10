@@ -1,11 +1,22 @@
 
 import pygame, sys,importlib
-import DatabaseControllers.FirebaseConfig as firebaseDatabase
+
+
+
 from pygame.locals import *
 import assets as assets
 import shelve
-import characterSelect as characterselect
+# import characterSelect
 import os
+
+if __name__ == '__main__':
+    if __package__ == None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from DatabaseControllers import FirebaseConfig as firebaseDatabase
+    else:
+        from ..DatabaseControllers import firebaseConfig as firebaseDatabase
 
 def Registration():
     mainClock = pygame.time.Clock()
@@ -61,7 +72,8 @@ def Registration():
             STUDENT_DATA['name']= name
             STUDENT_DATA['class']= classNum
             print("Successfully created!")
-            characterselect.characterSelect(STUDENT_DATA)
+            print("go to Character Select")
+            # characterselect.characterSelect(STUDENT_DATA)
         except Exception as e:
             print(e)
                         

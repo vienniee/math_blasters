@@ -1,6 +1,14 @@
 import pygame, sys
 import pygame_textinput
-from DatabaseControllers.QuestDB import QuestDB
+
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from DatabaseControllers.QuestDB import QuestDB
+    else:
+        from ..DatabaseControllers.QuestDB import QuestDB
 
 # Setup pygame/window ---------------------------------------- #
 mainClock = pygame.time.Clock()
@@ -58,7 +66,7 @@ class Button():
 
 click = False
 
-def selectQuest2(pageNum,questionid):
+def selectQuest(pageNum,studentid):
     running = True
     click = False
     background_surface = pygame.image.load("graphics/teacher/assignquestselect2_background.png").convert()
@@ -110,50 +118,50 @@ def selectQuest2(pageNum,questionid):
             pass
 
         if button_1.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[0+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[0+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_2.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[1+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[1+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_3.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[2+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[2+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_4.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[3+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[3+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_5.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[4+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[4+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_6.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[5+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[5+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_7.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[6+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[6+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_8.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[7+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[7+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_9.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[8+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[8+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_10.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[9+pageIterator], questionid)
+            QuestDB.add_studentID(QuestDB, names[9+pageIterator], studentid)
             import teacherDashboard
             teacherDashboard.main_menu()
         if button_11.draw() == True and click:
-            selectQuest2(pageNum+1, name)
+            selectQuest(pageNum+1, name)
         if button_12.draw() == True and click:
             if (pageNum!=1):
-                selectQuest2(pageNum-1, name)
+                selectQuest(pageNum-1, name)
         try:
             screen.blit(nameText1, (button1pos+10, 128))
             screen.blit(nameText2, (button1pos+10, 215))

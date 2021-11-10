@@ -1,9 +1,16 @@
 import pygame, sys
 import pygame_textinput
-import selectQuest2
-from DatabaseControllers.QuestionDB import QuestionDB
 
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from DatabaseControllers.QuestDB import QuestDB
+    else:
+        from ..DatabaseControllers.QuestDB import QuestDB
 
+# Setup pygame/window ---------------------------------------- #
 mainClock = pygame.time.Clock()
 from pygame.locals import *
 
@@ -59,27 +66,26 @@ class Button():
 
 click = False
 
-def assignQuestion(pageNum):
+def selectQuest2(pageNum,questionid):
     running = True
     click = False
-    background_surface = pygame.image.load("graphics/teacher/assignquestion_background.png").convert()
-    buttonimage = pygame.image.load("graphics/teacher/img0.png").convert_alpha()
-    nextpageimage = pygame.image.load("graphics/teacher/right.png").convert_alpha()
-    prevpageimage = pygame.image.load("graphics/teacher/left.png").convert_alpha()
+    background_surface = pygame.image.load("graphics/teacher/assignquestselect2_background.png").convert()
+    buttonimage = pygame.image.load("graphics/teacher/generatereportselect_img1.png").convert_alpha()
+    nextpageimage = pygame.image.load("graphics/teacher/generatereportselect_img8.png").convert_alpha()
+    prevpageimage = pygame.image.load("graphics/teacher/generatereportselect_img9.png").convert_alpha()
+
+    quests = QuestDB.get_quest(QuestDB)
 
     names = []
-    questionid = []
-    questions = QuestionDB.get_questions(QuestionDB)
-
-
-    for i in questions:
-        names.append(questions[i]['questionText'])
-        questionid.append(i)
+    for i in quests:
+        names.append(i)
+ 
     while running:
 
         screen.blit(background_surface, (0, 0))
         pageNumText = smallfont.render(str(pageNum), True, (0, 0, 0))
         screen.blit(pageNumText, (920, 40))
+
         scale = 1
         button1pos = 155
         button6pos = 521
@@ -95,6 +101,7 @@ def assignQuestion(pageNum):
         button_10 = Button(button6pos, 472, buttonimage, scale)
         button_11 = Button(885, 463, nextpageimage, 1)
         button_12 = Button(48, 463, prevpageimage, 1)
+        
         pageIterator = (pageNum-1) * 10
         try:
             nameText1 = smallfont.render(names[0+pageIterator], True, (0, 0, 0))
@@ -110,42 +117,51 @@ def assignQuestion(pageNum):
         except:
             pass
 
-
         if button_1.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[0+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[0+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_2.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[1+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[1+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_3.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[2+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[2+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_4.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[3+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[3+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_5.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[4+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[4+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_6.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest22(1,questionid[5+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[5+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_7.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[6+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[6+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_8.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[7+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[7+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_9.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[8+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[8+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_10.draw() == True and click:
-            import selectQuest2
-            selectQuest2.selectQuest2(1,questionid[9+pageIterator])
+            QuestDB.add_questionID(QuestDB, names[9+pageIterator], questionid)
+            import teacherDashboard
+            teacherDashboard.main_menu()
         if button_11.draw() == True and click:
-            assignQuestion(pageNum+1)
-        if button_12.draw() == True and click: 
+            selectQuest2(pageNum+1, name)
+        if button_12.draw() == True and click:
             if (pageNum!=1):
-                assignQuestion(pageNum-1)
+                selectQuest2(pageNum-1, name)
         try:
             screen.blit(nameText1, (button1pos+10, 128))
             screen.blit(nameText2, (button1pos+10, 215))
@@ -171,9 +187,6 @@ def assignQuestion(pageNum):
                 if event.button == 1:
                     click = True
 
-
-        pygame.display.update()
-        mainClock.tick(60)
 
         pygame.display.update()
         mainClock.tick(60)

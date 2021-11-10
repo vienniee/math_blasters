@@ -1,7 +1,21 @@
+
+
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+        from DatabaseControllers.StudentDB import StudentDB
+    else:
+        from ..DatabaseControllers.StudentDB import StudentDB
+
 import pygame, sys
 import pygame_textinput
 import selectQuest
-from DatabaseControllers.StudentDB import StudentDB
+
+
+
+
 
 
 mainClock = pygame.time.Clock()
