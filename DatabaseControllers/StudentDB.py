@@ -34,7 +34,7 @@ student = {
 class StudentDB:
 
     def add_student(self,key,studentData):
-        db.child("students").child(key).push(studentData)
+        db.child("students").child(key).set(studentData)
 
     def get_student(self):
         studentlist = db.child("students").get()

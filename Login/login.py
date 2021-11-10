@@ -91,12 +91,16 @@ def LoginUser():
                         # main_menu()
                         print("go to Teacher Main Menu")
                         return 3, 0
+            else:
+                print("Invalid email or password")
+                invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
+                screen.blit(invalidLogin, (100, 100))
+                return 4, 0
         except:
             print("Invalid email or password")
             invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
             screen.blit(invalidLogin, (100, 100))
             return 4, 0
-
 
     TEXT_OPTION=""
     while running:
@@ -126,7 +130,10 @@ def LoginUser():
             if btn_login.draw():
                 print(SAVE_DATA['email'])
                 print(SAVE_DATA['password'])
-                return login(SAVE_DATA['email'], SAVE_DATA['password'])
+                a,b = login(SAVE_DATA['email'], SAVE_DATA['password'])
+                print(a, b)
+                if a!=4:
+                    return a,b
                 
             if event.type == pygame.QUIT:
                 pygame.quit()

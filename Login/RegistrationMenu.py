@@ -69,7 +69,15 @@ def Registration():
             print("Registering...")
             print(email)
             print(password)
+            print("Before creation")
             user = firebaseDatabase.auth.create_user_with_email_and_password(email, password)
+            print("After creation")
+            print(user)
+            # if user["error"]["code"] == 400:
+            #     print("if")
+            #     return 3, None
+            # else:   
+            
             uuid = user['localId']
             print(uuid)
             os.environ['USER'] = uuid
@@ -79,9 +87,12 @@ def Registration():
             STUDENT_DATA['class']= classNum
             print("Successfully created!")
             print("go to Character Select")
-            # characterselect.characterSelect(STUDENT_DATA)
+        # characterselect.characterSelect(STUDENT_DATA)
+            return 2, STUDENT_DATA
         except Exception as e:
+            print("Exception")
             print(e)
+            return 3,None
                         
 
            
@@ -113,11 +124,14 @@ def Registration():
         for event in pygame.event.get():
            
             if btn_registration.draw():
-                signup(SAVE_DATA['name'], SAVE_DATA['email'], SAVE_DATA['class'], SAVE_DATA['password'])
+                a,b = signup(SAVE_DATA['name'], SAVE_DATA['email'], SAVE_DATA['class'], SAVE_DATA['password'])
+                print(a, b)
+                if a!=3:
+                    return a,b
                 
             if backButton.draw():
                 if backButton_clicked():
-                    return 1
+                    return 1, None
 
 
             if event.type == QUIT:

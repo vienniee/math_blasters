@@ -1,6 +1,7 @@
 # import pygame, sys
 # from pygame.locals import *
 #from WorldSelection.subject_chapter_selection import subject_Chapter_selection
+from Login.characterSelect import characterSelect
 from WorldSelection.levelselect import levelselect
 from enum import Enum
 from minigame.Game import Game
@@ -29,6 +30,7 @@ if __name__ == '__main__':
 gender = "male"
 studentID = None
 level = None
+STUDENT_DATA = None
 subject = 'algebra' #put to none
 username = "Alex" #change to username later
 completion = None
@@ -57,6 +59,7 @@ while True:
     print(state)
     if state == States.login:
         result, userID = LoginUser()
+        print(result, userID)
         if result == 1:
             state = States.register
         if result == 2:
@@ -66,11 +69,16 @@ while True:
         if result == 3:
             state = States.teacher_menu
     elif state == States.register:
-        result = Registration()
+        result, studentDict = Registration()
         if result == 1:
             state = States.login
+        if result == 2:
+            STUDENT_DATA = studentDict
+            state = States.character_select
     elif state == States.character_select:
-        pass
+        result = characterSelect(STUDENT_DATA)
+        if result == 1:
+            state = States.login
     elif state == States.student_menu:
         studentMenu()
     elif state == States.teacher_menu:

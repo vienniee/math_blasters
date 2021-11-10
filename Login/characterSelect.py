@@ -2,17 +2,11 @@
 import pygame, sys,pygame_textinput
 from pygame.locals import *
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from DatabaseControllers.StudentDB import StudentDB
-    else:
-        from ..DatabaseControllers.StudentDB import StudentDB
-
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from DatabaseControllers.StudentDB import StudentDB
 from Login import assets
-# import studentmenu
 import os
 
 mainClock = pygame.time.Clock()
@@ -23,14 +17,11 @@ SCREEN_WIDTH = 1000
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
-
 TEXT_CHARACTER_SELECTED = "Character Select"
 TEXT_Male_SELECTED = "Male Selected"
 TEXT_Female_SELECTED = "Female Selected"
 TEXT_NO_OPTION_SELECTED = "Invalid Selection"
 TEXT_ERROR = 'FB Access Failed'
-
-
 
 
 def characterSelect(STUDENT_DATA):
@@ -39,10 +30,10 @@ def characterSelect(STUDENT_DATA):
     CHAR_SELECT=None
     running = True
     click = False
-    background_surface = pygame.image.load("Image/characterSelect/background.png").convert()
-    femaleImage = pygame.image.load("Image/characterSelect/female.png").convert_alpha()
-    maleImage = pygame.image.load("Image/characterSelect/male.png").convert_alpha()
-    confirmImage = pygame.image.load("Image/characterSelect/img2.png").convert_alpha()
+    background_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), 'characterselect_images', 'background.png')).convert()
+    femaleImage = pygame.image.load(os.path.join(os.path.dirname(__file__),  'characterselect_images', 'female.png')).convert_alpha()
+    maleImage = pygame.image.load(os.path.join(os.path.dirname(__file__), 'characterselect_images', 'male.png')).convert_alpha()
+    confirmImage = pygame.image.load(os.path.join(os.path.dirname(__file__), 'characterselect_images', 'img2.png')).convert_alpha()
 
     TEXT_OPTION=TEXT_CHARACTER_SELECTED
 
@@ -61,7 +52,10 @@ def characterSelect(STUDENT_DATA):
                 CHAR_SELECT = "Male"
                 
                 
-            
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
             if btn_female.draw():
                 TEXT_OPTION = TEXT_Female_SELECTED 
                 CHAR_SELECT = "Female"
@@ -73,8 +67,10 @@ def characterSelect(STUDENT_DATA):
                 else:
                     try:
                         STUDENT_DATA['character'] = CHAR_SELECT
-                        StudentDB.add_student(UUID,STUDENT_DATA)
+                        a = StudentDB()
+                        a.add_student(UUID,STUDENT_DATA)
                         # studentmenu.studentMenu()
+                        return 1
                     except Exception as e:
                         print(e)
                         TEXT_OPTION = TEXT_ERROR 
