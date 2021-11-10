@@ -50,6 +50,7 @@ def levelselect():
     lvl1_img = pygame.image.load("image\Castle_level_1.png").convert_alpha()
     lvl2_img = pygame.image.load("image\Castle_level_2.png").convert_alpha()
     lvl3_img = pygame.image.load("image\Castle_level_3.png").convert_alpha()
+    back_img = pygame.image.load("image/backbutton.png").convert_alpha()
 
     #load fonts
     #font style and size
@@ -63,6 +64,7 @@ def levelselect():
     level1_button = Button(258,143,lvl1_img,2.5)
     level2_button = Button(408,143,lvl2_img,2.5)
     level3_button = Button(558,143,lvl3_img,2.5)
+    back_button = Button(888,542,back_img,0.2)
     #160,310,460
 
     #game loop
@@ -70,7 +72,7 @@ def levelselect():
     while run:
         screen.fill((202, 228, 241))
         screen.blit(background_surface, (0, 0))
-
+        back_button.draw()
         #difficulty select 
         if level1_button.draw() == True:
             print('level 1 selected')
