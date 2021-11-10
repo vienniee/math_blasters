@@ -1,1 +1,0 @@
-screen_height = 400 +bottom_panel
