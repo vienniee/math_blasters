@@ -11,7 +11,7 @@ if __name__ == '__main__':
     else:
         from ..DatabaseControllers.StudentDB import StudentDB
 
-import assets as assets
+from Login import assets
 # import studentmenu
 import os
 

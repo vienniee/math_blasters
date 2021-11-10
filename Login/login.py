@@ -1,24 +1,33 @@
 import pygame, sys,importlib
-import assets
+
+# from pyrebase.pyrebase import Firebase
+
 import shelve
 import os
-# import firebase
-# #need help with import
-import pyrebase
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from DatabaseControllers.StudentDB import StudentDB
-    else:
-        from ..DatabaseControllers.StudentDB import StudentDB
+# from firebase import FirebaseDatabase
+
+
+# if __name__ == '__main__':
+    # if __package__ is None:
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from DatabaseControllers.StudentDB import StudentDB
+from DatabaseControllers import firebase 
+from Login import assets
+    # else:
+        # from ..DatabaseControllers.StudentDB import StudentDB
+        # from DatabaseControllers import firebase as fb
+        # import assets
+        
+      
+
 
 # from teacherDashboard import main_menu
 # from studentmenu import studentMenu
 
-def Login():
+def LoginUser():
     mainClock = pygame.time.Clock()
     pygame.init()
 
@@ -36,6 +45,7 @@ def Login():
     SAVE_DATA = shelve.open("Save Data")
     SAVE_DATA['email'] = ""
     SAVE_DATA['password'] = ""
+    FirebaseDatabase = firebase.FirebaseDatabase()
     screen = pygame.display.set_mode((w,h))
 
     email = ""
@@ -58,7 +68,10 @@ def Login():
             print("Logging in")
             print(password)
             if password != "":
-                result = pyrebase.auth.sign_in_with_email_and_password(email, password)
+                print("ABCDE")
+                result = FirebaseDatabase.auth.sign_in_with_email_and_password(email, password)
+                print(result)
+                print("FGHJK")
                 if result['email']:
                     studentDB = StudentDB()
                     studentList =  studentDB.get_student()
@@ -74,7 +87,7 @@ def Login():
                     else: 
                         # main_menu()
                         print("go to Teacher Main Menu")
-            
+        
         except:
             print("Invalid email or password")
             invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))

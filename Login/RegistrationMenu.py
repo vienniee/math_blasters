@@ -2,23 +2,27 @@
 import pygame, sys,importlib
 
 
-
+from enum import Enum
 from pygame.locals import *
-import assets as assets
+from Login import assets
 import shelve
 # import characterSelect
 import os
 
-if __name__ == '__main__':
-    if __package__ == None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from DatabaseControllers import FirebaseConfig as firebaseDatabase
-    else:
-        from ..DatabaseControllers import firebaseConfig as firebaseDatabase
+# if __name__ == '__main__':
+#     if __package__ == None:
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from DatabaseControllers import FirebaseConfig as firebaseDatabase
+from DatabaseControllers import firebase 
+    # else:
+        # from ..DatabaseControllers import firebaseConfig as firebaseDatabase
 
 def Registration():
+    
+
+        
     mainClock = pygame.time.Clock()
     pygame.init()
 
@@ -57,6 +61,8 @@ def Registration():
     
     def backButton_clicked():
         print("Back Button Clicked")
+               
+
 
     def signup(name, email, classNum, password):
         try:
