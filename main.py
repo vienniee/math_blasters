@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
 # global variable like student gender and name
 gender = "male"
-studentID = None
+studentID = "test1"
 level = None
 STUDENT_DATA = None
 subject = 'algebra' #put to none
@@ -62,7 +62,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.login
+state = States.world_select
 
 # pygame.init()
 # clock = pygame.time.Clock()
