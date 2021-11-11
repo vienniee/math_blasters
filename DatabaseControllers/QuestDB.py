@@ -1,9 +1,11 @@
-from DatabaseControllers.FirebaseConfig import db
+from FirebaseConfig import db
 
 
 emptyQuest = {
     "listofQuestionID":["test1"],
-    "listofStudentID":["test1"]
+    "listofStudentID":["test1"],
+    "subject": "",
+    "createdBy":""
 }
 
 class QuestDB:
@@ -40,10 +42,19 @@ class QuestDB:
         studentList.append(studentID)
         db.child("quests").child(questID).update({"listofQuestionID":studentList})
 
-# add_quest(emptyQuest)
-# get_single_quest()
-questdb = QuestDB()
 
-# questdb.add_questionID("-MluZuGlx43KX7uhlYGf","test")
+emptyQuest = {
+    "listofQuestionID":["test1"],
+    "listofStudentID":["test1"],
+    "subject": "math",
+    "createdBy":"Ms Tan"
+}
+
+questdb = QuestDB()
+questdb.add_quest(emptyQuest)
+# get_single_quest()
+
+
+
 
 

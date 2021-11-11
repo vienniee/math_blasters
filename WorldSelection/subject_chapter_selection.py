@@ -3,14 +3,17 @@ from sys import exit
 from Player import Player
 from subject_level import load_assets as load_assets_subject, subject_selection
 from chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles,check_quest_house
+from Quest_Select_Modal import load_asset as load_assets_quest, quest_selection
 from enum import Enum
 
-
-def subject_Chapter_selection(character_gender):
-    class States(Enum):
+class States(Enum):
         SUBJECT_LEVEL = 1
         MATH_SUBJ = 2
         SCI_SUBJ = 3
+        QUEST_SELECT = 4
+
+def subject_Chapter_selection(character_gender):
+    
 
     def collision_sprite(group):
         if pygame.sprite.spritecollide(player.sprite,group,False):
@@ -169,8 +172,11 @@ def subject_Chapter_selection(character_gender):
                     
                     if portal.return_subject() == 2:
                         state = States(2)
+                        quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton = load_assets_quest("math")
+
                     elif portal.return_subject() == 3:
                         state = States(3)
+                        quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton = load_assets_quest("science")
                     player.sprite.rect.x = 100
 
 
@@ -190,6 +196,7 @@ def subject_Chapter_selection(character_gender):
                         return castle.returnChapter()
                 
                 if check_quest_house(keys, math_questHouse, teleportCooldownState, player):
+                    state = States.QUEST_SELECT
                     print("questHouse Hit")
                 
                 
@@ -207,6 +214,7 @@ def subject_Chapter_selection(character_gender):
                         return castle.returnChapter()
 
                 if check_quest_house(keys, sci_questHouse, teleportCooldownState, player):
+                    state = States.QUEST_SELECT
                     print("questHouse Hit")
                 
 
@@ -227,6 +235,8 @@ def subject_Chapter_selection(character_gender):
         elif state == States.SCI_SUBJ:
             chapter_selection(player=player, screen=screen, castles=sci_castles,
                             castleName=sci_castleName, backPortal=sci_backPortal, questHouse=sci_questHouse)
+        elif state == States.QUEST_SELECT:
+            quest_selection(screen=screen,quest_menu = quest_menu, Quest1=Quest1,Quest2=Quest2,Quest3=Quest3,prevButton=prevButton,nextButton=nextButton,backButton=backButton)
         # print(state)
         # print(teleportCooldownState)
         pygame.display.update()
