@@ -10,11 +10,14 @@ from minigame.Game import Game
 from WorldSelection.Player import Player
 from minigame.filter import Questionfilter
 from Leaderboard.leaderboard import Leaderboard
+from Leaderboard.achievements import Achievements
 import os
+from DatabaseControllers.QuestionDB import QuestionDB
 
 path_parent = os.path.dirname(os.getcwd())
 os.chdir(path_parent)
 
+QuestionDB = QuestionDB()
 
 teleportCooldownState = False
 teleportCooldownTimer = pygame.USEREVENT + 1
@@ -42,6 +45,7 @@ STUDENT_DATA = None
 subject = 'algebra' #put to none
 username = "Alex" #change to username later
 completion = None
+questions = None
 #Login()
 # Registration = Registration()
 class States(Enum):
@@ -58,7 +62,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.world_select
+state = States.login
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -100,7 +104,7 @@ while True:
     elif state == States.student_menu:
         result = studentMenu()
         if result == 1:
-            state = States.level_select
+            state = States.world_select
         if result == 2:
             state = States.achievement
         if result == 3:
@@ -113,7 +117,7 @@ while True:
         if completion:
             state = States.scorepage
         else:
-            state = States.level_select
+            state = States.world_select
     elif state == States.quest_menu:
         pass
     elif state == States.world_select:
@@ -122,10 +126,19 @@ while True:
             subject =chapter
             state = States.difficulty_select
     elif state == States.leaderboard:
-        Leaderboard()
+        outcome = Leaderboard()
+        if outcome == 1:
+            state = States.student_menu
+    elif state == States.achievement:
+        outcome = Achievements(studentID)
+        if outcome == 1:
+            state = States.student_menu
     elif state == States.difficulty_select:
         level = levelselect()
-        questions = Questionfilter(subject, level)
+        # questions = Questionfilter(subject, level)
+        
+        questions = QuestionDB.get_questions("algebra", level)
+        # print(questions)
         #level = 'test' #in database data change level to integer 1,2,3
         state = States.minigame
 

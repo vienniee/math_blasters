@@ -58,14 +58,14 @@ def Game(gender,Pname,questions):
 
     #load images
     #background images
-    background_img = pygame.image.load('Image/castlebackground.png').convert_alpha()
+    background_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'castlebackground.png')).convert_alpha()
     #panel image
-    panel_img = pygame.image.load('Image/panel.png').convert_alpha()
+    panel_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'panel.png')).convert_alpha()
     #button image
-    button_img = pygame.image.load('Image/button.png').convert_alpha()
+    button_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'button.png')).convert_alpha()
     #victory and defeat image
-    victory_img = pygame.image.load('Image/victory.png').convert_alpha()
-    defeat_img = pygame.image.load('Image/defeat.png').convert_alpha()
+    victory_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'victory.png')).convert_alpha()
+    defeat_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'defeat.png')).convert_alpha()
 
     #function to draw text
     def draw_text(text,font,text_col,x,y):
@@ -84,12 +84,17 @@ def Game(gender,Pname,questions):
                 tmp = random.randint(start, end)
             arr.append(tmp)
         return arr
-    question_list = questions
-    orderlist = createRandomSortedList(len(question_list),0,len(question_list)-1)
+
+    randomNumberList = createRandomSortedList(10, 0, len(questions)-1)
+
+    orderedList = []
+    for key in questions:
+        orderedList.append(questions[key])
 
     reorderQlist = []
-    for i in orderlist:
-        reorderQlist.append(question_list[i])
+    for i in randomNumberList:
+        print(orderedList)
+        reorderQlist.append(orderedList[i])
     print(reorderQlist)
 
 
@@ -142,12 +147,13 @@ def Game(gender,Pname,questions):
     questions = []
     answers = []
     for i in range(len(reorderQlist)):
-        questionbuttonlist1.append(button(20,470,380,40,reorderQlist[i][1]))
-        questionbuttonlist2.append(button(440,470,380,40,reorderQlist[i][2]))
-        questionbuttonlist3.append(button(20,530,380,40,reorderQlist[i][3]))
-        questionbuttonlist4.append(button(440,530,380,40,reorderQlist[i][4]))
-        questions.append(questionpanel(260,100,450,80,reorderQlist[i][0]))
-        answers.append(reorderQlist[i][5])
+        questionbuttonlist1.append(button(20,470,380,40,reorderQlist[i]["optionA"]))
+        questionbuttonlist2.append(button(440,470,380,40,reorderQlist[i]["optionB"]))
+        questionbuttonlist3.append(button(20,530,380,40,reorderQlist[i]["optionC"]))
+        questionbuttonlist4.append(button(440,530,380,40,reorderQlist[i]["optionD"]))
+        questions.append(questionpanel(260, 100, 450, 80,
+                         reorderQlist[i]["questionText"]))
+        answers.append(reorderQlist[i]["questionText"])
     #end of questions
     questionbuttonlist1.append(button(20, 470, 380, 40,'-'))
     questionbuttonlist2.append(button(440, 470, 380, 40, '-'))
@@ -165,7 +171,7 @@ def Game(gender,Pname,questions):
             self.update_time = pygame.time.get_ticks()
             #load curse logo
             for i in range(15):
-                img = pygame.image.load(f'Image/curse/{i}.png')
+                img = pygame.image.load(os.path.join(os.path.dirname(__file__), "curse", f'{i}.png'))
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 self.animation_list.append(img)
             self.image = self.animation_list[self.frame_index]
@@ -194,7 +200,8 @@ def Game(gender,Pname,questions):
             self.update_time = pygame.time.get_ticks()
             #load ignite images
             for i in range(14):
-                img = pygame.image.load(f'Image/ignite/{i}.png')
+                img = pygame.image.load(os.path.join(os.path.dirname(__file__),"ignite", f'{i}.png'))
+                
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 self.animation_list.append(img)
             self.image = self.animation_list[self.frame_index]
@@ -238,28 +245,30 @@ def Game(gender,Pname,questions):
             #load idle images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.gender}/idle/{i}.png')
+                print(self.gender)
+                img = pygame.image.load(os.path.join(os.path.dirname(__file__), "player", f'{self.gender}',"idle", f'{i}.png'))
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
             #load attack images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.gender}/attack/{i}.png')
+                img = pygame.image.load(os.path.join(os.path.dirname(
+                    __file__), "player", f"{self.gender}", "attack", f'{i}.png'))
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
             #load hurt images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.gender}/hurt/{i}.png')
+                img = pygame.image.load(os.path.join(os.path.dirname(__file__), "player", f'{self.gender}',"hurt", f'{i}.png'))
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
             #load death images
             temp_list = []
             for i in range(4):
-                img = pygame.image.load(f'Image/{self.gender}/death/{i}.png')
+                img=pygame.image.load(os.path.join(os.path.dirname(__file__), "player", f'{self.gender}', "death", f'{i}.png'))
                 img = pygame.transform.scale(img, (int(img.get_width()*scale),int(img.get_height()*scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
@@ -372,10 +381,10 @@ def Game(gender,Pname,questions):
     #create character instance
 
     if charselect == "male":
-        player = character(280, 310, charselect, len(question_list),3.5)
+        player = character(280, 310, charselect, len(questions),3.5)
     else:
-        player = character(280, 310, charselect, len(question_list),3.5)
-    enemies = character(650,310,'enemies',len(question_list),2.5)
+        player = character(280, 310, charselect, len(questions),3.5)
+    enemies = character(650, 310, 'enemies', len(questions), 2.5)
 
 
 
@@ -464,8 +473,9 @@ def Game(gender,Pname,questions):
 
         #draw button
         if questionbuttonlist1[questionnum].draw() == True and game_over == 0:
-            currentanswer = answers[questionnum]
-            if currentanswer == reorderQlist[questionnum][1]:
+            # currentanswer = answers[questionnum]
+            currentanswer = 1
+            if currentanswer == int(reorderQlist[questionnum]["correctAnswer"]):
                 score += 1
                 while action_cd < action_wait_time:
                     action_cd += 1
@@ -479,7 +489,7 @@ def Game(gender,Pname,questions):
                     enemies.attack(player)
                     action_cd = 0
             questionnum += 1
-            if questionnum >= len(question_list):
+            if questionnum >= len(questions):
                 if score >= passingmark:
                     enemies.hp = 0
                     enemies.alive = False
@@ -491,7 +501,10 @@ def Game(gender,Pname,questions):
 
         if questionbuttonlist2[questionnum].draw() == True and game_over == 0:
             currentanswer = answers[questionnum]
-            if currentanswer == reorderQlist[questionnum][2]:
+            currentanswer = 2
+            print(type(currentanswer),currentanswer)
+            print(reorderQlist[questionnum])
+            if currentanswer == int(reorderQlist[questionnum]["correctAnswer"]):
                 score += 1
                 while action_cd < action_wait_time:
                     action_cd += 1
@@ -505,7 +518,7 @@ def Game(gender,Pname,questions):
                     enemies.attack(player)
                     action_cd = 0
             questionnum += 1
-            if questionnum >= len(question_list):
+            if questionnum >= len(questions):
                 if score >= passingmark:
                     enemies.hp = 0
                     enemies.alive = False
@@ -517,7 +530,8 @@ def Game(gender,Pname,questions):
 
         if questionbuttonlist3[questionnum].draw() == True and game_over == 0:
             currentanswer = answers[questionnum]
-            if currentanswer == reorderQlist[questionnum][3]:
+            currentanswer = 3
+            if currentanswer == int(reorderQlist[questionnum]["correctAnswer"]):
                 score += 1
                 while action_cd < action_wait_time:
                     action_cd += 1
@@ -531,7 +545,7 @@ def Game(gender,Pname,questions):
                     enemies.attack(player)
                     action_cd = 0
             questionnum += 1
-            if questionnum >= len(question_list):
+            if questionnum >= len(questions):
                 if score >= passingmark:
                     enemies.hp = 0
                     enemies.alive = False
@@ -544,7 +558,8 @@ def Game(gender,Pname,questions):
 
         if questionbuttonlist4[questionnum].draw() == True and game_over == 0:
             currentanswer = answers[questionnum]
-            if currentanswer == reorderQlist[questionnum][4]:
+            currentanswer = 4
+            if currentanswer == int(reorderQlist[questionnum]["correctAnswer"]):
                 score += 1
                 while action_cd < action_wait_time:
                     action_cd += 1
@@ -558,7 +573,7 @@ def Game(gender,Pname,questions):
                     enemies.attack(player)
                     action_cd = 0
             questionnum += 1
-            if questionnum >= len(question_list):
+            if questionnum >= len(questions):
                 if score >= passingmark:
                     enemies.hp = 0
                     enemies.alive = False

@@ -44,7 +44,7 @@ def characterSelect(STUDENT_DATA):
         btn_confirm = assets.Button(screen=screen,id='confirm',image=confirmImage,scale=1,x=460,y=338)
 
         
-        assets.create_text(screen,TEXT_OPTION,assets.SMALL_FONT,assets.COLOR_BLACK,430,185)
+        #assets.create_text(screen,TEXT_OPTION,assets.SMALL_FONT,assets.COLOR_BLACK,430,185)
 
         for event in pygame.event.get():
             if btn_male.draw():

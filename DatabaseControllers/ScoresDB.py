@@ -1,7 +1,7 @@
 from DatabaseControllers.FirebaseConfig import db
-# import FirebaseConfig 
+#import FirebaseConfig 
 
-# db = FirebaseConfig.db
+#db = FirebaseConfig.db
 
 
 class ScoreDB:
@@ -20,10 +20,10 @@ class ScoreDB:
         db.child("scores").child(studentID).remove()
 
 
-# if __name__ == "__main__":
+#if __name__ == "__main__":
 
-#     test = ScoreDB()
-#     print(test.add_or_update_score(
-#         "-Mm8kLnp1SzylkBoB5Ca", "algebra", "level 1", 60))
+    #test = ScoreDB()
+    #print(test.add_or_update_score(
+        #"-MluIlic4pAOT7Dk8Fuq", "fraction", "level 1", 10))
 
 
