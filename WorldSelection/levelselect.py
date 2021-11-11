@@ -75,7 +75,8 @@ def levelselect():
     while run:
         screen.fill((202, 228, 241))
         screen.blit(background_surface, (0, 0))
-        back_button.draw()
+        if back_button.draw():
+            return True
         #difficulty select 
         if level1_button.draw() == True:
             print('level 1 selected')

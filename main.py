@@ -83,7 +83,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.world_select
+state = States.student_menu
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -138,7 +138,7 @@ while True:
         if completion:
             state = States.scorepage
         else:
-            state = States.world_select
+            state = States.difficulty_select
     elif state == States.quest_menu:
         pass
     elif state == States.world_select:
@@ -160,14 +160,15 @@ while True:
         outcome = Achievements(studentID)
         if outcome == 1:
             state = States.student_menu
+
     elif state == States.difficulty_select:
         level = levelselect()
-        # questions = Questionfilter(subject, level)
-        isMinigame = True
-        questions = QuestionDB.get_questions("algebra", level)
-        # print(questions)
-        #level = 'test' #in database data change level to integer 1,2,3
-        state = States.minigame
+        if level == True:
+            state = States.world_select
+        else:
+            isMinigame = True
+            questions = QuestionDB.get_questions("algebra", level)
+            state = States.minigame
 
     elif state == States.scorepage:
         isMinigame=False
