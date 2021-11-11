@@ -1,3 +1,4 @@
+from pyasn1.codec.ber.decoder import SetDecoder
 import pygame, sys
 # from pygame.locals import *
 #from WorldSelection.subject_chapter_selection import subject_Chapter_selection
@@ -52,13 +53,12 @@ class States(Enum):
     minigame =6
     quest_menu = 7
     world_select = 8
-    level_select = 9
-    scorepage = 10
-    achievement = 11
-    leaderboard = 12
-    difficulty_select = 13
+    scorepage = 9
+    achievement = 10
+    leaderboard = 11
+    difficulty_select = 12
 
-state = States.level_select
+state = States.world_select
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -116,19 +116,18 @@ while True:
             state = States.level_select
     elif state == States.quest_menu:
         pass
-    elif state == States.level_select:
-        level = subject_Chapter_selection(gender)
-        questions = Questionfilter(subject,level)
-        #level = 'test' #in database data change level to integer 1,2,3
-        state = States.minigame
-
     elif state == States.world_select:
-        #subject = subject_Chapter_selection(gender)
-        subject = 'algebra'
+        result, chapter = subject_Chapter_selection(gender)
+        if result == 1:
+            subject =chapter
+            state = States.difficulty_select
     elif state == States.leaderboard:
         Leaderboard()
     elif state == States.difficulty_select:
-        levelselect()
+        level = levelselect()
+        questions = Questionfilter(subject, level)
+        #level = 'test' #in database data change level to integer 1,2,3
+        state = States.minigame
 
 # login screen or register
 
