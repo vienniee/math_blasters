@@ -1,5 +1,5 @@
 import pygame
-
+import os
 
 class Castle(pygame.sprite.Sprite):
     def __init__(self, xpos,level,chapter):
@@ -8,13 +8,17 @@ class Castle(pygame.sprite.Sprite):
         # image imports
 
         if int(level) == 1:
-            castle_image = pygame.image.load('graphics\castle\castle_level1.png').convert_alpha()
+            
+            castle_image = pygame.image.load(os.path.join(os.path.dirname(
+                __file__),  "castle", "castle_level1.png")).convert_alpha()
             castle_image = pygame.transform.rotozoom(castle_image, 0, 5)
         elif int(level) == 2:
-            castle_image = pygame.image.load('graphics\castle\castle_level2.png').convert_alpha()
+            castle_image = pygame.image.load(os.path.join(os.path.dirname(
+                __file__), "castle", "castle_level2.png")).convert_alpha()
             castle_image = pygame.transform.rotozoom(castle_image, 0, 5)
         elif int(level) == 3:
-            castle_image = pygame.image.load('graphics\castle\castle_level3.png').convert_alpha()
+            castle_image = pygame.image.load(os.path.join(os.path.dirname(
+                __file__),  "castle", "castle_level3.png")).convert_alpha()
             castle_image = pygame.transform.rotozoom(castle_image, 0, 5)
         
         self.chapter= chapter

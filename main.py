@@ -1,17 +1,23 @@
-# import pygame, sys
+import pygame, sys
 # from pygame.locals import *
 #from WorldSelection.subject_chapter_selection import subject_Chapter_selection
 from Login.characterSelect import characterSelect
 from WorldSelection.levelselect import levelselect
 from enum import Enum
+from WorldSelection.subject_chapter_selection import subject_Chapter_selection
 from minigame.Game import Game
+from WorldSelection.Player import Player
 from minigame.filter import Questionfilter
 import os
+
 path_parent = os.path.dirname(os.getcwd())
 os.chdir(path_parent)
 
 
-# from .Login.login import Login
+teleportCooldownState = False
+teleportCooldownTimer = pygame.USEREVENT + 1
+
+
 if __name__ == '__main__':
     if __package__ is None:
         import sys
@@ -47,6 +53,8 @@ class States(Enum):
     world_select = 8
     level_select = 9
     scorepage = 10
+    achievement = 11
+    leaderboard = 12
 
 state = States.login
 
@@ -56,9 +64,17 @@ state = States.login
 # pygame.display.set_caption("CZ3003 pygame")
 
 while True:
+    for event in pygame.event.get():
+        if event.type == teleportCooldownTimer:
+            teleportCooldownState = False
+            pygame.time.set_timer(teleportCooldownTimer, 0)
+            print("teleportCooldownState False")    
     print(state)
     if state == States.login:
         result, userID = LoginUser()
+        teleportCooldownState = True
+        pygame.time.set_timer(teleportCooldownTimer, 3000)
+        print("teleportCooldownState True")
         print(result, userID)
         if result == 1:
             state = States.register
@@ -80,7 +96,13 @@ while True:
         if result == 1:
             state = States.login
     elif state == States.student_menu:
-        studentMenu()
+        result = studentMenu()
+        if result == 1:
+            state = States.level_select
+        if result == 2:
+            state = States.achievement
+        if result == 3:
+            state = States.leaderboard
     elif state == States.teacher_menu:
         teacherDashboard.main_menu()
         
@@ -93,7 +115,7 @@ while True:
     elif state == States.quest_menu:
         pass
     elif state == States.level_select:
-        level = levelselect()
+        level = subject_Chapter_selection(gender)
         questions = Questionfilter(subject,level)
         #level = 'test' #in database data change level to integer 1,2,3
         state = States.minigame

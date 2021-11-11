@@ -44,14 +44,17 @@ class Button():
 
 def levelselect():
     #load background image
-    background_surface = pygame.image.load('image\levelselect.png').convert()
-
+    # background_surface = pygame.image.load('image\levelselect.png').convert()
+    background_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), 'levelselect.png')).convert()
     #load button images
-    lvl1_img = pygame.image.load("image\Castle_level_1.png").convert_alpha()
-    lvl2_img = pygame.image.load("image\Castle_level_2.png").convert_alpha()
-    lvl3_img = pygame.image.load("image\Castle_level_3.png").convert_alpha()
-    back_img = pygame.image.load("image/backbutton.png").convert_alpha()
-
+    # lvl1_img = pygame.image.load("image\Castle_level_1.png").convert_alpha()
+    # lvl2_img = pygame.image.load("image\Castle_level_2.png").convert_alpha()
+    # lvl3_img = pygame.image.load("image\Castle_level_3.png").convert_alpha()
+    # back_img = pygame.image.load("image/backbutton.png").convert_alpha()
+    lvl1_img = pygame.image.load(os.path.join(os.path.dirname(__file__),  'Castle_level_1.png')).convert_alpha()
+    lvl2_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Castle_level_2.png')).convert_alpha()
+    lvl3_img = pygame.image.load(os.path.join(os.path.dirname(__file__),  'Castle_level_3.png')).convert_alpha()
+    back_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'backbutton.png')).convert_alpha()
     #load fonts
     #font style and size
     font1 = pygame.font.Font(None,18)

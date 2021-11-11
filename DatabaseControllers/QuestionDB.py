@@ -1,7 +1,10 @@
-from DatabaseControllers.FirebaseConfig import db
+# from DatabaseControllers.FirebaseConfig import db
+import FirebaseConfig
+
+db = FirebaseConfig.db
 
 emptyQuestion = {
-    "topic":"",
+    "subject":"",
     "level":"",
     "questionText":"",
     "optionA":"",
@@ -11,18 +14,6 @@ emptyQuestion = {
     "correctAnswer":"",
 }
 
-# newQuestion = {
-#     "minigame":"test",
-#     "level":"test",
-#     "questionText":"tes",
-#     "optionA":"1",
-#     "optionB":"2",
-#     "optionC":"3",
-#     "optionD":"4",
-#     "correctAnswer":"1",
-# }
-
-
 class QuestionDB:
     def add_questions(self,question):
         db.child("questions").push(question)
@@ -31,23 +22,29 @@ class QuestionDB:
         questionList = db.child("questions").get()
         return questionList.val()
 
-    def update_questions(self,key,newQuestion):
-        db.child("questions").child(key).update(newQuestion)
+    # db.child("users").child("Morty").update({"name": "Mortiest Morty"})
+    def update_questions(self,questionID,newQuestion):
+        db.child("questions").child(questionID).update(newQuestion)
 
-    def delete_questions(self,key):
-        db.child("questions").child(key).remove()
+    def delete_questions(self, questionID):
+        db.child("questions").child(questionID).remove()
 
 # QuestionDB.add_questions(emptyQuestion)
 
 
 if __name__ == "__main__":
-    temp = QuestionDB()
-    result = temp.get_questions()
-    # print(result["-MluRa7WuoXOOWc0gPGe"]["level"])
-    for quest in result:
-            # if(quest.key() == questID):
-            #     return quest.val()
-            print(quest)
-    # print(result['-MluRa7WuoXOOWc0gPGe'])
-    # update_questions("-MluRa7WuoXOOWc0gPGe",newQuestion)
-    # delete_questions("-MluQizsvARWcyLAlbqp")
+
+
+    data = {
+    "subject": "algebra",
+    "level": "1",
+    "questionText": "2-2+8+2-2+2+1-3=x",
+    "optionA": "1",
+    "optionB": "7",
+    "optionC": "8",
+    "optionD": "10",
+    "correctAnswer": "8",
+}
+    
+    test = QuestionDB()
+    print(test.add_questions(data))

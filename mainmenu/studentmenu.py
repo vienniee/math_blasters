@@ -65,10 +65,13 @@ def studentMenu():
         #menu option select 
         if play_button.draw() == True:
             print('play selected')
+            return 1
         if achievements_button.draw() == True:
             print('achievements selected')
+            return 2
         if leaderboard_button.draw() == True:
             print('leaderboard selected')
+            return 3
         
 
         #event handler

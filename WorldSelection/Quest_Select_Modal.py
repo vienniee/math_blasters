@@ -87,15 +87,3 @@ def quest_selection(screen,quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton
 
 
 
-
-
-
-
-        
-
-
-
-
-    
-
-
