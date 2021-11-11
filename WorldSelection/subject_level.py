@@ -1,8 +1,8 @@
 import pygame
 from pygame.transform import rotozoom
 
-from Portal import Portal
-from PortalText import PortalText
+from WorldSelection.Portal import Portal
+from WorldSelection.PortalText import PortalText
 
 
 def load_assets():

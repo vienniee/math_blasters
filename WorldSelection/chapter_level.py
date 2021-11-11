@@ -1,8 +1,8 @@
 import pygame
-from Castle import Castle
-from Portal import Portal
-from CastleText import CastleText
-from Quest_House import Quest_House
+from WorldSelection.Castle import Castle
+from WorldSelection.Portal import Portal
+from WorldSelection.CastleText import CastleText
+from WorldSelection.Quest_House import Quest_House
 
 
 def load_assets(chap_1, chap_1_level, chap_2, chap_2_level):
