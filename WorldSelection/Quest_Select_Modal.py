@@ -1,6 +1,9 @@
 import pygame
 from DatabaseControllers.QuestDB import QuestDB
 import os
+import math
+
+from WorldSelection.questText import QuestText 
 # if __name__ == '__main__':
 #     if __package__ is None:
 #         import sys
@@ -18,28 +21,11 @@ class Button():
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.clicked = False
+        
 
     def draw(self,screen):
-        action = False
-        #getting mouse position
-        pos = pygame.mouse.get_pos()
-        # print(pos)
-
-        #check mouseover and clicked conditions
-        if self.rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-                self.clicked = True
-                print(pos)
-                print('clicked')
-                action = True
-
-        if pygame.mouse.get_pressed()[0] == 0:
-            self.clicked = False
-
         #draw button on screen
         screen.blit(self.image,(self.rect.x,self.rect.y))
-
-        return action
 
 class Quest_menu(pygame.sprite.Sprite):
     def __init__(self):
@@ -48,17 +34,11 @@ class Quest_menu(pygame.sprite.Sprite):
         self.image = quest_menu
         self.rect = self.image.get_rect(center=(500, 300))
 
-def load_asset(subject):
+def load_asset(subject,studentID):
     
     questDatabase = QuestDB()
-
-    if(subject == "math"):
-        questData = questDatabase.get_quest()
-        print(questData)
-
-    elif(subject =="science"):
-        questData = questDatabase.get_quest()
-        print(questData)
+    questData = questDatabase.get_quest_by_subject_studentID(subject,studentID)
+    print(questData)
     
     quest_menu = pygame.sprite.GroupSingle()
     quest_menu.add(Quest_menu())
@@ -75,16 +55,66 @@ def load_asset(subject):
     nextButton = Button(720,450,nextButtonImage,1)
     backButton = Button(271,165,backButtonImage,1)
 
-    return quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton
+    return questData,quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton
 
-def quest_selection(screen,quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton):
+def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton, current_page):
+    currentdata = []
+    numberOfDataPerPage = 3
+    
+    if(len(quest_data) <=3):
+        currentdata = quest_data
+        print(currentdata)
+    elif(len(quest_data) == 0):
+        print("no quest")
+    else:
+        startIndex = (current_page-1)*numberOfDataPerPage
+        total_pages = math.ceil(len(quest_data)/3)
+        if(current_page == total_pages):
+            reminder = len(quest_data)%3
+            for i in range(startIndex, startIndex+reminder):
+                print(i)
+                currentdata.append(quest_data[i])
+        else:
+            for i in range(startIndex, startIndex+numberOfDataPerPage):
+                print(i)
+                currentdata.append(quest_data[i])
+
+        print("length of quest data" + str(len(quest_data)))
+        print("current page: " + str(current_page))
+        print("start index: " +str(startIndex))
     quest_menu.draw(screen)
-    Quest1.draw(screen)
-    Quest2.draw(screen)
-    Quest3.draw(screen)
     prevButton.draw(screen)
     nextButton.draw(screen)
     backButton.draw(screen)
+
+    if(len(currentdata) == 0):
+        None
+    elif(len(currentdata) == 1):
+        Quest1.draw(screen)
+        
+        teacherNameGroup = pygame.sprite.Group()
+        teacherNameGroup.add(QuestText(currentdata[0]["createdBy"]+"'s Quest",250))
+        teacherNameGroup.draw(screen)
+    elif(len(currentdata) == 2):
+        Quest1.draw(screen)
+        Quest2.draw(screen)
+
+        teacherNameGroup = pygame.sprite.Group()
+        teacherNameGroup.add(QuestText(currentdata[0]["createdBy"]+"'s Quest",250))
+        teacherNameGroup.add(QuestText(currentdata[1]["createdBy"]+"'s Quest",350))
+        teacherNameGroup.draw(screen)
+    elif(len(currentdata) == 3):
+        Quest1.draw(screen)
+        Quest2.draw(screen)
+        Quest3.draw(screen)
+
+        teacherNameGroup = pygame.sprite.Group()
+        teacherNameGroup.add(QuestText(currentdata[0]["createdBy"]+"'s Quest",250))
+        teacherNameGroup.add(QuestText(currentdata[1]["createdBy"]+"'s Quest",350))
+        teacherNameGroup.add(QuestText(currentdata[2]["createdBy"]+"'s Quest",450))
+        teacherNameGroup.draw(screen)
+    
+    
 
 
 

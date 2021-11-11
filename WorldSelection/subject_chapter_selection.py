@@ -1,3 +1,4 @@
+import math
 import pygame
 from sys import exit
 from WorldSelection.Player import Player
@@ -13,7 +14,7 @@ class States(Enum):
         SCI_SUBJ = 3
         QUEST_SELECT = 4
 
-def subject_Chapter_selection(character_gender):
+def subject_Chapter_selection(character_gender,studentID):
     
 
     def collision_sprite(group):
@@ -58,6 +59,7 @@ def subject_Chapter_selection(character_gender):
     teleportCooldownState = False
     teleportCooldownTimer = pygame.USEREVENT + 1
 
+    current_page = 1
 
     while True:
         keys = pygame.key.get_pressed()
@@ -155,9 +157,6 @@ def subject_Chapter_selection(character_gender):
                 pygame.quit()
                 exit()
 
-            
-                
-
             if event.type == teleportCooldownTimer:
                 teleportCooldownState = False
                 pygame.time.set_timer(teleportCooldownTimer, 0)
@@ -177,11 +176,11 @@ def subject_Chapter_selection(character_gender):
                     
                     if portal.return_subject() == 2:
                         state = States(2)
-                        quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton = load_assets_quest("math")
+                        subject_selected = "math"
 
                     elif portal.return_subject() == 3:
                         state = States(3)
-                        quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton = load_assets_quest("science")
+                        subject_selected = "science"
                     player.sprite.rect.x = 100
 
 
@@ -202,7 +201,7 @@ def subject_Chapter_selection(character_gender):
                 
                 if check_quest_house(keys, math_questHouse, teleportCooldownState, player):
                     state = States.QUEST_SELECT
-                    print("questHouse Hit")
+                    quest_data, quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton = load_assets_quest("math",studentID)
                 
                 
 
@@ -220,10 +219,28 @@ def subject_Chapter_selection(character_gender):
 
                 if check_quest_house(keys, sci_questHouse, teleportCooldownState, player):
                     state = States.QUEST_SELECT
-                    print("questHouse Hit")
+                    quest_data, quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton = load_assets_quest("science",studentID)
+
+            if state == States.QUEST_SELECT:
                 
+                total_pages = math.ceil(len(quest_data)/3)
+                pos = pygame.mouse.get_pos()
+                if backButton.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    if subject_selected == "math":
+                        state = States.MATH_SUBJ
+                    if subject_selected == "science":
+                        state = States.SCI_SUBJ
 
-
+                if prevButton.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    if(current_page == 1):
+                        current_page = 1
+                    else:
+                        current_page -= 1
+                if nextButton.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    if(current_page == total_pages):
+                        current_page = total_pages
+                    else:
+                        current_page +=1
         
 
         # draw the screen background
@@ -241,7 +258,7 @@ def subject_Chapter_selection(character_gender):
             chapter_selection(player=player, screen=screen, castles=sci_castles,
                             castleName=sci_castleName, backPortal=sci_backPortal, questHouse=sci_questHouse)
         elif state == States.QUEST_SELECT:
-            quest_selection(screen=screen,quest_menu = quest_menu, Quest1=Quest1,Quest2=Quest2,Quest3=Quest3,prevButton=prevButton,nextButton=nextButton,backButton=backButton)
+            quest_selection(quest_data=quest_data,screen=screen,quest_menu = quest_menu, Quest1=Quest1,Quest2=Quest2,Quest3=Quest3,prevButton=prevButton,nextButton=nextButton,backButton=backButton,current_page=current_page)
         # print(state)
         # print(teleportCooldownState)
         pygame.display.update()
