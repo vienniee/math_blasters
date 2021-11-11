@@ -50,7 +50,7 @@ def Leaderboard():
         positions.append((student_info["name"], total_score))
     positions.sort(key=lambda x:(-x[-1],x[1]))
 
-    for i in range(len(positions)):
+    for i in range(5):
         #convert data to string to be displayed
         student_names = namefont.render(str(positions[i][0]),False,(0,0,0))
         ranking = myfont.render(str(i+1),False,(0,0,0))
