@@ -5,6 +5,8 @@ import tkinter as tk
 from tkinter import *
 import os
 
+from StudentDB import StudentDB
+
 def Leaderboard():
     #Initialising pygame
     pygame.init()
@@ -36,14 +38,16 @@ def Leaderboard():
 
     #call function to draw top players from firestore
     scoreDB = ScoreDB()
+    studentDB = StudentDB()
     result = scoreDB.get_all_score()
     positions = []
     for key in result:
         student_scores = result[key]
+        student_info = studentDB.get_single_student(key)
         total_score = 0
         for subjects in student_scores:
             total_score += list(student_scores[subjects].values())[0]
-        positions.append((key,total_score))
+        positions.append((student_info["name"], total_score))
     positions.sort(key=lambda x:(-x[-1],x[1]))
 
     for i in range(len(positions)):
