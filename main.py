@@ -11,10 +11,12 @@ from WorldSelection.Player import Player
 from minigame.filter import Questionfilter
 from Leaderboard.leaderboard import Leaderboard
 import os
+from DatabaseControllers.QuestionDB import QuestionDB
 
 path_parent = os.path.dirname(os.getcwd())
 os.chdir(path_parent)
 
+QuestionDB = QuestionDB()
 
 teleportCooldownState = False
 teleportCooldownTimer = pygame.USEREVENT + 1
@@ -42,6 +44,7 @@ STUDENT_DATA = None
 subject = 'algebra' #put to none
 username = "Alex" #change to username later
 completion = None
+questions = None
 #Login()
 # Registration = Registration()
 class States(Enum):
@@ -125,7 +128,10 @@ while True:
         Leaderboard()
     elif state == States.difficulty_select:
         level = levelselect()
-        questions = Questionfilter(subject, level)
+        # questions = Questionfilter(subject, level)
+        
+        questions = QuestionDB.get_questions("algebra", level)
+        # print(questions)
         #level = 'test' #in database data change level to integer 1,2,3
         state = States.minigame
 
