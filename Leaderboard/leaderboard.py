@@ -3,6 +3,7 @@ import pygame
 import pygame.freetype
 import tkinter as tk
 from tkinter import *
+from Login import assets
 import os
 
 from StudentDB import StudentDB
@@ -29,12 +30,18 @@ def Leaderboard():
     # background_image = pygame.image.load('Image/leaderboard1.png').convert_alpha()
     background_image = pygame.image.load(os.path.join(os.path.dirname(
                     __file__), "leaderboard1.png")).convert_alpha()
-
+    back_img = pygame.image.load(os.path.join(os.path.dirname(
+                    __file__), "backButton copy.png")).convert_alpha()
     background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
 
     #create on screen
     screen.blit(background_image,(0,0))
     screen.blit(textsurface,(360,30))
+    backButton = assets.Button(screen=screen,id='buttonRegistration',image=back_img,scale=1,x=20,y=20)
+
+    def backButton_clicked():
+        print("Back Button Clicked")
+        return True
 
     #call function to draw top players from firestore
     scoreDB = ScoreDB()
@@ -66,6 +73,9 @@ def Leaderboard():
     running = True
     while running:
         for event in pygame.event.get():
+            if backButton.draw():
+                if backButton_clicked():
+                    return 1
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
