@@ -72,7 +72,6 @@ def subject_Chapter_selection(character_gender,studentID):
                 if(sky_pos[0] == -800):
                     pass
                 else:
-                    print(sky_pos[0])
                     sky_pos[0] += LEFT_X_CHANGE
                     ground_pos[0] += LEFT_X_CHANGE
 
@@ -241,6 +240,15 @@ def subject_Chapter_selection(character_gender,studentID):
                         current_page = total_pages
                     else:
                         current_page +=1
+                
+                if Quest1.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    print(currentdata[0])
+                    
+                if Quest2.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    print(currentdata[1])
+                if Quest3.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    print(currentdata[2])
+
         
 
         # draw the screen background
@@ -258,7 +266,7 @@ def subject_Chapter_selection(character_gender,studentID):
             chapter_selection(player=player, screen=screen, castles=sci_castles,
                             castleName=sci_castleName, backPortal=sci_backPortal, questHouse=sci_questHouse)
         elif state == States.QUEST_SELECT:
-            quest_selection(quest_data=quest_data,screen=screen,quest_menu = quest_menu, Quest1=Quest1,Quest2=Quest2,Quest3=Quest3,prevButton=prevButton,nextButton=nextButton,backButton=backButton,current_page=current_page)
+            currentdata = quest_selection(quest_data=quest_data,screen=screen,quest_menu = quest_menu, Quest1=Quest1,Quest2=Quest2,Quest3=Quest3,prevButton=prevButton,nextButton=nextButton,backButton=backButton,current_page=current_page)
         # print(state)
         # print(teleportCooldownState)
         pygame.display.update()
