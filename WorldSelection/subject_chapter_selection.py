@@ -4,7 +4,7 @@ from Player import Player
 from subject_level import load_assets as load_assets_subject, subject_selection
 from chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles,check_quest_house
 from enum import Enum
-
+import os
 
 def subject_Chapter_selection(character_gender):
     class States(Enum):
@@ -28,9 +28,12 @@ def subject_Chapter_selection(character_gender):
 
     state = States.SUBJECT_LEVEL
 
-    # load sky
-    sky_surface = pygame.image.load('graphics/Sky.png').convert()
-    ground_surface = pygame.image.load('graphics/ground.png').convert()
+   #load sky
+    
+    sky_surface = pygame.image.load(os.path.join(os.path.dirname(__file__),  'Sky.png')).convert_alpha()
+    ground_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), 'ground.png')).convert_alpha()
+
+
     
 
     sky_surface = pygame.transform.rotozoom(sky_surface, 0, 1.5)
