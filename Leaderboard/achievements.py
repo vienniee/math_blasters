@@ -119,7 +119,7 @@ def Achievements(studentID):
 
     found = 0
     for i in range(len(positions)):
-        if positions[i][0] == "-Mm8fShiNigSh-PCK--C": #replace hardcoded ID with studentID field later
+        if positions[i][0] == studentID: #replace hardcoded ID with studentID field later
             found = 1
             totalScore_award = reward_check("total",positions[i][2])
             algebra_award = reward_check("algebra",positions[i][3])
