@@ -58,7 +58,7 @@ class States(Enum):
     leaderboard = 12
     difficulty_select = 13
 
-state = States.difficulty_select
+state = States.level_select
 
 # pygame.init()
 # clock = pygame.time.Clock()

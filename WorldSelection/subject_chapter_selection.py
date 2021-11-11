@@ -3,6 +3,7 @@ from sys import exit
 from WorldSelection.Player import Player
 from WorldSelection.subject_level import load_assets as load_assets_subject, subject_selection
 from WorldSelection.chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles,check_quest_house
+from WorldSelection.Quest_Select_Modal import load_asset as load_assets_quest, quest_selection
 from enum import Enum
 import os
 

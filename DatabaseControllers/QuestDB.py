@@ -50,9 +50,9 @@ emptyQuest = {
     "createdBy":"Ms Tan"
 }
 
-questdb = QuestDB()
-questdb.add_quest(emptyQuest)
-# get_single_quest()
+# questdb = QuestDB()
+# questdb.add_quest(emptyQuest)
+# # get_single_quest()
 
 
 
