@@ -1,8 +1,8 @@
 import pygame
 from sys import exit
-from Player import Player
-from subject_level import load_assets as load_assets_subject, subject_selection
-from chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles,check_quest_house
+from WorldSelection.Player import Player
+from WorldSelection.subject_level import load_assets as load_assets_subject, subject_selection
+from WorldSelection.chapter_level import load_assets as load_assets_chapter, chapter_selection,check_backportal,check_castles,check_quest_house
 from enum import Enum
 import os
 
@@ -24,14 +24,15 @@ def subject_Chapter_selection(character_gender):
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((1000, 600))
     pygame.display.set_caption("CZ3003 pygame")
-    test_font = pygame.font.Font("font/Pixeltype.ttf", 50)
+    # test_font = pygame.font.Font(os.path.join(os.path.dirname(__file__), 'Pixeltype.ttf', 50))
+    
 
     state = States.SUBJECT_LEVEL
 
    #load sky
     
-    sky_surface = pygame.image.load(os.path.join(os.path.dirname(__file__),  'Sky.png')).convert_alpha()
-    ground_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), 'ground.png')).convert_alpha()
+    sky_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Sky.png')).convert_alpha()
+    ground_surface = pygame.image.load(os.path.join(os.path.dirname(__file__),  'ground.png')).convert_alpha()
 
 
     
@@ -236,4 +237,3 @@ def subject_Chapter_selection(character_gender):
         clock.tick(60)
 
 
-subject_Chapter_selection("female")
