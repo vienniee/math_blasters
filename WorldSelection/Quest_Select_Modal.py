@@ -72,16 +72,14 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
         if(current_page == total_pages):
             reminder = len(quest_data)%3
             for i in range(startIndex, startIndex+reminder):
-                print(i)
                 currentdata.append(quest_data[i])
         else:
             for i in range(startIndex, startIndex+numberOfDataPerPage):
-                print(i)
                 currentdata.append(quest_data[i])
 
-        print("length of quest data" + str(len(quest_data)))
-        print("current page: " + str(current_page))
-        print("start index: " +str(startIndex))
+        # print("length of quest data" + str(len(quest_data)))
+        # print("current page: " + str(current_page))
+        # print("start index: " +str(startIndex))
     quest_menu.draw(screen)
     prevButton.draw(screen)
     nextButton.draw(screen)
@@ -115,6 +113,8 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
         teacherNameGroup.add(QuestText(currentdata[1]["createdBy"]+"'s Quest",350))
         teacherNameGroup.add(QuestText(currentdata[2]["createdBy"]+"'s Quest",450))
         teacherNameGroup.draw(screen)
+
+        return currentdata
     
     
 
