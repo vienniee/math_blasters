@@ -8,6 +8,7 @@ from WorldSelection.subject_chapter_selection import subject_Chapter_selection
 from minigame.Game import Game
 from WorldSelection.Player import Player
 from minigame.filter import Questionfilter
+from Leaderboard.leaderboard import Leaderboard
 import os
 
 path_parent = os.path.dirname(os.getcwd())
@@ -56,7 +57,7 @@ class States(Enum):
     achievement = 11
     leaderboard = 12
 
-state = States.login
+state = States.leaderboard
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -123,6 +124,8 @@ while True:
     elif state == States.world_select:
         #subject = subject_Chapter_selection(gender)
         subject = 'algebra'
+    elif state == States.leaderboard:
+        Leaderboard()
 
 # login screen or register
 

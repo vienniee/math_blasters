@@ -8,7 +8,11 @@ class ScoreDB:
     def add_or_update_score(self,studentID,subject,level,score):
         db.child("scores").child(studentID).child(subject).child(level).set(score)
 
-    def get_score(self,studentID):
+    def get_all_score(self):
+        scoreList = db.child("scores").get()
+        return scoreList.val()
+
+    def get_single_score(self,studentID):
         scoreList = db.child("scores").child(studentID).get()
         return scoreList.val()
 
