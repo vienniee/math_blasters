@@ -24,6 +24,6 @@ class ScoreDB:
 
 #     test = ScoreDB()
 #     print(test.add_or_update_score(
-#         "-Mm8fShiNigSh-PCK--C", "algebra", "level 1", 2))
+#         "-Mm8kLnp1SzylkBoB5Ca", "algebra", "level 1", 60))
 
 
