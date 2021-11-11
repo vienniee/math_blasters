@@ -56,8 +56,9 @@ class States(Enum):
     scorepage = 10
     achievement = 11
     leaderboard = 12
+    difficulty_select = 13
 
-state = States.leaderboard
+state = States.difficulty_select
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -126,6 +127,8 @@ while True:
         subject = 'algebra'
     elif state == States.leaderboard:
         Leaderboard()
+    elif state == States.difficulty_select:
+        levelselect()
 
 # login screen or register
 
