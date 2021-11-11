@@ -22,6 +22,23 @@ class QuestionDB:
         questionList = db.child("questions").child(subject).child(level).get()
         return questionList.val()
 
+    def get_all_questions(self):
+
+        temp ={}
+
+        questionList = db.child("questions").get()
+        questiondb =  questionList.val()
+
+        for subject in questiondb:
+            print(subject)
+            for level in questiondb[subject]:
+                print(level)
+                for question_id in questiondb[subject][level]:
+                    print(question_id)
+                    temp[question_id] = questiondb[subject][level][question_id]
+
+        return temp
+
     # db.child("users").child("Morty").update({"name": "Mortiest Morty"})
     def update_questions(self, subject, level, questionID, newQuestion):
         db.child("questions").child(subject).child(

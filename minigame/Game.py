@@ -45,7 +45,7 @@ clicked = False
 
 
 
-def Game(gender,Pname,questions):
+def Game(gender,Pname,questions,isMinigame):
 
     #define gaming variables
     action_cd = 0
@@ -84,8 +84,11 @@ def Game(gender,Pname,questions):
                 tmp = random.randint(start, end)
             arr.append(tmp)
         return arr
-
-    randomNumberList = createRandomSortedList(10, 0, len(questions)-1)
+    print(type(questions), questions)
+    if isMinigame:
+        randomNumberList = createRandomSortedList(10, 0, len(questions)-1)
+    else:
+        randomNumberList = createRandomSortedList(len(questions), 0, len(questions)-1)
 
     orderedList = []
     for key in questions:
@@ -500,7 +503,7 @@ def Game(gender,Pname,questions):
                     player.death()
 
         if questionbuttonlist2[questionnum].draw() == True and game_over == 0:
-            currentanswer = answers[questionnum]
+            # currentanswer = answers[questionnum]
             currentanswer = 2
             print(type(currentanswer),currentanswer)
             print(reorderQlist[questionnum])
@@ -529,7 +532,7 @@ def Game(gender,Pname,questions):
                     player.death()
 
         if questionbuttonlist3[questionnum].draw() == True and game_over == 0:
-            currentanswer = answers[questionnum]
+            # currentanswer = answers[questionnum]
             currentanswer = 3
             if currentanswer == int(reorderQlist[questionnum]["correctAnswer"]):
                 score += 1
@@ -557,7 +560,7 @@ def Game(gender,Pname,questions):
                     player.death()
 
         if questionbuttonlist4[questionnum].draw() == True and game_over == 0:
-            currentanswer = answers[questionnum]
+            # currentanswer = answers[questionnum]
             currentanswer = 4
             if currentanswer == int(reorderQlist[questionnum]["correctAnswer"]):
                 score += 1

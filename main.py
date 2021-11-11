@@ -1,3 +1,5 @@
+from posixpath import ismount
+from tkinter.constants import E
 from pyasn1.codec.ber.decoder import SetDecoder
 import pygame, sys
 # from pygame.locals import *
@@ -13,11 +15,14 @@ from Leaderboard.leaderboard import Leaderboard
 from Leaderboard.achievements import Achievements
 import os
 from DatabaseControllers.QuestionDB import QuestionDB
+from DatabaseControllers.QuestDB import QuestDB
+from collections import OrderedDict
 
 path_parent = os.path.dirname(os.getcwd())
 os.chdir(path_parent)
 
 QuestionDB = QuestionDB()
+# QuestDB =QuestDB()
 
 teleportCooldownState = False
 teleportCooldownTimer = pygame.USEREVENT + 1
@@ -39,15 +44,31 @@ if __name__ == '__main__':
 
 # global variable like student gender and name
 gender = "male"
-studentID = "test1"
+studentID = "hDhNkZR4CSct81bQA6oX6drdZHo2"
 level = None
 STUDENT_DATA = None
 subject = 'algebra' #put to none
 username = "Alex" #change to username later
 completion = None
 questions = None
+isMinigame= False
 #Login()
 # Registration = Registration()
+
+
+def get_quest_qns(quest_quetions_id):
+    temp = OrderedDict()
+    questions_dict = QuestionDB.get_all_questions()
+
+    for i in quest_quetions_id:
+        try:
+            temp[i] = questions_dict[i]
+        except:
+            print("questionid does not exist in question database")
+
+    return temp
+
+
 class States(Enum):
     login = 1
     register = 2
@@ -113,7 +134,7 @@ while True:
         teacherDashboard.main_menu()
         
     elif state == States.minigame:
-        score, completion = Game(gender,username,questions)
+        score, completion = Game(gender,username,questions,isMinigame)
         if completion:
             state = States.scorepage
         else:
@@ -121,10 +142,16 @@ while True:
     elif state == States.quest_menu:
         pass
     elif state == States.world_select:
-        result, chapter = subject_Chapter_selection(gender, studentID)
+        result, data = subject_Chapter_selection(gender, studentID)
         if result == 1:
-            subject =chapter
+            subject = data
             state = States.difficulty_select
+
+        if result == 0:
+            quest_data = data
+            questions = get_quest_qns(quest_data["listofQuestionID"])
+            state = States.minigame
+
     elif state == States.leaderboard:
         outcome = Leaderboard()
         if outcome == 1:
@@ -136,11 +163,17 @@ while True:
     elif state == States.difficulty_select:
         level = levelselect()
         # questions = Questionfilter(subject, level)
-        
+        isMinigame = True
         questions = QuestionDB.get_questions("algebra", level)
         # print(questions)
         #level = 'test' #in database data change level to integer 1,2,3
         state = States.minigame
+
+    elif state == States.scorepage:
+        isMinigame=False
+        pass
+
+
 
 # login screen or register
 

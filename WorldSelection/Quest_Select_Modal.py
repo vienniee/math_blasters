@@ -63,7 +63,7 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
     
     if(len(quest_data) <=3):
         currentdata = quest_data
-        print(currentdata)
+        # print(currentdata)
     elif(len(quest_data) == 0):
         print("no quest")
     else:
@@ -114,7 +114,7 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
         teacherNameGroup.add(QuestText(currentdata[2]["createdBy"]+"'s Quest",450))
         teacherNameGroup.draw(screen)
 
-        return currentdata
+    return currentdata
     
     
 

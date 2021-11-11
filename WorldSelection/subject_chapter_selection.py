@@ -58,8 +58,9 @@ def subject_Chapter_selection(character_gender,studentID):
 
     teleportCooldownState = False
     teleportCooldownTimer = pygame.USEREVENT + 1
-
+    currentdata = []
     current_page = 1
+
 
     while True:
         keys = pygame.key.get_pressed()
@@ -243,12 +244,14 @@ def subject_Chapter_selection(character_gender,studentID):
                 
                 if Quest1.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
                     print(currentdata[0])
+                    return 0, currentdata[0] 
                     
                 if Quest2.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
                     print(currentdata[1])
+                    return 0, currentdata[1]
                 if Quest3.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
                     print(currentdata[2])
-
+                    return 0, currentdata[2]
         
 
         # draw the screen background
