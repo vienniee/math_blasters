@@ -36,7 +36,7 @@ def Leaderboard():
 
     #call function to draw top players from firestore
     scoreDB = ScoreDB()
-    result = scoreDB.get_score()
+    result = scoreDB.get_all_score()
     positions = []
     for key in result:
         student_scores = result[key]
