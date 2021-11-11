@@ -40,6 +40,10 @@ class StudentDB:
         studentlist = db.child("students").get()
         return studentlist.val()
 
+    def get_single_student(self, studentID):
+        studentlist = db.child("students").key(studentID).get()
+        return studentlist.val()
+
     def update_student(self, key, newStudent):
         db.child("students").child(key).update(newStudent)
 
