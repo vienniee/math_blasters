@@ -2,17 +2,6 @@ import os
 import pygame
 import random
 from pygame.locals import *
-from DatabaseControllers.QuestionDB import QuestionDB
-
-
-# if __name__ == '__main__':
-#     if __package__ is None:
-#         import sys
-#         from os import path
-#         sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-#         from DatabaseControllers.QuestionDB import QuestionDB
-#     else:
-#         from ..DatabaseControllers.QuestionDB import QuestionDB
 
 
 pygame.init()

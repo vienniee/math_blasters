@@ -17,9 +17,10 @@ import os
 from DatabaseControllers.QuestionDB import QuestionDB
 from DatabaseControllers.QuestDB import QuestDB
 from collections import OrderedDict
+from minigame.results import results
 
-path_parent = os.path.dirname(os.getcwd())
-os.chdir(path_parent)
+# path_parent = os.path.dirname(os.getcwd())
+# os.chdir(path_parent)
 
 QuestionDB = QuestionDB()
 # QuestDB =QuestDB()
@@ -167,12 +168,14 @@ while True:
             state = States.world_select
         else:
             isMinigame = True
-            questions = QuestionDB.get_questions(subject, level)
+            questions = QuestionDB.get_questions("algebra", level)
             state = States.minigame
 
     elif state == States.scorepage:
         isMinigame=False
-        pass
+        cont = results(subject,level,score)
+        if cont:
+            state=States.world_select
 
 
 

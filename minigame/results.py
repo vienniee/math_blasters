@@ -1,5 +1,7 @@
 #import libraries
 import pygame
+import os
+from DatabaseControllers.ScoresDB import ScoreDB
 
 if __name__ == '__main__':
     if __package__ is None:
@@ -50,10 +52,11 @@ class Button():
         return action
 
 def results(topic, level, score):
+    print(os.getcwd())
     cont = pygame.image.load('Image\cont.png').convert_alpha()
 
     # Background
-    background = pygame.image.load('image\level_select.png').convert()
+    background = pygame.image.load('Image\level_select.png').convert()
 
     #logo - icon made by Freepik from www.flaticon.com
     #pygame.display.set_caption("MathBlasters!")
@@ -107,9 +110,11 @@ def results(topic, level, score):
             "TotalScore":score
         }
 
-        ScoresDB.ScoreDB.update_score("student1",studentScore)
+        test = ScoreDB()
+        test.add_or_update_score("student1",topic,level,studentScore)
 
         if contButton.draw() == True:
             print('continue button selected')
+            return True
         
         pygame.display.update()
