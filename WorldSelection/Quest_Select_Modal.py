@@ -88,7 +88,9 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
     backButton.draw(screen)
 
     if(len(currentdata) == 0):
-        None
+        teacherNameGroup = pygame.sprite.Group()
+        teacherNameGroup.add("No Quest Assigned",350)
+        teacherNameGroup.draw(screen)
     elif(len(currentdata) == 1):
         Quest1.draw(screen)
         
