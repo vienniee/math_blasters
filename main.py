@@ -104,7 +104,7 @@ while True:
     elif state == States.student_menu:
         result = studentMenu()
         if result == 1:
-            state = States.level_select
+            state = States.world_select
         if result == 2:
             state = States.achievement
         if result == 3:
@@ -117,7 +117,7 @@ while True:
         if completion:
             state = States.scorepage
         else:
-            state = States.level_select
+            state = States.world_select
     elif state == States.quest_menu:
         pass
     elif state == States.world_select:
