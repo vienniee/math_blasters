@@ -120,7 +120,7 @@ def LoginUser():
         screen.blit(emailSurface, ((w - emailSurface.get_width()) / 2 +25, h * .42))
         screen.blit(passwordSurface, ((w - passwordSurface.get_width()) / 2 +25, h * .5))  
         #Printing login status on the screen
-        assets.create_text(screen,TEXT_OPTION,assets.SMALL_FONT,assets.COLOR_BLACK,330,100)
+        # assets.create_text(screen,TEXT_OPTION,assets.SMALL_FONT,assets.COLOR_BLACK,330,100)
 
         for event in pygame.event.get():
             if btn_registration.draw():

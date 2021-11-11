@@ -4,6 +4,7 @@
 from Login.characterSelect import characterSelect
 from WorldSelection.levelselect import levelselect
 from enum import Enum
+from WorldSelection.subject_chapter_selection import subject_Chapter_selection
 from minigame.Game import Game
 from minigame.filter import Questionfilter
 import os
@@ -47,6 +48,8 @@ class States(Enum):
     world_select = 8
     level_select = 9
     scorepage = 10
+    achievement = 11
+    leaderboard = 12
 
 state = States.login
 
@@ -80,7 +83,13 @@ while True:
         if result == 1:
             state = States.login
     elif state == States.student_menu:
-        studentMenu()
+        result = studentMenu()
+        if result == 1:
+            state = States.level_select
+        if result == 2:
+            state = States.achievement
+        if result == 3:
+            state = States.leaderboard
     elif state == States.teacher_menu:
         teacherDashboard.main_menu()
         
@@ -93,7 +102,7 @@ while True:
     elif state == States.quest_menu:
         pass
     elif state == States.level_select:
-        level = levelselect()
+        level = subject_Chapter_selection()
         questions = Questionfilter(subject,level)
         #level = 'test' #in database data change level to integer 1,2,3
         state = States.minigame
