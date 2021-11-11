@@ -1,22 +1,25 @@
 from DatabaseControllers.FirebaseConfig import db
+# import FirebaseConfig 
 
-emptyScore = {
-    "studentID":"",
-    "minigame":"",
-    "level":"",
-    "TotalScore":0
-}
+# db = FirebaseConfig.db
+
 
 class ScoreDB:
-    def add_score(self,score):
-        db.child("scores").push(score)
+    def add_or_update_score(self,studentID,subject,level,score):
+        db.child("scores").child(studentID).child(subject).child(level).set(score)
 
-    def get_score(self):
-        scoreList = db.child("scores").get()
+    def get_score(self,studentID):
+        scoreList = db.child("scores").child(studentID).get()
         return scoreList.val()
 
-    def update_score(self, key, newscore):
-        db.child("scores").child(key).update(newscore)
+    def delete_score(self, studentID):
+        db.child("scores").child(studentID).remove()
 
-    def delete_score(self, key):
-        db.child("scores").child(key).remove()
+
+# if __name__ == "__main__":
+
+#     test = ScoreDB()
+#     print(test.add_or_update_score(
+#         "-Mm8fShiNigSh-PCK--C", "algebra", "level 1", 2))
+
+
