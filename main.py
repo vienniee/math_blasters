@@ -167,7 +167,7 @@ while True:
             state = States.world_select
         else:
             isMinigame = True
-            questions = QuestionDB.get_questions("algebra", level)
+            questions = QuestionDB.get_questions(subject, level)
             state = States.minigame
 
     elif state == States.scorepage:
