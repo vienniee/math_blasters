@@ -73,7 +73,7 @@ def Game(gender,Pname,questions,isMinigame):
         screen.blit(img,(x,y))
 
 
-    passingmark = 1 # change to 6 later (and also create pick the first 10 questions after randoming)
+    passingmark = 6 # change to 6 later (and also create pick the first 10 questions after randoming)
 
     #function to randomise the question order
     def createRandomSortedList(num, start, end):
