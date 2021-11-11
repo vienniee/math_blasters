@@ -10,6 +10,7 @@ from minigame.Game import Game
 from WorldSelection.Player import Player
 from minigame.filter import Questionfilter
 from Leaderboard.leaderboard import Leaderboard
+from Leaderboard.achievements import Achievements
 import os
 
 path_parent = os.path.dirname(os.getcwd())
@@ -58,7 +59,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.world_select
+state = States.login
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -122,7 +123,13 @@ while True:
             subject =chapter
             state = States.difficulty_select
     elif state == States.leaderboard:
-        Leaderboard()
+        outcome = Leaderboard()
+        if outcome == 1:
+            state = States.student_menu
+    elif state == States.achievement:
+        outcome = Achievements(studentID)
+        if outcome == 1:
+            state = States.student_menu
     elif state == States.difficulty_select:
         level = levelselect()
         questions = Questionfilter(subject, level)
