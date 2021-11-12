@@ -54,7 +54,7 @@ if __name__ == "__main__":
     data = {
     "subject": "algebra",
     "level": "level 1",
-    "questionText": "2+1+2+8+1-11=x",
+    "questionText": "2+1+2+8+1-1=x",
     "optionA": "2",
     "optionB": "3",
     "optionC": "5",
@@ -63,4 +63,4 @@ if __name__ == "__main__":
 }
     
     test = QuestionDB()
-    print(test.add_question("algebra","level 1",data))
+    print(test.add_question("algebra","level 2",data))
