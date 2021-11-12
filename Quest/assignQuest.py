@@ -9,12 +9,9 @@ if __name__ == '__main__':
 
 import pygame, sys
 import pygame_textinput
-import selectQuest
-
-
-
-
-
+import Quest.selectQuest as selectQuest
+from DatabaseControllers.QuestionDB import QuestionDB
+from DatabaseControllers.StudentDB import StudentDB
 
 mainClock = pygame.time.Clock()
 from pygame.locals import *
@@ -79,7 +76,7 @@ def assignQuest(pageNum):
     nextpageimage = pygame.image.load("graphics/teacher/generatereportselect_img8.png").convert_alpha()
     prevpageimage = pygame.image.load("graphics/teacher/generatereportselect_img9.png").convert_alpha()
 
-    students = StudentDB.get_all_students()
+    students = StudentDB.get_student(StudentDB)
 
     studentid = []
     names = []

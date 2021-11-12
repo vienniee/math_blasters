@@ -1,7 +1,7 @@
 import pygame, sys
 import pygame_textinput
-import selectQuest2
-
+import Quest.selectQuest2 as selectQuest2
+from DatabaseControllers.QuestionDB import QuestionDB
 if __name__ == '__main__':
     if __package__ is None:
         import sys
@@ -78,7 +78,7 @@ def assignQuestion(pageNum):
 
     names = []
     questionid = []
-    questions = QuestionDB.get_questions(QuestionDB)
+    questions = QuestionDB.get_all_questions(QuestionDB)
 
 
     for i in questions:
@@ -121,34 +121,34 @@ def assignQuestion(pageNum):
 
 
         if button_1.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[0+pageIterator])
         if button_2.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[1+pageIterator])
         if button_3.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[2+pageIterator])
         if button_4.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[3+pageIterator])
         if button_5.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[4+pageIterator])
         if button_6.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest22(1,questionid[5+pageIterator])
         if button_7.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[6+pageIterator])
         if button_8.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[7+pageIterator])
         if button_9.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[8+pageIterator])
         if button_10.draw() == True and click:
-            import selectQuest2
+            import Quest.selectQuest2
             selectQuest2.selectQuest2(1,questionid[9+pageIterator])
         if button_11.draw() == True and click:
             assignQuestion(pageNum+1)

@@ -18,6 +18,15 @@ from DatabaseControllers.QuestionDB import QuestionDB
 from DatabaseControllers.QuestDB import QuestDB
 from collections import OrderedDict
 from minigame.results import results
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from Login.login import LoginUser
+from Login.RegistrationMenu import Registration
+from mainmenu.studentmenu import studentMenu
+import mainmenu.teacherDashboard as teacherDashboard
+
+
 
 # path_parent = os.path.dirname(os.getcwd())
 # os.chdir(path_parent)
@@ -29,19 +38,6 @@ teleportCooldownState = False
 teleportCooldownTimer = pygame.USEREVENT + 1
 
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from Login.login import LoginUser
-        from Login.RegistrationMenu import Registration
-        from mainmenu.studentmenu import studentMenu
-        import mainmenu.teacherDashboard as teacherDashboard
-        
-    else:
-        from .Login.login import LoginUser
-        from .Login.RegistrationMenu import Registration
 
 # global variable like student gender and name
 gender = "male"
@@ -84,7 +80,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.student_menu
+state = States.teacher_menu
 
 # pygame.init()
 # clock = pygame.time.Clock()
