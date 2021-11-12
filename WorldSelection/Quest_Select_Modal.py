@@ -60,7 +60,8 @@ def load_asset(subject,studentID):
 def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButton,nextButton,backButton, current_page):
     currentdata = []
     numberOfDataPerPage = 3
-    
+    teacherNameGroup = pygame.sprite.Group()
+
     if(len(quest_data) <=3):
         currentdata = quest_data
         # print(currentdata)
@@ -86,20 +87,18 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
     backButton.draw(screen)
 
     if(len(currentdata) == 0):
-        teacherNameGroup = pygame.sprite.Group()
+        
         teacherNameGroup.add("No Quest Assigned",350)
         teacherNameGroup.draw(screen)
     elif(len(currentdata) == 1):
         Quest1.draw(screen)
         
-        teacherNameGroup = pygame.sprite.Group()
         teacherNameGroup.add(QuestText(currentdata[0]["createdBy"]+"'s Quest",250))
         teacherNameGroup.draw(screen)
     elif(len(currentdata) == 2):
         Quest1.draw(screen)
         Quest2.draw(screen)
 
-        teacherNameGroup = pygame.sprite.Group()
         teacherNameGroup.add(QuestText(currentdata[0]["createdBy"]+"'s Quest",250))
         teacherNameGroup.add(QuestText(currentdata[1]["createdBy"]+"'s Quest",350))
         teacherNameGroup.draw(screen)
@@ -108,7 +107,6 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
         Quest2.draw(screen)
         Quest3.draw(screen)
 
-        teacherNameGroup = pygame.sprite.Group()
         teacherNameGroup.add(QuestText(currentdata[0]["createdBy"]+"'s Quest",250))
         teacherNameGroup.add(QuestText(currentdata[1]["createdBy"]+"'s Quest",350))
         teacherNameGroup.add(QuestText(currentdata[2]["createdBy"]+"'s Quest",450))
