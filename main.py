@@ -64,6 +64,7 @@ def get_quest_qns(quest_quetions_id):
             print("questionid does not exist in question database")
 
     return temp
+
 class States(Enum):
     login = 1
     register = 2
@@ -78,7 +79,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.login
+state = States.teacher_menu
 
 while True:
     for event in pygame.event.get():
@@ -120,6 +121,8 @@ while True:
             state = States.achievement
         if result == 3:
             state = States.leaderboard
+        if result == 4:
+            state = States.login
     elif state == States.teacher_menu:
         teacherDashboard.main_menu()
         

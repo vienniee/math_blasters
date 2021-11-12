@@ -1,4 +1,4 @@
-import pygame, sys,importlib
+import pygame, sys
 
 # from pyrebase.pyrebase import Firebase
 
@@ -210,14 +210,3 @@ def LoginUser():
            
         pygame.display.update()
         mainClock.tick(60)
-
-
-
-
-
-    
-        
-
-    
-    
-

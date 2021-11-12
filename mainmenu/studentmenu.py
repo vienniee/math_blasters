@@ -18,6 +18,7 @@ background_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), '
 play_img = pygame.image.load(os.path.join(os.path.dirname(__file__),  'play_button.png')).convert_alpha()
 achievements_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'achievements_button.png')).convert_alpha()
 leaderboard_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'leaderboard_button.png')).convert_alpha()
+logout_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'logout_button.png')).convert_alpha()
 
 #button class
 class Button():
@@ -53,7 +54,7 @@ class Button():
 play_button = Button(SCREEN_WIDTH/2-160, 260, play_img, 1)
 achievements_button = Button(SCREEN_WIDTH/2-160, 330, achievements_img, 1)
 leaderboard_button = Button(SCREEN_WIDTH/2-160, 400, leaderboard_img, 1)
-
+logout_button = Button(850,20,logout_img,0.5)
 
 #game loop
 def studentMenu():
@@ -72,6 +73,10 @@ def studentMenu():
         if leaderboard_button.draw() == True:
             print('leaderboard selected')
             return 3
+        if logout_button.draw() == True:
+            print('logout selected')
+            return 4
+        
         
 
         #event handler
