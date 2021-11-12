@@ -1,11 +1,28 @@
 import pygame
+import os
 from WorldSelection.Castle import Castle
 from WorldSelection.Portal import Portal
 from WorldSelection.CastleText import CastleText
 from WorldSelection.Quest_House import Quest_House
 
+class Button():
+    def __init__(self, x, y, image, scale):
+        width = image.get_width()
+        height = image.get_height()
+        self.image = pygame.transform.scale(image, (int(width *scale),int(height*scale)))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+        self.clicked = False
+
+    def draw(self,screen):
+        #draw button on screen
+        screen.blit(self.image,(self.rect.x,self.rect.y))
 
 def load_assets(chap_1, chap_1_level, chap_2, chap_2_level):
+
+    exitButtonImage = pygame.image.load(os.path.join(os.path.dirname(__file__), "quest", 'backButton.png')).convert_alpha()
+    exitButton = Button(940,50,exitButtonImage,1)
+
     # group sprite
     castles = pygame.sprite.Group()
     castles.add(Castle(400, chap_1_level, chap_1))
@@ -22,7 +39,7 @@ def load_assets(chap_1, chap_1_level, chap_2, chap_2_level):
     questHouse = pygame.sprite.GroupSingle()
     questHouse.add(Quest_House(1200))
 
-    return castles,castlesNames,backPortal,questHouse
+    return castles,castlesNames,backPortal,questHouse, exitButton
 
 # def load_backPortal():
 #     backPortal = pygame.sprite.GroupSingle()
@@ -32,11 +49,12 @@ def load_assets(chap_1, chap_1_level, chap_2, chap_2_level):
 #     return backPortal
 
 
-def chapter_selection(player,screen, castles, castleName, backPortal, questHouse):
+def chapter_selection(player,screen, castles, castleName, backPortal, questHouse,exitButton):
     castles.draw(screen)
     castleName.draw(screen)
     backPortal.draw(screen)
     questHouse.draw(screen)
+    exitButton.draw(screen)
     player.draw(screen)
 
     player.update()

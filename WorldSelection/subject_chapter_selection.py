@@ -50,10 +50,10 @@ def subject_Chapter_selection(character_gender,studentID):
     player = pygame.sprite.GroupSingle()
     player.add(Player(character_gender))
 
-    portals, portal_names = load_assets_subject()
-    math_castles, math_castleName, math_backPortal, math_questHouse = load_assets_chapter(
+    portals, portal_names,exitButton = load_assets_subject()
+    math_castles, math_castleName, math_backPortal, math_questHouse, math_exitButton = load_assets_chapter(
         "Fractions",2, "Algebra",3)
-    sci_castles, sci_castleName, sci_backPortal, sci_questHouse = load_assets_chapter(
+    sci_castles, sci_castleName, sci_backPortal, sci_questHouse, sci_exitButton = load_assets_chapter(
         "Science1",1, "Science2",3)
 
     teleportCooldownState = False
@@ -163,6 +163,11 @@ def subject_Chapter_selection(character_gender,studentID):
                 print("teleportCooldownState False")
 
             if state == States.SUBJECT_LEVEL:
+
+                pos = pygame.mouse.get_pos()
+                if exitButton.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    print("go to student main menu")
+                    return 4, None
                 
                 if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and collision_sprite(portals):
                     print("teleport to chapter")
@@ -189,6 +194,11 @@ def subject_Chapter_selection(character_gender,studentID):
                     print("teleportCooldownState True")
 
             if state == States.MATH_SUBJ:
+                pos = pygame.mouse.get_pos()
+                if math_exitButton.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    print("go to student main menu")
+                    return 4, None
+
                 if check_backportal(keys, math_backPortal, teleportCooldownState,player):
                     state = States.SUBJECT_LEVEL
                     teleportCooldownState = True
@@ -206,6 +216,11 @@ def subject_Chapter_selection(character_gender,studentID):
                 
 
             if state == States.SCI_SUBJ:
+                pos = pygame.mouse.get_pos()
+                if sci_exitButton.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+                    print("go to student main menu")
+                    return 4, None
+
                 if check_backportal(keys, sci_backPortal, teleportCooldownState,player):
                     state = States.SUBJECT_LEVEL
                     teleportCooldownState = True
@@ -261,13 +276,13 @@ def subject_Chapter_selection(character_gender,studentID):
         screen.blit(ground_surface, (ground_pos[0]+800, ground_pos[1]))
 
         if state == States.SUBJECT_LEVEL:
-            subject_selection(player= player, screen=screen, portal=portals,portal_names=portal_names)
+            subject_selection(player= player, screen=screen, portal=portals,portal_names=portal_names,exitButton=exitButton)
         elif state == States.MATH_SUBJ:
             chapter_selection(player=player, screen=screen, castles=math_castles,
-                              castleName=math_castleName, backPortal=math_backPortal, questHouse=math_questHouse)
+                              castleName=math_castleName, backPortal=math_backPortal, questHouse=math_questHouse, exitButton=math_exitButton)
         elif state == States.SCI_SUBJ:
             chapter_selection(player=player, screen=screen, castles=sci_castles,
-                            castleName=sci_castleName, backPortal=sci_backPortal, questHouse=sci_questHouse)
+                            castleName=sci_castleName, backPortal=sci_backPortal, questHouse=sci_questHouse, exitButton=sci_exitButton)
         elif state == States.QUEST_SELECT:
             currentdata = quest_selection(quest_data=quest_data,screen=screen,quest_menu = quest_menu, Quest1=Quest1,Quest2=Quest2,Quest3=Quest3,prevButton=prevButton,nextButton=nextButton,backButton=backButton,current_page=current_page)
         # print(state)
