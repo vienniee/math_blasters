@@ -21,7 +21,7 @@ w = 1000
 
 screen = pygame.display.set_mode((w,h))
 font = pygame.font.SysFont(None, 20)
-smallfont = pygame.font.SysFont('Corbel', 35)
+smallfont = pygame.font.SysFont('Corbel', 30)
 bigfont = pygame.font.SysFont('Corbel', 60)
 
 
@@ -76,10 +76,14 @@ def selectQuest(pageNum,studentid):
 
     quests = QuestDB.get_quest(QuestDB)
 
+    questid = []
     names = []
+    count=0
     for i in quests:
-        names.append(i)
- 
+        names.append(quests[i]['createdBy'])
+        questid.append(i)
+        count+=1
+
     while running:
 
         screen.blit(background_surface, (0, 0))
@@ -104,61 +108,123 @@ def selectQuest(pageNum,studentid):
         
         pageIterator = (pageNum-1) * 10
         try:
-            nameText1 = smallfont.render(names[0+pageIterator], True, (0, 0, 0))
-            nameText2 = smallfont.render(names[1+pageIterator], True, (0, 0, 0))
-            nameText3 = smallfont.render(names[2+pageIterator], True, (0, 0, 0))
-            nameText4 = smallfont.render(names[3+pageIterator], True, (0, 0, 0))
-            nameText5 = smallfont.render(names[4+pageIterator], True, (0, 0, 0))
-            nameText6 = smallfont.render(names[5+pageIterator], True, (0, 0, 0))
-            nameText7 = smallfont.render(names[6+pageIterator], True, (0, 0, 0))
-            nameText8 = smallfont.render(names[7+pageIterator], True, (0, 0, 0))
-            nameText9 = smallfont.render(names[8+pageIterator], True, (0, 0, 0))
-            nameText10 = smallfont.render(names[9+pageIterator], True, (0, 0, 0))
+            nameText1 = smallfont.render(names[0+pageIterator] + "'s Quest", True, (0, 0, 0))
+            nameText2 = smallfont.render(names[1+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText3 = smallfont.render(names[2+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText4 = smallfont.render(names[3+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText5 = smallfont.render(names[4+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText6 = smallfont.render(names[5+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText7 = smallfont.render(names[6+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText8 = smallfont.render(names[7+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText9 = smallfont.render(names[8+pageIterator] + "'s Quest", True, (0, 0, 0))
+            nameText10 = smallfont.render(names[9+pageIterator] + "'s Quest" , True, (0, 0, 0))
         except:
             pass
 
         if button_1.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[0+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            questioncount = 0
+            for i in quests[questid[0+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[0+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_2.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[1+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[1+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[1+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_3.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[2+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[2+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[2+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_4.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[3+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[3+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[3+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_5.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[4+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[4+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[4+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_6.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[5+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[5+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[5+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_7.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[6+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[6+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[6+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_8.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[7+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[7+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[7+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_9.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[8+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[8+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[8+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_10.draw() == True and click:
-            QuestDB.add_studentID(QuestDB, names[9+pageIterator], studentid)
-            import mainmenu.teacherDashboard as teacherDashboard
-            teacherDashboard.main_menu()
+            for i in quests[questid[+pageIterator]]['listofQuestionID']:
+                questioncount += 1
+            if questioncount < 10:
+                import Quest.error404 as error404
+                error404.error404()
+            else:
+                QuestDB.add_studentID(QuestDB, names[9+pageIterator], studentid)
+                import mainmenu.teacherDashboard as teacherDashboard
+                teacherDashboard.main_menu()
         if button_11.draw() == True and click:
-            selectQuest(pageNum+1, name)
+            if (count - (pageNum * 10) > 0):
+                selectQuest(pageNum+1, name)
         if button_12.draw() == True and click:
             if (pageNum!=1):
                 selectQuest(pageNum-1, name)
@@ -182,7 +248,8 @@ def selectQuest(pageNum,studentid):
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    running = False
+                    import Quest.assignQuest as assignQuest
+                    assignQuest.assignQuest(1)
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True

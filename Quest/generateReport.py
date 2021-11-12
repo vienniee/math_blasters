@@ -71,9 +71,11 @@ def generateReport(pageNum):
 
     studentid = []
     names = []
+    count = 0
     for i in students:
         names.append(students[i]['name'])
         studentid.append(i)
+        count+=1
 
 
     while running:
@@ -135,7 +137,8 @@ def generateReport(pageNum):
         if button_10.draw() == True and click:
             report.report(names[9+pageIterator], studentid[9+pageIterator])
         if button_11.draw() == True and click:
-            generateReport(pageNum+1)
+            if (count - (pageNum * 10) > 0):
+                generateReport(pageNum+1)
         if button_12.draw() == True and click:
             if (pageNum!=1):
                 generateReport(pageNum-1)
@@ -160,7 +163,8 @@ def generateReport(pageNum):
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    running = False
+                    import mainmenu.teacherDashboard as teacherDashboard
+                    teacherDashboard.main_menu()
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True

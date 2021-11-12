@@ -80,9 +80,11 @@ def assignQuest(pageNum):
 
     studentid = []
     names = []
+    count = 0
     for i in students:
         names.append(students[i]['name'])
         studentid.append(i)
+        count+=1
 
     while running:
         screen.blit(background_surface, (0, 0))
@@ -141,7 +143,8 @@ def assignQuest(pageNum):
         if button_10.draw() == True and click:
             selectQuest.selectQuest(1,studentid[9+pageIterator])
         if button_11.draw() == True and click:
-            assignQuest(pageNum+1)
+            if (count - (pageNum * 10) > 0):
+                assignQuest(pageNum+1)
         if button_12.draw() == True and click: 
             if (pageNum!=1):
                 assignQuest(pageNum-1)
@@ -164,8 +167,8 @@ def assignQuest(pageNum):
                 pygame.quit()
                 sys.exit()
             if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    running = False
+                import Quest.manageQuest as manageQuest
+                manageQuest.manageQuest()
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True

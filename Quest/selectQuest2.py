@@ -76,9 +76,13 @@ def selectQuest2(pageNum,questionid):
 
     quests = QuestDB.get_quest(QuestDB)
 
+    questid = []
     names = []
+    count=0
     for i in quests:
-        names.append(i)
+        names.append(quests[i]['createdBy'])
+        questid.append(i)
+        count+=1
  
     while running:
 
@@ -104,61 +108,62 @@ def selectQuest2(pageNum,questionid):
         
         pageIterator = (pageNum-1) * 10
         try:
-            nameText1 = smallfont.render(names[0+pageIterator], True, (0, 0, 0))
-            nameText2 = smallfont.render(names[1+pageIterator], True, (0, 0, 0))
-            nameText3 = smallfont.render(names[2+pageIterator], True, (0, 0, 0))
-            nameText4 = smallfont.render(names[3+pageIterator], True, (0, 0, 0))
-            nameText5 = smallfont.render(names[4+pageIterator], True, (0, 0, 0))
-            nameText6 = smallfont.render(names[5+pageIterator], True, (0, 0, 0))
-            nameText7 = smallfont.render(names[6+pageIterator], True, (0, 0, 0))
-            nameText8 = smallfont.render(names[7+pageIterator], True, (0, 0, 0))
-            nameText9 = smallfont.render(names[8+pageIterator], True, (0, 0, 0))
-            nameText10 = smallfont.render(names[9+pageIterator], True, (0, 0, 0))
+            nameText1 = smallfont.render(names[0+pageIterator] + "'s Quest", True, (0, 0, 0))
+            nameText2 = smallfont.render(names[1+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText3 = smallfont.render(names[2+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText4 = smallfont.render(names[3+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText5 = smallfont.render(names[4+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText6 = smallfont.render(names[5+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText7 = smallfont.render(names[6+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText8 = smallfont.render(names[7+pageIterator] + "'s Quest" , True, (0, 0, 0))
+            nameText9 = smallfont.render(names[8+pageIterator] + "'s Quest", True, (0, 0, 0))
+            nameText10 = smallfont.render(names[9+pageIterator] + "'s Quest" , True, (0, 0, 0))
         except:
             pass
 
         if button_1.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[0+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[0+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_2.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[1+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[1+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_3.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[2+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[2+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_4.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[3+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[3+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_5.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[4+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[4+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_6.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[5+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[5+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_7.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[6+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[6+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_8.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[7+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[7+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_9.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[8+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[8+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_10.draw() == True and click:
-            QuestDB.add_questionID(QuestDB, names[9+pageIterator], questionid)
+            QuestDB.add_questionID(QuestDB, questid[9+pageIterator], questionid)
             import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_11.draw() == True and click:
-            selectQuest2(pageNum+1, name)
+            if (count - (pageNum * 10) > 0):
+                selectQuest2(pageNum+1, name)
         if button_12.draw() == True and click:
             if (pageNum!=1):
                 selectQuest2(pageNum-1, name)
@@ -182,7 +187,8 @@ def selectQuest2(pageNum,questionid):
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    running = False
+                    import Quest.assignQuestion as assignQuestion
+                    assignQuestion.assignQuestion(1)
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True

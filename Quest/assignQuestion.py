@@ -23,7 +23,7 @@ w = 1000
 
 screen = pygame.display.set_mode((w,h))
 font = pygame.font.SysFont(None, 20)
-smallfont = pygame.font.SysFont('Corbel', 35)
+smallfont = pygame.font.SysFont('Corbel', 25)
 bigfont = pygame.font.SysFont('Corbel', 60)
 
 
@@ -72,50 +72,39 @@ def assignQuestion(pageNum):
     running = True
     click = False
     background_surface = pygame.image.load("graphics/teacher/assignquestion_background.png").convert()
-    buttonimage = pygame.image.load("graphics/teacher/img0.png").convert_alpha()
+    buttonimage = pygame.image.load("graphics/teacher/questionbutton.png").convert_alpha()
     nextpageimage = pygame.image.load("graphics/teacher/right.png").convert_alpha()
     prevpageimage = pygame.image.load("graphics/teacher/left.png").convert_alpha()
 
     names = []
     questionid = []
     questions = QuestionDB.get_all_questions(QuestionDB)
-
+    count=0
 
     for i in questions:
         names.append(questions[i]['questionText'])
         questionid.append(i)
-    while running:
+        count+=1
 
+    while running:
         screen.blit(background_surface, (0, 0))
         pageNumText = smallfont.render(str(pageNum), True, (0, 0, 0))
         screen.blit(pageNumText, (920, 40))
         scale = 1
-        button1pos = 155
+        button1pos = 138
         button6pos = 521
-        button_1 = Button(button1pos, 123, buttonimage, scale)
-        button_2 = Button(button1pos, 210, buttonimage, scale)
-        button_3 = Button(button1pos, 297, buttonimage, scale)
-        button_4 = Button(button1pos, 385, buttonimage, scale)
-        button_5 = Button(button1pos, 472, buttonimage, scale)
-        button_6 = Button(button6pos, 123, buttonimage, scale)
-        button_7 = Button(button6pos, 210, buttonimage, scale)
-        button_8 = Button(button6pos, 297, buttonimage, scale)
-        button_9 = Button(button6pos, 385, buttonimage, scale)
-        button_10 = Button(button6pos, 472, buttonimage, scale)
+        button_1 = Button(button1pos, 110, buttonimage, scale)
+        button_2 = Button(button1pos, 224, buttonimage, scale)
+        button_3 = Button(button1pos, 339, buttonimage, scale)
+        button_4 = Button(button1pos, 450, buttonimage, scale)
         button_11 = Button(885, 463, nextpageimage, 1)
         button_12 = Button(48, 463, prevpageimage, 1)
-        pageIterator = (pageNum-1) * 10
+        pageIterator = (pageNum-1) * 4
         try:
             nameText1 = smallfont.render(names[0+pageIterator], True, (0, 0, 0))
             nameText2 = smallfont.render(names[1+pageIterator], True, (0, 0, 0))
             nameText3 = smallfont.render(names[2+pageIterator], True, (0, 0, 0))
             nameText4 = smallfont.render(names[3+pageIterator], True, (0, 0, 0))
-            nameText5 = smallfont.render(names[4+pageIterator], True, (0, 0, 0))
-            nameText6 = smallfont.render(names[5+pageIterator], True, (0, 0, 0))
-            nameText7 = smallfont.render(names[6+pageIterator], True, (0, 0, 0))
-            nameText8 = smallfont.render(names[7+pageIterator], True, (0, 0, 0))
-            nameText9 = smallfont.render(names[8+pageIterator], True, (0, 0, 0))
-            nameText10 = smallfont.render(names[9+pageIterator], True, (0, 0, 0))
         except:
             pass
 
@@ -131,41 +120,18 @@ def assignQuestion(pageNum):
             selectQuest2.selectQuest2(1,questionid[2+pageIterator])
         if button_4.draw() == True and click:
             import Quest.selectQuest2
-            selectQuest2.selectQuest2(1,questionid[3+pageIterator])
-        if button_5.draw() == True and click:
-            import Quest.selectQuest2
-            selectQuest2.selectQuest2(1,questionid[4+pageIterator])
-        if button_6.draw() == True and click:
-            import Quest.selectQuest2
-            selectQuest2.selectQuest22(1,questionid[5+pageIterator])
-        if button_7.draw() == True and click:
-            import Quest.selectQuest2
-            selectQuest2.selectQuest2(1,questionid[6+pageIterator])
-        if button_8.draw() == True and click:
-            import Quest.selectQuest2
-            selectQuest2.selectQuest2(1,questionid[7+pageIterator])
-        if button_9.draw() == True and click:
-            import Quest.selectQuest2
-            selectQuest2.selectQuest2(1,questionid[8+pageIterator])
-        if button_10.draw() == True and click:
-            import Quest.selectQuest2
-            selectQuest2.selectQuest2(1,questionid[9+pageIterator])
+            selectQuest2.selectQuest2(1,questionid[3+pageIterator]) 
         if button_11.draw() == True and click:
-            assignQuestion(pageNum+1)
+            if (count - (pageNum * 4) > 0):
+                assignQuestion(pageNum+1)
         if button_12.draw() == True and click: 
             if (pageNum!=1):
                 assignQuestion(pageNum-1)
         try:
-            screen.blit(nameText1, (button1pos+10, 128))
-            screen.blit(nameText2, (button1pos+10, 215))
-            screen.blit(nameText3, (button1pos+10, 302))
-            screen.blit(nameText4, (button1pos+10, 390))
-            screen.blit(nameText5, (button1pos+10, 477))
-            screen.blit(nameText6, (button6pos+10, 128))
-            screen.blit(nameText7, (button6pos+10, 215))
-            screen.blit(nameText8, (button6pos+10, 302))
-            screen.blit(nameText9, (button6pos+10, 390))
-            screen.blit(nameText10, (button6pos+10, 477))
+            screen.blit(nameText1, (button1pos+10, 130))
+            screen.blit(nameText2, (button1pos+10, 224+20))
+            screen.blit(nameText3, (button1pos+10, 339+20))
+            screen.blit(nameText4, (button1pos+10, 450+20))
         except:
             pass
 
@@ -175,7 +141,8 @@ def assignQuestion(pageNum):
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    running = False
+                    import Quest.manageQuest as manageQuest
+                    manageQuest.manageQuest()
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True

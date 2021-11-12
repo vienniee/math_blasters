@@ -61,18 +61,18 @@ class Button():
 click = False
 
 
-def manageQuest():
+def error404():
     click = False
     
     #load background image
-    background_surface = pygame.image.load("graphics/teacher/managequest_background.png").convert()
-    buttonimage1 = pygame.image.load("graphics/teacher/managequest_img0.png").convert_alpha()
-    buttonimage2 = pygame.image.load("graphics/teacher/managequest_img1.png").convert_alpha()
-    buttonimage3 = pygame.image.load("graphics/teacher/managequest_img2.png").convert_alpha()
+    background_surface = pygame.image.load("graphics/teacher/error404_background.png").convert()
+    buttonimage1 = pygame.image.load("graphics/teacher/error404_img0.png").convert_alpha()
+    buttonimage2 = pygame.image.load("graphics/teacher/error404_img1.png").convert_alpha()
+    
 
-    button_1 = Button(w/2-160, 260, buttonimage1, 1)
-    button_2 = Button(w/2-160, 330, buttonimage2, 1)
-    button_3 = Button(w/2-160, 400, buttonimage3, 1)
+    button_1 = Button(500-160, 283, buttonimage1, 1)
+    button_2 = Button(500-160, 374, buttonimage2, 1)
+
 
     while True:
         screen.fill((255, 255, 255))
@@ -82,23 +82,20 @@ def manageQuest():
             import Quest.assignQuestion as assignQuestion
             assignQuestion.assignQuestion(1)
         if button_2.draw() == True and click:
-            import Quest.assignQuest as assignQuest
-            assignQuest.assignQuest(1)
-        if button_3.draw() == True and click: 
-            import Quest.questCreatorName as questCreatorName
-            questCreatorName.questCreatorName()
-            
+            import mainmenu.teacherDashboard as teacherDashboard
+            teacherDashboard.main_menu()
+
         
         click = False
 
         for event in pygame.event.get():
             if event.type == QUIT:
-                pygame.quit()
+                pygame.quit()                
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    import mainmenu.teacherDashboard as teacherDashboard
-                    teacherDashboard.main_menu()
+                    pygame.quit()
+                    sys.exit()
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True

@@ -14,7 +14,7 @@ w = 1000
 
 screen = pygame.display.set_mode((w,h))
 font = pygame.font.SysFont(None, 20)
-smallfont = pygame.font.SysFont('Corbel', 35)
+smallfont = pygame.font.SysFont('Corbel', 25)
 bigfont = pygame.font.SysFont('Corbel', 60)
 
 
@@ -87,7 +87,7 @@ def question(qn,subject,level):
         nameText2 = smallfont.render((questions[qn]['optionB']), True, (0, 0, 0))
         nameText3 = smallfont.render((questions[qn]['optionC']), True, (0, 0, 0))
         nameText4 = smallfont.render((questions[qn]['optionD']), True, (0, 0, 0))
-        nameText5 = bigfont.render((questions[qn]['questionText']), True, (0, 0, 0))
+        nameText5 = smallfont.render((questions[qn]['questionText']), True, (0, 0, 0))
 
         if button_1.draw() == True and click:
             question2.question2(qn, 'questionText', subject, level)
@@ -106,7 +106,7 @@ def question(qn,subject,level):
         screen.blit(nameText2, (button1pos+10, 493))
         screen.blit(nameText3, (button6pos+10, 405))
         screen.blit(nameText4, (button6pos+10, 493))
-        screen.blit(nameText5, (180, 160))
+        screen.blit(nameText5, (150, 160))
 
         for event in pygame.event.get():
             if event.type == QUIT:
