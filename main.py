@@ -1,3 +1,4 @@
+
 from posixpath import ismount
 from tkinter.constants import E
 from pyasn1.codec.ber.decoder import SetDecoder
@@ -16,6 +17,7 @@ from Leaderboard.achievements import Achievements
 import os
 from DatabaseControllers.QuestionDB import QuestionDB
 from DatabaseControllers.QuestDB import QuestDB
+from DatabaseControllers.ScoresDB import ScoreDB
 from collections import OrderedDict
 from minigame.results import results
 import sys
@@ -32,6 +34,7 @@ import mainmenu.teacherDashboard as teacherDashboard
 # os.chdir(path_parent)
 
 QuestionDB = QuestionDB()
+ScoreDB = ScoreDB()
 # QuestDB =QuestDB()
 
 teleportCooldownState = False
@@ -49,6 +52,7 @@ username = None #change to username later
 completion = None
 questions = None
 isMinigame= False
+isQuest = False
 #Login()
 # Registration = Registration()
 
@@ -65,6 +69,8 @@ def get_quest_qns(quest_quetions_id):
 
     return temp
 
+def update_quest_score(score,questID,StudentID):
+    pass
 class States(Enum):
     login = 1
     register = 2
@@ -79,7 +85,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.teacher_menu
+state = States.world_select
 
 while True:
     for event in pygame.event.get():
@@ -127,10 +133,19 @@ while True:
         teacherDashboard.main_menu()
         
     elif state == States.minigame:
-        score, completion = Game(gender,username,questions,isMinigame)
+        score, completion = Game(
+            gender, username, questions, isMinigame)
         if completion:
+            if isMinigame:
+                # update scores for minigame
+                ScoreDB.add_or_update_score(studentID,subject,level,score)
+                
+            if isQuest:
+                # update scores for quest
+                pass
             state = States.scorepage
         else:
+            # abandon
             state = States.difficulty_select
     elif state == States.quest_menu:
         pass
