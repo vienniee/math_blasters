@@ -93,9 +93,11 @@ while True:
             teleportCooldownState = False
             pygame.time.set_timer(teleportCooldownTimer, 0)
             print("teleportCooldownState False")    
+
     print(state)
     if state == States.login:
-        result, userID = LoginUser()
+        result, userID, gender_logined = LoginUser()
+        gender = gender_logined.lower()
         teleportCooldownState = True
         pygame.time.set_timer(teleportCooldownTimer, 3000)
         print("teleportCooldownState True")
@@ -152,9 +154,10 @@ while True:
     elif state == States.quest_menu:
         pass
     elif state == States.world_select:
+        print(gender)
         result, data = subject_Chapter_selection(gender, studentID)
         if result == 1:
-            subject = data
+            subject = data.lower()
             state = States.difficulty_select
 
         if result == 0:
@@ -182,7 +185,7 @@ while True:
             state = States.world_select
         else:
             isMinigame = True
-            questions = QuestionDB.get_questions("algebra", level)
+            questions = QuestionDB.get_questions(subject, level)
             state = States.minigame
 
     elif state == States.scorepage:

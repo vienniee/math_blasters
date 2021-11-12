@@ -54,7 +54,7 @@ def subject_Chapter_selection(character_gender,studentID):
     math_castles, math_castleName, math_backPortal, math_questHouse, math_exitButton = load_assets_chapter(
         "Fractions",2, "Algebra",3)
     sci_castles, sci_castleName, sci_backPortal, sci_questHouse, sci_exitButton = load_assets_chapter(
-        "Science1",1, "Science2",3)
+        "Physics",1, "Chemistry",3)
 
     teleportCooldownState = False
     teleportCooldownTimer = pygame.USEREVENT + 1
@@ -230,7 +230,7 @@ def subject_Chapter_selection(character_gender,studentID):
                     hits = pygame.sprite.spritecollide(
                         player.sprite, sci_castles, False)
                     for castle in hits:
-                        return castle.returnChapter()
+                        return 1,castle.returnChapter()
 
                 if check_quest_house(keys, sci_questHouse, teleportCooldownState, player):
                     state = States.QUEST_SELECT

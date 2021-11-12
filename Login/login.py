@@ -70,12 +70,12 @@ def LoginUser():
         
         try:
             print("Logging in")
-            print(password)
+            # print(password)
             if password != "":
-                print("ABCDE")
+                # print("ABCDE")
                 result = FirebaseDatabase.auth.sign_in_with_email_and_password(email, password)
-                print(result)
-                print("FGHJK")
+                # print(result)
+                # print("FGHJK")
                 if result['email']:
                     studentDB = StudentDB()
                     studentList =  studentDB.get_student()
@@ -83,16 +83,17 @@ def LoginUser():
                     for key in studentList:
                         if studentList[key]["email"] == email:
                             studentFound = True
+                            gender=studentList[key]["character"]
                             print("Successfully logged in for student!")
                             break
                     if studentFound == True:
                         # studentMenu()
                         print("go to Student Main Menu")
-                        return 2, key
+                        return 2, key, gender
                     else: 
                         # main_menu()
                         print("go to Teacher Main Menu")
-                        return 3, 0
+                        return 3, None, None
             else:
                 print("Invalid email or password")
                 
@@ -101,12 +102,12 @@ def LoginUser():
                 # invalid_login_text = test_font.render("Invalid Email/Password", False, (0, 0, 0))
                 # # invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
                 # screen.blit(invalid_login_text, (100, 100))
-                return 4, 0
+                return 4, None, None
         except:
             print("Invalid email or password")
             
             
-            return 4, 0
+            return 4, None, None
 
     while running:
         screen.blit(background_img, (0, 0))
@@ -130,15 +131,15 @@ def LoginUser():
         for event in pygame.event.get():
             if btn_registration.draw():
                 if register_clicked():
-                    return 1, 0
+                    return 1, 0, None
 
             if btn_login.draw():
                 print(SAVE_DATA['email'])
                 print(SAVE_DATA['password'])
-                a,b = login(SAVE_DATA['email'], SAVE_DATA['password'])
+                a,b,gender = login(SAVE_DATA['email'], SAVE_DATA['password'])
                 print(a, b)
                 if a!=4:
-                    return a,b
+                    return a,b,gender
                 else:
                     isLoginError = True
                 
@@ -199,7 +200,7 @@ def LoginUser():
                 SAVE_DATA['password'] = password
             else:
                 pass
-        print(isLoginError)
+        # print(isLoginError)
         if isLoginError:
             test_font = pygame.font.Font(os.path.join(
                 os.path.dirname(__file__), 'font', 'Pixeltype.ttf'), 30)
