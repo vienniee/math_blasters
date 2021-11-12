@@ -44,12 +44,12 @@ if __name__ == '__main__':
         from .Login.RegistrationMenu import Registration
 
 # global variable like student gender and name
-gender = "male"
-studentID = "hDhNkZR4CSct81bQA6oX6drdZHo2"
+gender = None
+studentID = None
 level = None
 STUDENT_DATA = None
-subject = 'algebra' #put to none
-username = "Alex" #change to username later
+subject = None #put to none 
+username = None #change to username later
 completion = None
 questions = None
 isMinigame= False
@@ -84,7 +84,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.world_select
+state = States.login
 
 # pygame.init()
 # clock = pygame.time.Clock()
