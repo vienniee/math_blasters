@@ -143,7 +143,7 @@ def Game(gender,Pname,questions,isMinigame):
         questionbuttonlist2.append(button(440,470,380,40,reorderQlist[i]["optionB"]))
         questionbuttonlist3.append(button(20,530,380,40,reorderQlist[i]["optionC"]))
         questionbuttonlist4.append(button(440,530,380,40,reorderQlist[i]["optionD"]))
-        questions.append(questionpanel(260, 100, 450, 80,
+        questions.append(questionpanel(80, 100, 850, 80,
                          reorderQlist[i]["questionText"]))
         answers.append(reorderQlist[i]["questionText"])
     #end of questions
