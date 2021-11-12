@@ -64,8 +64,6 @@ def get_quest_qns(quest_quetions_id):
             print("questionid does not exist in question database")
 
     return temp
-
-
 class States(Enum):
     login = 1
     register = 2
@@ -80,12 +78,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.world_select
-
-# pygame.init()
-# clock = pygame.time.Clock()
-# screen = pygame.display.set_mode((1000, 600))
-# pygame.display.set_caption("CZ3003 pygame")
+state = States.login
 
 while True:
     for event in pygame.event.get():
