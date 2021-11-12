@@ -64,6 +64,9 @@ def characterSelect(STUDENT_DATA):
             if(btn_confirm.draw()):
                 if(CHAR_SELECT == None):
                     TEXT_OPTION = TEXT_NO_OPTION_SELECTED 
+
+                    
+
                 else:
                     try:
                         STUDENT_DATA['character'] = CHAR_SELECT
@@ -76,6 +79,11 @@ def characterSelect(STUDENT_DATA):
                         TEXT_OPTION = TEXT_ERROR 
                 
 
+        if TEXT_OPTION == TEXT_NO_OPTION_SELECTED:
+            font = pygame.font.Font(os.path.join(os.path.dirname(__file__),'font', 'Pixeltype.ttf'), 30)
+            prompt_text = font.render("Please Select a Character!", False, (255, 0, 0))
+            screen.blit(prompt_text, (400,200))
+            
 
         pygame.display.update()
         mainClock.tick(60)

@@ -20,6 +20,15 @@ from DatabaseControllers.QuestDB import QuestDB
 from DatabaseControllers.ScoresDB import ScoreDB
 from collections import OrderedDict
 from minigame.results import results
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from Login.login import LoginUser
+from Login.RegistrationMenu import Registration
+from mainmenu.studentmenu import studentMenu
+import mainmenu.teacherDashboard as teacherDashboard
+
+
 
 # path_parent = os.path.dirname(os.getcwd())
 # os.chdir(path_parent)
@@ -32,27 +41,19 @@ teleportCooldownState = False
 teleportCooldownTimer = pygame.USEREVENT + 1
 
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from Login.login import LoginUser
-        from Login.RegistrationMenu import Registration
-        from mainmenu.studentmenu import studentMenu
-        import mainmenu.teacherDashboard as teacherDashboard
-        
-    else:
-        from .Login.login import LoginUser
-        from .Login.RegistrationMenu import Registration
 
 # global variable like student gender and name
+<<<<<<< HEAD
 gender = "male"
 studentID = "gQs1lKD4ZmUHfUczDKMg6bjg1Kq1"
+=======
+gender = None
+studentID = None
+>>>>>>> 2dfc54b021f8064118833a83a7b80a7ab10e5614
 level = None
 STUDENT_DATA = None
-subject = 'algebra' #put to none
-username = "Alex" #change to username later
+subject = None #put to none 
+username = None #change to username later
 completion = None
 questions = None
 isMinigame= False
