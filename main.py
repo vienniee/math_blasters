@@ -43,8 +43,13 @@ teleportCooldownTimer = pygame.USEREVENT + 1
 
 
 # global variable like student gender and name
+<<<<<<< HEAD
 gender = "male"
 studentID = "hDhNkZR4CSct81bQA6oX6drdZHo2"
+=======
+gender = None
+studentID = None
+>>>>>>> 24e89a93e316408c5ebbca114864c98944f032f2
 level = None
 STUDENT_DATA = None
 subject = None #put to none 
@@ -127,6 +132,8 @@ while True:
             state = States.achievement
         if result == 3:
             state = States.leaderboard
+        if result == 4:
+            state = States.login
     elif state == States.teacher_menu:
         teacherDashboard.main_menu()
         

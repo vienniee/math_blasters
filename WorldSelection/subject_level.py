@@ -25,11 +25,11 @@ def load_assets():
 
     portal = pygame.sprite.Group()
     portal.add(Portal(400,2))
-    portal.add(Portal(600,3))
+    portal.add(Portal(800,3))
 
     portal_names = pygame.sprite.Group()
     portal_names.add(PortalText(400, "MATH"))
-    portal_names.add(PortalText(600, "SCIENCE"))
+    portal_names.add(PortalText(800, "SCIENCE"))
 
     return portal,portal_names,exitButton
 
