@@ -85,7 +85,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.world_select
+state = States.login
 
 while True:
     for event in pygame.event.get():
@@ -93,9 +93,11 @@ while True:
             teleportCooldownState = False
             pygame.time.set_timer(teleportCooldownTimer, 0)
             print("teleportCooldownState False")    
+
     print(state)
     if state == States.login:
-        result, userID = LoginUser()
+        result, userID, gender_logined = LoginUser()
+        gender = gender_logined
         teleportCooldownState = True
         pygame.time.set_timer(teleportCooldownTimer, 3000)
         print("teleportCooldownState True")
@@ -152,6 +154,7 @@ while True:
     elif state == States.quest_menu:
         pass
     elif state == States.world_select:
+        print(gender)
         result, data = subject_Chapter_selection(gender, studentID)
         if result == 1:
             subject = data

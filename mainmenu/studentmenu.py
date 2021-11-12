@@ -54,7 +54,7 @@ class Button():
 play_button = Button(SCREEN_WIDTH/2-160, 260, play_img, 1)
 achievements_button = Button(SCREEN_WIDTH/2-160, 330, achievements_img, 1)
 leaderboard_button = Button(SCREEN_WIDTH/2-160, 400, leaderboard_img, 1)
-logout_button = Button(850,20,logout_img,0.5)
+logout_button = Button(20,20,logout_img,0.5)
 
 #game loop
 def studentMenu():

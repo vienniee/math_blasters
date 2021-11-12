@@ -54,7 +54,7 @@ def subject_Chapter_selection(character_gender,studentID):
     math_castles, math_castleName, math_backPortal, math_questHouse, math_exitButton = load_assets_chapter(
         "Fractions",2, "Algebra",3)
     sci_castles, sci_castleName, sci_backPortal, sci_questHouse, sci_exitButton = load_assets_chapter(
-        "Science1",1, "Science2",3)
+        "Physics",1, "Chemistry",3)
 
     teleportCooldownState = False
     teleportCooldownTimer = pygame.USEREVENT + 1

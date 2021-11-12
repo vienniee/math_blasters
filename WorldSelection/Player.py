@@ -7,7 +7,7 @@ class Player(pygame.sprite.Sprite):
         # image imports
         self.gender = gender
 
-        if self.gender == "male":
+        if self.gender == "Male":
             # male
             
             MwalkR1 = pygame.image.load(os.path.join(os.path.dirname(
@@ -85,7 +85,7 @@ class Player(pygame.sprite.Sprite):
             self.idleR = MidleR
 
 
-        elif self.gender == "female":
+        elif self.gender == "Female":
             # female
             FwalkR1 = pygame.image.load(os.path.join(os.path.dirname(
                 __file__), 'player', 'female', 'walk', '0.png')).convert_alpha()
@@ -205,9 +205,9 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         # walking
-        if self.gender == "male":
+        if self.gender == "Male":
             self.walk_index += 0.1
-        elif self.gender == "female":
+        elif self.gender == "Female":
             self.walk_index += 0.1
 
         # reset index
