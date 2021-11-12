@@ -35,7 +35,7 @@ import mainmenu.teacherDashboard as teacherDashboard
 
 QuestionDB = QuestionDB()
 ScoreDB = ScoreDB()
-# QuestDB =QuestDB()
+QuestDB =QuestDB()
 
 teleportCooldownState = False
 teleportCooldownTimer = pygame.USEREVENT + 1
@@ -43,8 +43,13 @@ teleportCooldownTimer = pygame.USEREVENT + 1
 
 
 # global variable like student gender and name
+<<<<<<< HEAD
+gender = "male"
+studentID = "hDhNkZR4CSct81bQA6oX6drdZHo2"
+=======
 gender = None
 studentID = None
+>>>>>>> 24e89a93e316408c5ebbca114864c98944f032f2
 level = None
 STUDENT_DATA = None
 subject = None #put to none 
@@ -53,6 +58,7 @@ completion = None
 questions = None
 isMinigame= False
 isQuest = False
+questID=None
 #Login()
 # Registration = Registration()
 
@@ -69,8 +75,7 @@ def get_quest_qns(quest_quetions_id):
 
     return temp
 
-def update_quest_score(score,questID,StudentID):
-    pass
+
 class States(Enum):
     login = 1
     register = 2
@@ -143,8 +148,10 @@ while True:
                 ScoreDB.add_or_update_score(studentID,subject,level,score)
                 
             if isQuest:
+                print("update scores!!!")
                 # update scores for quest
-                pass
+                print(score)
+                QuestDB.update_quest_score(questID,studentID,score)
             state = States.scorepage
         else:
             # abandon
@@ -159,7 +166,9 @@ while True:
             state = States.difficulty_select
 
         if result == 0:
+            isQuest = True
             quest_data = data
+            questID = quest_data["questID"]
             questions = get_quest_qns(quest_data["listofQuestionID"])
             state = States.minigame
         

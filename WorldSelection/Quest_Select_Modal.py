@@ -87,8 +87,14 @@ def quest_selection(quest_data, screen,quest_menu,Quest1,Quest2,Quest3,prevButto
 
     if(len(currentdata) == 0):
         
-        teacherNameGroup.add("No Quest Assigned",350)
-        teacherNameGroup.draw(screen)
+        # teacherNameGroup.add("No Quest Assigned",350)
+        # teacherNameGroup.draw(screen)
+        test_font = pygame.font.Font(os.path.join(
+            os.path.dirname(__file__), 'font', 'Pixeltype.ttf'), 50)
+        invalid_login_text = test_font.render(
+            "NO QUESTS", False, (0, 0, 0))
+        screen.blit(invalid_login_text, (400, 300))
+
     elif(len(currentdata) == 1):
         Quest1.draw(screen)
         
