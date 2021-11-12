@@ -84,7 +84,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.student_menu
+state = States.world_select
 
 # pygame.init()
 # clock = pygame.time.Clock()
@@ -152,6 +152,9 @@ while True:
             quest_data = data
             questions = get_quest_qns(quest_data["listofQuestionID"])
             state = States.minigame
+        
+        if result == 4:
+            state = States.student_menu
 
     elif state == States.leaderboard:
         outcome = Leaderboard()
