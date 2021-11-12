@@ -93,13 +93,13 @@ def main_menu():
         screen.blit(background_surface, (0, 0))
 
         if button_1.draw() == True and click:
-            import generateReport
-            generateReport.generateReport(1)
+            import Quest.modifyQuestion as modifyQuestion
+            modifyQuestion.modifyQuestion(1)
         if button_2.draw() == True and click:
-            import modifyQuestion
-            modifyQuestion.modifyQuestion(1)  
+            import Quest.generateReport as generateReport
+            generateReport.generateReport(1)  
         if button_3.draw() == True and click:
-            import manageQuest
+            import Quest.manageQuest as manageQuest
             manageQuest.manageQuest()
 
         click = False

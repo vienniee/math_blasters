@@ -1,6 +1,6 @@
 import pygame, sys
 import pygame_textinput
-import question2
+import Quest.question2 as question2
 from DatabaseControllers.QuestionDB import QuestionDB
 
 # Setup pygame/window ---------------------------------------- #
@@ -58,7 +58,7 @@ class Button():
 click = False
 
 
-def question(qn):
+def question(qn,subject,level):
     running = True
     click = False
 
@@ -66,9 +66,9 @@ def question(qn):
     buttonimage = pygame.image.load("graphics/teacher/generatereportselect_img1.png").convert_alpha()
     largebuttonimage = pygame.image.load("graphics/teacher/modifyquestion_img0.png").convert_alpha()
 
-    questions = QuestionDB.get_questions(QuestionDB)
-    thequestion = questions[qn]
-
+    questions = QuestionDB.get_all_questions(QuestionDB)
+    print(qn)
+    print(questions[qn])
 
     while running:
         screen.fill((255, 255, 255))
@@ -87,18 +87,18 @@ def question(qn):
         nameText2 = smallfont.render((questions[qn]['optionB']), True, (0, 0, 0))
         nameText3 = smallfont.render((questions[qn]['optionC']), True, (0, 0, 0))
         nameText4 = smallfont.render((questions[qn]['optionD']), True, (0, 0, 0))
-        nameText5 = bigfont.render(thequestion['questionText'], True, (0, 0, 0))
+        nameText5 = bigfont.render((questions[qn]['questionText']), True, (0, 0, 0))
 
         if button_1.draw() == True and click:
-            question2.question2(qn, 'questionText')
+            question2.question2(qn, 'questionText', subject, level)
         if button_2.draw() == True and click:
-            question2.question2(qn, 'optionA')
+            question2.question2(qn, 'optionA', subject, level)
         if button_3.draw() == True and click:
-            question2.question2(qn, 'optionB')
+            question2.question2(qn, 'optionB', subject, level)
         if button_4.draw() == True and click:
-            question2.question2(qn, 'optionC')
+            question2.question2(qn, 'optionC', subject, level)
         if button_5.draw() == True and click:
-            question2.question2(qn, 'optionD')
+            question2.question2(qn, 'optionD', subject, level)
 
         screen.blit(nameText1, (button1pos+10, 405))
         screen.blit(nameText2, (button1pos+10, 493))

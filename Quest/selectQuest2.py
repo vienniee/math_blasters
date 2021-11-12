@@ -1,6 +1,6 @@
 import pygame, sys
 import pygame_textinput
-
+from DatabaseControllers.QuestDB import QuestDB
 if __name__ == '__main__':
     if __package__ is None:
         import sys
@@ -119,43 +119,43 @@ def selectQuest2(pageNum,questionid):
 
         if button_1.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[0+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_2.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[1+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_3.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[2+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_4.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[3+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_5.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[4+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_6.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[5+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_7.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[6+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_8.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[7+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_9.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[8+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_10.draw() == True and click:
             QuestDB.add_questionID(QuestDB, names[9+pageIterator], questionid)
-            import teacherDashboard
+            import mainmenu.teacherDashboard as teacherDashboard
             teacherDashboard.main_menu()
         if button_11.draw() == True and click:
             selectQuest2(pageNum+1, name)

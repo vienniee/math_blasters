@@ -1,6 +1,6 @@
 import pygame, sys
 import pygame_textinput
-import report
+import Quest.report as report
 from DatabaseControllers.StudentDB import StudentDB
 
 # Setup pygame/window ---------------------------------------- #
@@ -67,7 +67,7 @@ def generateReport(pageNum):
     nextpageimage = pygame.image.load("graphics/teacher/generatereportselect_img8.png").convert_alpha()
     prevpageimage = pygame.image.load("graphics/teacher/generatereportselect_img9.png").convert_alpha()
 
-    students = StudentDB.get_all_students()
+    students = StudentDB.get_student(StudentDB)
 
     names = []
     for i in students:

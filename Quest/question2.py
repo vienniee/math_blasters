@@ -59,7 +59,7 @@ class Button():
 click = False
 
 
-def question2(id,option):
+def question2(id,option, subject, level):
     running = True
     click = False
 
@@ -90,9 +90,9 @@ def question2(id,option):
                     click = True
             if event.type == KEYDOWN and event.key == K_RETURN:
                 newOption = {option : textinput.value}
-                QuestionDB.update_questions(QuestionDB, id, newOption)
+                QuestionDB.update_questions(QuestionDB, subject, level, id, newOption)
                 print(f"User pressed enter! Input so far: {textinput.value}")
-                import teacherDashboard
+                import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu() 
 
 

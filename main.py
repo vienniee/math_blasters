@@ -18,6 +18,15 @@ from DatabaseControllers.QuestionDB import QuestionDB
 from DatabaseControllers.QuestDB import QuestDB
 from collections import OrderedDict
 from minigame.results import results
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from Login.login import LoginUser
+from Login.RegistrationMenu import Registration
+from mainmenu.studentmenu import studentMenu
+import mainmenu.teacherDashboard as teacherDashboard
+
+
 
 # path_parent = os.path.dirname(os.getcwd())
 # os.chdir(path_parent)
@@ -29,19 +38,6 @@ teleportCooldownState = False
 teleportCooldownTimer = pygame.USEREVENT + 1
 
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from Login.login import LoginUser
-        from Login.RegistrationMenu import Registration
-        from mainmenu.studentmenu import studentMenu
-        import mainmenu.teacherDashboard as teacherDashboard
-        
-    else:
-        from .Login.login import LoginUser
-        from .Login.RegistrationMenu import Registration
 
 # global variable like student gender and name
 gender = None
@@ -68,8 +64,6 @@ def get_quest_qns(quest_quetions_id):
             print("questionid does not exist in question database")
 
     return temp
-
-
 class States(Enum):
     login = 1
     register = 2
@@ -85,11 +79,6 @@ class States(Enum):
     difficulty_select = 12
 
 state = States.login
-
-# pygame.init()
-# clock = pygame.time.Clock()
-# screen = pygame.display.set_mode((1000, 600))
-# pygame.display.set_caption("CZ3003 pygame")
 
 while True:
     for event in pygame.event.get():

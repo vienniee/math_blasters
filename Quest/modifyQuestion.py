@@ -1,6 +1,6 @@
 import pygame, sys
 import pygame_textinput
-import question
+import Quest.question as question
 from DatabaseControllers.QuestionDB import QuestionDB
 mainClock = pygame.time.Clock()
 from pygame.locals import *
@@ -66,12 +66,15 @@ def modifyQuestion(pageNum):
     prevpageimage = pygame.image.load("graphics/teacher/generatereportselect_img9.png").convert_alpha()
 
     names = []
+    subjects = []
+    levels = []
     questionid = []
-    questions = QuestionDB.get_questions(QuestionDB)
-
+    questions = QuestionDB.get_all_questions(QuestionDB)
 
     for i in questions:
         names.append(questions[i]['questionText'])
+        subjects.append(questions[i]['subject'])
+        levels.append(questions[i]['level'])
         questionid.append(i)
     while running:
 
@@ -110,25 +113,25 @@ def modifyQuestion(pageNum):
 
 
         if button_1.draw() == True and click:
-            question.question(questionid[0])
+            question.question(questionid[0+pageIterator], subjects[0+pageIterator], levels[0+pageIterator])
         if button_2.draw() == True and click:
-            question.question(names[1])
+            question.question(questionid[1+pageIterator], subjects[1+pageIterator], levels[1+pageIterator])
         if button_3.draw() == True and click:
-            question.question(names[2])
+            question.question(questionid[2+pageIterator], subjects[2+pageIterator], levels[2+pageIterator])
         if button_4.draw() == True and click:
-            question.question(names[3])
+            question.question(questionid[3+pageIterator], subjects[3+pageIterator], levels[3+pageIterator])
         if button_5.draw() == True and click:
-            question.question(names[4])
+            question.question(questionid[4+pageIterator], subjects[4+pageIterator], levels[4+pageIterator])
         if button_6.draw() == True and click:
-            question.question(names[5])
+            question.question(questionid[5+pageIterator], subjects[5+pageIterator], levels[5+pageIterator])
         if button_7.draw() == True and click:
-            question.question(names[6])
+            question.question(questionid[6+pageIterator], subjects[6+pageIterator], levels[6+pageIterator])
         if button_8.draw() == True and click:
-            question.question(names[7])
+            question.question(questionid[7+pageIterator], subjects[7+pageIterator], levels[7+pageIterator])
         if button_9.draw() == True and click:
-            question.question(names[8])
+            question.question(questionid[8+pageIterator], subjects[8+pageIterator], levels[8+pageIterator])
         if button_10.draw() == True and click:
-            question.question(names[9])
+            question.question(questionid[9+pageIterator], subjects[9+pageIterator], levels[9+pageIterator])
         if button_11.draw() == True and click:
             modifyQuestion(pageNum+1)
         if button_12.draw() == True and click:

@@ -38,6 +38,7 @@ def LoginUser():
     font = pygame.font.SysFont("Consolas", 24)
     # Create own manager with custom input validator
 
+    isLoginError = False
     white = (255, 255, 255)
     black = (0, 0, 0)
     slategrey = (112,128,144)
@@ -66,6 +67,7 @@ def LoginUser():
         
     
     def login(email, password):
+        
         try:
             print("Logging in")
             print(password)
@@ -93,16 +95,19 @@ def LoginUser():
                         return 3, 0
             else:
                 print("Invalid email or password")
-                invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
-                screen.blit(invalidLogin, (100, 100))
+                
+                
+                # test_font = pygame.font.Font(os.path.join(os.path.dirname(__file__), 'font', 'Pixeltype.ttf'), 50)
+                # invalid_login_text = test_font.render("Invalid Email/Password", False, (0, 0, 0))
+                # # invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
+                # screen.blit(invalid_login_text, (100, 100))
                 return 4, 0
         except:
             print("Invalid email or password")
-            invalidLogin = font.render("Invalid Email/Password", True, (255,255,255))
-            screen.blit(invalidLogin, (100, 100))
+            
+            
             return 4, 0
 
-    TEXT_OPTION=""
     while running:
         screen.blit(background_img, (0, 0))
         btn_login = assets.Button(screen=screen,id='buttonLogin',image=loginImage,scale=1,x=500,y=338)
@@ -134,6 +139,8 @@ def LoginUser():
                 print(a, b)
                 if a!=4:
                     return a,b
+                else:
+                    isLoginError = True
                 
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -192,6 +199,13 @@ def LoginUser():
                 SAVE_DATA['password'] = password
             else:
                 pass
+        print(isLoginError)
+        if isLoginError:
+            test_font = pygame.font.Font(os.path.join(
+                os.path.dirname(__file__), 'font', 'Pixeltype.ttf'), 30)
+            invalid_login_text = test_font.render(
+                "Invalid Email/Password", False, (255, 0, 0))
+            screen.blit(invalid_login_text, (400, 225))
 
            
         pygame.display.update()

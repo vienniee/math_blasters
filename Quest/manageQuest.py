@@ -79,10 +79,10 @@ def manageQuest():
         screen.blit(background_surface, (0, 0))
 
         if button_1.draw() == True and click:
-            import assignQuestion
+            import Quest.assignQuestion as assignQuestion
             assignQuestion.assignQuestion(1)
         if button_2.draw() == True and click:
-            import assignQuest
+            import Quest.assignQuest as assignQuest
             assignQuest.assignQuest(1)
         if button_3.draw() == True and click:
             pass
