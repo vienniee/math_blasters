@@ -2,7 +2,7 @@ import pygame, sys
 import pygame_textinput
 import Quest.question2 as question2
 from DatabaseControllers.QuestionDB import QuestionDB
-import Quest.correctAnswer as correctAnswer
+
 # Setup pygame/window ---------------------------------------- #
 mainClock = pygame.time.Clock()
 from pygame.locals import *
@@ -58,55 +58,47 @@ class Button():
 click = False
 
 
-def question(qn,subject,level):
+def correctAnswer(qn,subject,level):
     running = True
     click = False
 
-    background_surface = pygame.image.load("graphics/teacher/modifyquestion_background.png").convert()
+    background_surface = pygame.image.load("graphics/teacher/CorrectAnswer_background.png").convert()
     buttonimage = pygame.image.load("graphics/teacher/generatereportselect_img1.png").convert_alpha()
-    largebuttonimage = pygame.image.load("graphics/teacher/modifyquestion_img0.png").convert_alpha()
-    correctansbutton = pygame.image.load("graphics/teacher/question_img3.png").convert_alpha()
 
     questions = QuestionDB.get_all_questions(QuestionDB)
+ 
 
     while running:
         screen.fill((255, 255, 255))
         screen.blit(background_surface, (0, 0))
 
         scale = 1
-        button1pos = 155
-        button6pos = 521
-        button_1 = Button(136, 103, largebuttonimage, scale)
-        button_2 = Button(button1pos, 400, buttonimage, scale)
-        button_3 = Button(button1pos, 488, buttonimage, scale)
-        button_4 = Button(button6pos, 400, buttonimage, scale)
-        button_5 = Button(button6pos, 488, buttonimage, scale)
-        button_6 = Button(335, 309, correctansbutton, scale)
+        button1pos = 111
+        button6pos = 547
+        button_1 = Button(button1pos, 208, buttonimage, scale)
+        button_2 = Button(button1pos, 363, buttonimage, scale)
+        button_3 = Button(button6pos, 208, buttonimage, scale)
+        button_4 = Button(button6pos, 363, buttonimage, scale)
 
         nameText1 = smallfont.render((questions[qn]['optionA']), True, (0, 0, 0))
         nameText2 = smallfont.render((questions[qn]['optionB']), True, (0, 0, 0))
         nameText3 = smallfont.render((questions[qn]['optionC']), True, (0, 0, 0))
         nameText4 = smallfont.render((questions[qn]['optionD']), True, (0, 0, 0))
-        nameText5 = bigfont.render((questions[qn]['questionText']), True, (0, 0, 0))
 
         if button_1.draw() == True and click:
-            question2.question2(qn, 'questionText', subject, level)
+            QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "1"})
         if button_2.draw() == True and click:
-            question2.question2(qn, 'optionA', subject, level)
+            QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "2"})
         if button_3.draw() == True and click:
-            question2.question2(qn, 'optionB', subject, level)
+            QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "3"})
         if button_4.draw() == True and click:
-            question2.question2(qn, 'optionC', subject, level)
-        if button_5.draw() == True and click:
-            question2.question2(qn, 'optionD', subject, level)
-        if button_6.draw() == True and click:
-            correctAnswer.correctAnswer(qn, subject, level)
+            QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "4"})
 
-        screen.blit(nameText1, (button1pos+10, 405))
-        screen.blit(nameText2, (button1pos+10, 493))
-        screen.blit(nameText3, (button6pos+10, 405))
-        screen.blit(nameText4, (button6pos+10, 493))
-        screen.blit(nameText5, (180, 160))
+
+        screen.blit(nameText1, (button1pos+10, 213))
+        screen.blit(nameText2, (button1pos+10, 368))
+        screen.blit(nameText3, (button6pos+10, 213))
+        screen.blit(nameText4, (button6pos+10, 368))
 
         for event in pygame.event.get():
             if event.type == QUIT:

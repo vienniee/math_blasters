@@ -69,9 +69,11 @@ def generateReport(pageNum):
 
     students = StudentDB.get_student(StudentDB)
 
+    studentid = []
     names = []
     for i in students:
         names.append(students[i]['name'])
+        studentid.append(i)
 
 
     while running:
@@ -113,25 +115,25 @@ def generateReport(pageNum):
             pass
         
         if button_1.draw() == True and click:
-            report.report(names[0+pageIterator])
+            report.report(names[0+pageIterator], studentid[0+pageIterator])
         if button_2.draw() == True and click:
-            report.report(names[1+pageIterator])
+            report.report(names[1+pageIterator], studentid[1+pageIterator])
         if button_3.draw() == True and click:
-            report.report(names[2+pageIterator])
+            report.report(names[2+pageIterator], studentid[2+pageIterator])
         if button_4.draw() == True and click:
-            report.report(names[3+pageIterator])
+            report.report(names[3+pageIterator], studentid[3+pageIterator])
         if button_5.draw() == True and click:
-            report.report(names[4+pageIterator])
+            report.report(names[4+pageIterator], studentid[4+pageIterator])
         if button_6.draw() == True and click:
-            report.report(names[5+pageIterator])
+            report.report(names[5+pageIterator], studentid[5+pageIterator])
         if button_7.draw() == True and click:
-            report.report(names[6+pageIterator])
+            report.report(names[6+pageIterator], studentid[6+pageIterator])
         if button_8.draw() == True and click:
-            report.report(names[7+pageIterator])
+            report.report(names[7+pageIterator], studentid[7+pageIterator])
         if button_9.draw() == True and click:
-            report.report(names[8+pageIterator])
+            report.report(names[8+pageIterator], studentid[8+pageIterator])
         if button_10.draw() == True and click:
-            report.report(names[9+pageIterator])
+            report.report(names[9+pageIterator], studentid[9+pageIterator])
         if button_11.draw() == True and click:
             generateReport(pageNum+1)
         if button_12.draw() == True and click:

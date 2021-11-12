@@ -1,5 +1,6 @@
 import pygame, sys
 import pygame_textinput
+from DatabaseControllers.ScoresDB import ScoreDB
 
 
 # Setup pygame/window ---------------------------------------- #
@@ -58,24 +59,26 @@ class Button():
 
 click = False
 
-def report(name):
+def report(name, studentid):
     running = True
     background_surface = pygame.image.load("graphics/teacher/report_background.png").convert()
     while running:
        
         screen.blit(background_surface, (0, 0))
-        algebra_lv1 =str(1)
-        algebra_lv2 = str(1)
-        algebra_lv3 = str(1)
-        fraction_lv1 = str(1)
-        fraction_lv2 = str(1)
-        fraction_lv3 = str(1)
-        chemistry_lv1 = str(1)
-        chemistry_lv2 = str(1)
-        chemistry_lv3 = str(1)
-        physics_lv1 = str(1)
-        physics_lv2 = str(1)
-        physics_lv3 = str(1)
+        scores = ScoreDB.get_single_score(ScoreDB, studentid)
+
+        algebra_lv1 =str(scores['algebra']['level 1'])
+        algebra_lv2 = str(scores['algebra']['level 2'])
+        algebra_lv3 = str(scores['algebra']['level 3'])
+        fraction_lv1 = str(scores['fraction']['level 1'])
+        fraction_lv2 = str(scores['fraction']['level 2'])
+        fraction_lv3 = str(scores['fraction']['level 3'])
+        chemistry_lv1 = str(scores['chemistry']['level 1'])
+        chemistry_lv2 = str(scores['chemistry']['level 2'])
+        chemistry_lv3 = str(scores['chemistry']['level 3'])
+        physics_lv1 = str(scores['physics']['level 1'])
+        physics_lv2 = str(scores['physics']['level 2'])
+        physics_lv3 = str(scores['physics']['level 3'])
         studentName = name
         studentNameText = bigfont.render(studentName, True, (0, 0, 0))
         score1 = smallfont.render(algebra_lv1, True, (0, 0, 0))
