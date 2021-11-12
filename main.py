@@ -43,13 +43,8 @@ teleportCooldownTimer = pygame.USEREVENT + 1
 
 
 # global variable like student gender and name
-<<<<<<< HEAD
-gender = "male"
-studentID = "hDhNkZR4CSct81bQA6oX6drdZHo2"
-=======
 gender = None
 studentID = None
->>>>>>> 24e89a93e316408c5ebbca114864c98944f032f2
 level = None
 STUDENT_DATA = None
 subject = None #put to none 
@@ -102,7 +97,7 @@ while True:
     print(state)
     if state == States.login:
         result, userID, gender_logined = LoginUser()
-        gender = gender_logined
+        gender = gender_logined.lower()
         teleportCooldownState = True
         pygame.time.set_timer(teleportCooldownTimer, 3000)
         print("teleportCooldownState True")
@@ -162,7 +157,7 @@ while True:
         print(gender)
         result, data = subject_Chapter_selection(gender, studentID)
         if result == 1:
-            subject = data
+            subject = data.lower()
             state = States.difficulty_select
 
         if result == 0:
@@ -190,7 +185,7 @@ while True:
             state = States.world_select
         else:
             isMinigame = True
-            questions = QuestionDB.get_questions("algebra", level)
+            questions = QuestionDB.get_questions(subject, level)
             state = States.minigame
 
     elif state == States.scorepage:

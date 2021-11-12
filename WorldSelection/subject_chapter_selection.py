@@ -230,7 +230,7 @@ def subject_Chapter_selection(character_gender,studentID):
                     hits = pygame.sprite.spritecollide(
                         player.sprite, sci_castles, False)
                     for castle in hits:
-                        return castle.returnChapter()
+                        return 1,castle.returnChapter()
 
                 if check_quest_house(keys, sci_questHouse, teleportCooldownState, player):
                     state = States.QUEST_SELECT
