@@ -1,3 +1,4 @@
+
 from posixpath import ismount
 from tkinter.constants import E
 from pyasn1.codec.ber.decoder import SetDecoder
@@ -16,6 +17,7 @@ from Leaderboard.achievements import Achievements
 import os
 from DatabaseControllers.QuestionDB import QuestionDB
 from DatabaseControllers.QuestDB import QuestDB
+from DatabaseControllers.ScoresDB import ScoreDB
 from collections import OrderedDict
 from minigame.results import results
 
@@ -23,6 +25,7 @@ from minigame.results import results
 # os.chdir(path_parent)
 
 QuestionDB = QuestionDB()
+ScoreDB = ScoreDB()
 # QuestDB =QuestDB()
 
 teleportCooldownState = False
@@ -45,7 +48,7 @@ if __name__ == '__main__':
 
 # global variable like student gender and name
 gender = "male"
-studentID = "hDhNkZR4CSct81bQA6oX6drdZHo2"
+studentID = "gQs1lKD4ZmUHfUczDKMg6bjg1Kq1"
 level = None
 STUDENT_DATA = None
 subject = 'algebra' #put to none
@@ -53,6 +56,7 @@ username = "Alex" #change to username later
 completion = None
 questions = None
 isMinigame= False
+isQuest = False
 #Login()
 # Registration = Registration()
 
@@ -68,6 +72,9 @@ def get_quest_qns(quest_quetions_id):
             print("questionid does not exist in question database")
 
     return temp
+
+def update_quest_score(score,questID,StudentID):
+    pass
 class States(Enum):
     login = 1
     register = 2
@@ -82,7 +89,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.login
+state = States.world_select
 
 while True:
     for event in pygame.event.get():
@@ -128,10 +135,19 @@ while True:
         teacherDashboard.main_menu()
         
     elif state == States.minigame:
-        score, completion = Game(gender,username,questions,isMinigame)
+        score, completion = Game(
+            gender, username, questions, isMinigame)
         if completion:
+            if isMinigame:
+                # update scores for minigame
+                ScoreDB.add_or_update_score(studentID,subject,level,score)
+                
+            if isQuest:
+                # update scores for quest
+                pass
             state = States.scorepage
         else:
+            # abandon
             state = States.difficulty_select
     elif state == States.quest_menu:
         pass
