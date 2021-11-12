@@ -1,4 +1,5 @@
 from FirebaseConfig import db
+from mainmenu.studentmenu import studentMenu
 
 
 emptyQuest = {
@@ -31,6 +32,7 @@ class QuestDB:
 
                 for student in quest.val()["listofStudentID"]:
                     if student == studentID:
+                        quest.val()["questID"] = quest.key()
                         result.append(quest.val())
 
         return result
@@ -50,27 +52,28 @@ class QuestDB:
         db.child("quests").child(questID).update({"listofQuestionID":questionList})
 
     def add_studentID(self,questID,studentID):
-        quest = self.get_single_quest(QuestDB,questID)
-        studentList = quest["listofStudentID"]
-        studentList.append(studentID)
-        db.child("quests").child(questID).update({"listofQuestionID":studentList})
+        db.child("quests").child(questID).child("listofStudentID").child(studentID).set(0)
+
+    def update_quest_score(self,questID, StudentID, score):
+        db.child("quests").child(questID).child("listofStudentID").child(StudentID).set(score)
 
 
-# emptyQuest = {
-#     "listofQuestionID":["test2"],
-#     "listofStudentID":["test1"],
-#     "subject": "math",
-#     "createdBy":"Ms Eng"
-# }
-# emptyQuest = {
-#     "listofQuestionID":["test3"],
-#     "listofStudentID":["test1"],
-#     "subject": "math",
-#     "createdBy":"Mr chua"
-# }
-# questdb = QuestDB()
-# questdb.add_quest(emptyQuest)
-# # get_single_quest()
+if __name__ == "__main__":
+    emptyQuest = {
+        "listofQuestionID":["test2"],
+        "listofStudentID":["test1"],
+        "subject": "math",
+        "createdBy":"Ms Eng"
+    }
+    emptyQuest = {
+        "listofQuestionID":["test3"],
+        "listofStudentID":["test1"],
+        "subject": "math",
+        "createdBy":"Mr chua"
+    }
+    questdb = QuestDB()
+    questdb.add_quest(emptyQuest)
+    # get_single_quest()
 
 
 
