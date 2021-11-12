@@ -1,5 +1,5 @@
 from FirebaseConfig import db
-from mainmenu.studentmenu import studentMenu
+
 
 
 emptyQuest = {

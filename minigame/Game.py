@@ -2,7 +2,7 @@ import os
 import pygame
 import random
 from pygame.locals import *
-
+# import math
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -61,8 +61,8 @@ def Game(gender,Pname,questions,isMinigame):
         img = font.render(text, True, text_col)
         screen.blit(img,(x,y))
 
-
-    passingmark = 6 # change to 6 later (and also create pick the first 10 questions after randoming)
+    passingmark = len(questions)//2
+    # change to 6 later (and also create pick the first 10 questions after randoming)
 
     #function to randomise the question order
     def createRandomSortedList(num, start, end):
