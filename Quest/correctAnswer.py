@@ -87,12 +87,20 @@ def correctAnswer(qn,subject,level):
 
         if button_1.draw() == True and click:
             QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "1"})
+            import mainmenu.teacherDashboard as teacherDashboard
+            teacherDashboard.main_menu() 
         if button_2.draw() == True and click:
             QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "2"})
+            import mainmenu.teacherDashboard as teacherDashboard
+            teacherDashboard.main_menu() 
         if button_3.draw() == True and click:
             QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "3"})
+            import mainmenu.teacherDashboard as teacherDashboard
+            teacherDashboard.main_menu() 
         if button_4.draw() == True and click:
             QuestionDB.update_questions(QuestionDB, subject, level, qn, {"correctAnswer": "4"})
+            import mainmenu.teacherDashboard as teacherDashboard
+            teacherDashboard.main_menu() 
 
 
         screen.blit(nameText1, (button1pos+10, 213))
