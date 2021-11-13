@@ -156,9 +156,11 @@ def LoginUser():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if emailBorder.collidepoint(event.pos):
                     emailActive = True
+                    passwordActive = False
 
                 elif passwordBorder.collidepoint(event.pos):
                     passwordActive = True
+                    emailActive = False
                 else:
                     emailActive = False
                     passwordActive = False

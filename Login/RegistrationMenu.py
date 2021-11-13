@@ -147,12 +147,24 @@ def Registration():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if nameBorder.collidepoint(event.pos):
                     nameActive = True
+                    emailActive = False
+                    classNumActive = False
+                    passwordActive = False
                 elif emailBorder.collidepoint(event.pos):
                     emailActive = True
+                    nameActive = False
+                    classNumActive = False
+                    passwordActive = False
                 elif classNumBorder.collidepoint(event.pos):
                     classNumActive = True
+                    emailActive = False
+                    nameActive = False
+                    passwordActive = False
                 elif passwordBorder.collidepoint(event.pos):
                     passwordActive = True
+                    emailActive = False
+                    nameActive = False
+                    classNumActive = False
                 else:
                     nameActive = False
                     emailActive = False
