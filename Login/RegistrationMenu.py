@@ -94,7 +94,7 @@ def Registration():
         except Exception as e:
             print("Exception")
             print(type(e))
-            print(e.response())
+            # print(e.response())
             # registrationErrorMsg = e["error"]["message"]
             return 3, None
                         
