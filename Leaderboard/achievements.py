@@ -40,105 +40,65 @@ def Achievements(studentID):
         print("Back Button Clicked")
         return True
     
-    def reward_check(subject,points):
-        if subject == "algebra" or subject == "fractions":
-            if points <= 20:
-                return 0 #bronze
-            elif 20 < points <= 40:
-                return 1 #silver
+    def reward_check(subject_scores):
+        scoring_chart = []
+        for subject in subject_scores:
+            if subject_scores[subject] < 20:
+                scoring_chart.append((subject,0))
+            elif 20 <= subject_scores[subject] < 40:
+                scoring_chart.append((subject,1))
             else:
-                return 2 #gold
+                scoring_chart.append((subject,2))
+        return scoring_chart
 
-        #total score computation
-        else:
-            if points <= 30:
-                return 0 #bronze
-            elif 30 < points <= 50:
-                return 1 #silver
-            else:
-                return 2 #gold
-    
-    def reward_display(subject,tier):
-        if tier == 1:
-            display_pic = "achievement_silver.png"
-            display_message = "Silver Tier"
-        elif tier == 2:
-            display_pic = "achievement_gold.png"
-            display_message = "Gold Tier"
-        else:
-            display_pic = "achievement_bronze.png"
-            display_message = "Bronze Tier"
-        display_pic_size = (300,230)
-        
-        if subject == "algebra":
-            display_position = (70,150)
+    def reward_display(scoring_chart):
+        for i in range(len(scoring_chart)):
+            display_position = (40,150)
             Message_position = (100,380)
-        elif subject == "fraction":
-            display_position = (340,150)
-            Message_position = (380,380)
-        else:
-            display_position = (610,150)
-            Message_position = (660,380)
-        
-        
-        reward = pygame.image.load(os.path.join(os.path.dirname(
-                     __file__), display_pic)).convert_alpha()
-        reward = pygame.transform.scale(reward, display_pic_size)
-        Message = myfont.render(display_message, False, (0,0,0))
-        screen.blit(reward,display_position)
-        screen.blit(Message,Message_position)
+            display_pic_size = (280,230)
 
-    #call function to draw top players from firestore
+            if scoring_chart[i][1] == 1:
+                display_pic = "achievement_silver.png"
+                display_message = str(scoring_chart[i][0])
+            elif scoring_chart[i][1] == 2:
+                display_pic = "achievement_gold.png"
+                display_message = str(scoring_chart[i][0])
+            else:
+                display_pic = "achievement_bronze.png"
+                display_message = str(scoring_chart[i][0])
+
+            display_position = ((display_position[0]+(i*220)),150)
+            Message_position = ((Message_position[0]+(i*220)),380)
+            reward = pygame.image.load(os.path.join(os.path.dirname(
+                     __file__), display_pic)).convert_alpha()
+            reward = pygame.transform.scale(reward, display_pic_size)
+            Message = myfont.render(display_message, False, (0,0,0))
+            screen.blit(reward,display_position)
+            screen.blit(Message,Message_position)
+
+
     scoreDB = ScoreDB()
     studentDB = StudentDB()
-    # result = scoreDB.get_all_score()
-    # positions = []
-    # for key in result:
-    #     student_scores = result[key]
-    #     student_info = studentDB.get_single_student(key)
-    #     total_score = 0
-    #     # print(student_scores)
-        
-    #     #get total score for all subjects
-    #     for subjects in student_scores:
-    #         total_score += list(student_scores[subjects].values())[0]
 
-
-    #     # get score for specific subjects
-
-    #     algebra = student_scores["algebra"].values()
-    #     fractions = student_scores["fraction"].values()
-        
-
-    #     #add to list with all different types of scores to be sorted
-    #     positions.append((key,student_info["name"], total_score))
-    # positions.sort(key=lambda x:(-x[-1],x[2]))
-
+    #to be used to test
+    #student ID (no subjects)
+    #"-Mm8fShiNigSh-PCK--C" (4 subjects)
+    #"-Mm8fTpbu4sZxWmEKBb4" (2 subjects)
     student_score = scoreDB.get_single_score(studentID)
-
-
-    #check if student has hit the score needed for achievements to be unlocked
-    #default trophy is bronze
-    algebra_award = 0
-    fraction_award = 0
-    totalScore_award = 0
-
-    found = 0
-    for i in range(len(positions)):
-        if positions[i][0] == studentID: #replace hardcoded ID with studentID field later
-            found = 1
-            totalScore_award = reward_check("total",positions[i][2])
-            algebra_award = reward_check("algebra",positions[i][3])
-            fraction_award = reward_check("fractions",positions[i][4])
-
-            reward_display("Total",totalScore_award)
-            reward_display("algebra",algebra_award)
-            reward_display("fraction",fraction_award)
-            break
     
-    if found == 0:
-        text = myfont.render("No Achievements Yet", False, (0,0,0))
-        screen.blit(text,(500,300))
+    if student_score is None:
+        Message = myfont.render("No Achievements Yet", False, (0,0,0))
+        screen.blit(Message,(320,300))
+    else:
+        subject_scores = {}
+        for subjects in student_score:
+            total_score = 0
+            for levels in student_score[subjects]:
+                total_score += student_score[subjects][levels]
+            subject_scores[subjects] = total_score
+        
+        scoring_chart = reward_check(subject_scores)
+        reward_display(scoring_chart)
 
     pygame.display.flip()
 
