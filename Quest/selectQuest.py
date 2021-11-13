@@ -130,7 +130,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[0+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[0+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_2.draw() == True and click:
@@ -140,7 +140,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[1+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[1+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_3.draw() == True and click:
@@ -150,7 +150,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[2+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[2+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_4.draw() == True and click:
@@ -160,7 +160,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[3+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[3+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_5.draw() == True and click:
@@ -170,7 +170,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[4+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[4+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_6.draw() == True and click:
@@ -180,7 +180,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[5+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[5+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_7.draw() == True and click:
@@ -190,7 +190,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[6+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[6+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_8.draw() == True and click:
@@ -200,7 +200,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[7+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[7+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_9.draw() == True and click:
@@ -210,7 +210,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[8+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[8+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_10.draw() == True and click:
@@ -220,7 +220,7 @@ def selectQuest(pageNum,studentid):
                 import Quest.error404 as error404
                 error404.error404()
             else:
-                QuestDB.add_studentID(QuestDB, names[9+pageIterator], studentid)
+                QuestDB.add_studentID(QuestDB, questid[9+pageIterator], studentid)
                 import mainmenu.teacherDashboard as teacherDashboard
                 teacherDashboard.main_menu()
         if button_11.draw() == True and click:
