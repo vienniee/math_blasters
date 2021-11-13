@@ -54,6 +54,7 @@ questions = None
 isMinigame= False
 isQuest = False
 questID=None
+passingmark=None
 #Login()
 # Registration = Registration()
 
@@ -85,7 +86,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.teacher_menu
+state = States.world_select
 
 while True:
     for event in pygame.event.get():
@@ -135,8 +136,9 @@ while True:
         teacherDashboard.main_menu()
         
     elif state == States.minigame:
-        score, completion = Game(
+        score, completion, passing_mark = Game(
             gender, username, questions, isMinigame)
+        passingmark = passing_mark
         if completion:
             if isMinigame:
                 # update scores for minigame
@@ -190,7 +192,7 @@ while True:
 
     elif state == States.scorepage:
         isMinigame=False
-        cont = results(subject,level,score)
+        cont = results(subject,level,score,passingmark)
         if cont:
             state=States.world_select
 

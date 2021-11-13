@@ -448,7 +448,7 @@ def Game(gender,Pname,questions,isMinigame):
             enemiescurse.draw()
             screen.blit(victory_img,(350,100))
             if next_button.draw():
-                return score, True
+                return score, True, passingmark
 
         if player.alive == False:
             game_over = 1
@@ -456,7 +456,7 @@ def Game(gender,Pname,questions,isMinigame):
             playercurse.draw()
             screen.blit(defeat_img,(370,100))
             if next_button.draw():
-                return score, True
+                return score, True, passingmark
 
 
         #load question
@@ -578,7 +578,7 @@ def Game(gender,Pname,questions,isMinigame):
 
         if abandon_button.draw() == True and game_over == 0:
             if pause() == True:
-                return score, False
+                return score, False, None
 
 
         for event in pygame.event.get():
