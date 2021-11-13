@@ -85,7 +85,7 @@ class States(Enum):
     leaderboard = 10
     difficulty_select = 11
 
-state = States.student_menu
+state = States.teacher_menu
 
 while True:
     for event in pygame.event.get():
@@ -134,7 +134,9 @@ while True:
         if result == 4:
             state = States.login
     elif state == States.teacher_menu:
-        teacherDashboard.main_menu()
+        result = teacherDashboard.main_menu()
+        if result == 1:
+            state = States.login
         
     elif state == States.minigame:
         score, completion, passing_mark = Game(

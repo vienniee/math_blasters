@@ -67,18 +67,36 @@ def report(name, studentid):
         screen.blit(background_surface, (0, 0))
         scores = ScoreDB.get_single_score(ScoreDB, studentid)
 
-        algebra_lv1 =str(scores['algebra']['level 1'])
-        algebra_lv2 = str(scores['algebra']['level 2'])
-        algebra_lv3 = str(scores['algebra']['level 3'])
-        fraction_lv1 = str(scores['fraction']['level 1'])
-        fraction_lv2 = str(scores['fraction']['level 2'])
-        fraction_lv3 = str(scores['fraction']['level 3'])
-        chemistry_lv1 = str(scores['chemistry']['level 1'])
-        chemistry_lv2 = str(scores['chemistry']['level 2'])
-        chemistry_lv3 = str(scores['chemistry']['level 3'])
-        physics_lv1 = str(scores['physics']['level 1'])
-        physics_lv2 = str(scores['physics']['level 2'])
-        physics_lv3 = str(scores['physics']['level 3'])
+        algebra_lv1 = "NA"
+        algebra_lv2 = "NA"
+        algebra_lv3 = "NA"
+        fraction_lv1 = "NA"
+        fraction_lv2 = "NA"
+        fraction_lv3 = "NA"
+        chemistry_lv1 = "NA"
+        chemistry_lv2 = "NA"
+        chemistry_lv3 = "NA"
+        physics_lv1 = "NA"
+        physics_lv2 = "NA"
+        physics_lv3 = "NA"
+
+        try:
+            algebra_lv1 =str(scores['algebra']['level 1'])
+            algebra_lv2 = str(scores['algebra']['level 2'])
+            algebra_lv3 = str(scores['algebra']['level 3'])
+            fraction_lv1 = str(scores['fraction']['level 1'])
+            fraction_lv2 = str(scores['fraction']['level 2'])
+            fraction_lv3 = str(scores['fraction']['level 3'])
+            chemistry_lv1 = str(scores['chemistry']['level 1'])
+            chemistry_lv2 = str(scores['chemistry']['level 2'])
+            chemistry_lv3 = str(scores['chemistry']['level 3'])
+            physics_lv1 = str(scores['physics']['level 1'])
+            physics_lv2 = str(scores['physics']['level 2'])
+            physics_lv3 = str(scores['physics']['level 3'])
+        except:
+            pass
+
+
         studentName = name
         studentNameText = bigfont.render(studentName, True, (0, 0, 0))
         score1 = smallfont.render(algebra_lv1, True, (0, 0, 0))
