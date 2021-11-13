@@ -3,10 +3,10 @@ import os
 
 class Castle(pygame.sprite.Sprite):
     def __init__(self, xpos,level,chapter):
-        self.xpos = xpos
         super().__init__()
         # image imports
-
+        self.xpos = xpos
+        chapter = chapter.lower()
         if int(level) == 1:
             
             castle_image = pygame.image.load(os.path.join(os.path.dirname(

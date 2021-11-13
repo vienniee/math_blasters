@@ -78,8 +78,8 @@ def subject_Chapter_selection(character_gender,studentID):
                         subject_level[subject] = level + 1
     except:
         print("student score not in database")
-    if "fraction" not in subject_level:
-        subject_level["fraction"] = 1
+    if "fractions" not in subject_level:
+        subject_level["fractions"] = 1
     if "algebra" not in subject_level:
         subject_level["algebra"] = 1
     if "physics" not in subject_level:   
@@ -89,7 +89,7 @@ def subject_Chapter_selection(character_gender,studentID):
                 
 
     math_castles, math_castleName, math_backPortal, math_questHouse, math_exitButton = load_assets_chapter(
-        "Fractions", subject_level["fraction"], "Algebra", subject_level["algebra"])
+        "Fractions", subject_level["fractions"], "Algebra", subject_level["algebra"])
     sci_castles, sci_castleName, sci_backPortal, sci_questHouse, sci_exitButton = load_assets_chapter(
         "Physics", subject_level["physics"], "Chemistry", subject_level["chemistry"])
 
