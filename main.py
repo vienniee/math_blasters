@@ -85,7 +85,7 @@ class States(Enum):
     leaderboard = 10
     difficulty_select = 11
 
-state = States.student_menu
+state = States.login
 
 while True:
     for event in pygame.event.get():
