@@ -85,7 +85,7 @@ def Achievements(studentID):
     #student ID (no subjects)
     #"-Mm8fShiNigSh-PCK--C" (4 subjects)
     #"-Mm8fTpbu4sZxWmEKBb4" (2 subjects)
-    student_score = scoreDB.get_single_score("-Mm8fShiNigSh-PCK--C")
+    student_score = scoreDB.get_single_score(studentID)
     
     if student_score is None:
         Message = myfont.render("No Achievements Yet", False, (0,0,0))
