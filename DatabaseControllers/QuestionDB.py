@@ -1,7 +1,8 @@
-from DatabaseControllers.FirebaseConfig import db
-# import FirebaseConfig
 
-# db = FirebaseConfig.db
+# from DatabaseControllers.FirebaseConfig import db
+import FirebaseConfig
+
+db = FirebaseConfig.db
 
 emptyQuestion = {
     "subject":"",
@@ -39,6 +40,13 @@ class QuestionDB:
 
         return temp
 
+    def get_single_question(self,questionID):
+        db = QuestionDB()
+        temp = db.get_all_questions()
+
+        return temp[f'{questionID}']
+
+
     # db.child("users").child("Morty").update({"name": "Mortiest Morty"})
     def update_questions(self, subject, level, questionID, newQuestion):
         db.child("questions").child(subject).child(
@@ -63,4 +71,4 @@ if __name__ == "__main__":
 }
     
     test = QuestionDB()
-    print(test.add_question("algebra","level 2",data))
+    print(test.get_single_question("-MoI_Crd-AGYfoiRcifX"))
