@@ -97,17 +97,23 @@ def Achievements(studentID):
         student_scores = result[key]
         student_info = studentDB.get_single_student(key)
         total_score = 0
+        # print(student_scores)
         
         #get total score for all subjects
         for subjects in student_scores:
             total_score += list(student_scores[subjects].values())[0]
 
-        #get score for specific subjects
-        algebra = list(student_scores["algebra"].values())[0]
-        fractions = list(student_scores["fraction"].values())[0]
+
+        # get score for specific subjects
+        algebra = student_scores["algebra"].values()
+        print((algebra))
+        fractions = student_scores["fraction"].values()
+
+        # get score for each subject
+        
 
         #add to list with all different types of scores to be sorted
-        positions.append((key,student_info["name"], total_score, algebra, fractions))
+        positions.append((key,student_info["name"], total_score))
     positions.sort(key=lambda x:(-x[-1],x[2]))
 
 
