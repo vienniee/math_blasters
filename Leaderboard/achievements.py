@@ -22,6 +22,7 @@ def Achievements(studentID):
     #create text for page
     pygame.font.init()
     myfont = pygame.font.Font(os.path.join(os.path.dirname(__file__), 'Pixeltype.ttf'), 60)
+    newfont = pygame.font.SysFont('arialblack',20)
     textsurface = myfont.render('Achievements', False, (0,0,0))
 
     #create background image
@@ -54,7 +55,7 @@ def Achievements(studentID):
     def reward_display(scoring_chart):
         for i in range(len(scoring_chart)):
             display_position = (40,150)
-            Message_position = (100,380)
+            Message_position = (110,380)
             display_pic_size = (280,230)
 
             if scoring_chart[i][1] == 1:
@@ -72,7 +73,7 @@ def Achievements(studentID):
             reward = pygame.image.load(os.path.join(os.path.dirname(
                      __file__), display_pic)).convert_alpha()
             reward = pygame.transform.scale(reward, display_pic_size)
-            Message = myfont.render(display_message, False, (0,0,0))
+            Message = newfont.render(display_message.upper(), False, (0,0,0))
             screen.blit(reward,display_position)
             screen.blit(Message,Message_position)
 
@@ -84,7 +85,7 @@ def Achievements(studentID):
     #student ID (no subjects)
     #"-Mm8fShiNigSh-PCK--C" (4 subjects)
     #"-Mm8fTpbu4sZxWmEKBb4" (2 subjects)
-    student_score = scoreDB.get_single_score(studentID)
+    student_score = scoreDB.get_single_score("-Mm8fShiNigSh-PCK--C")
     
     if student_score is None:
         Message = myfont.render("No Achievements Yet", False, (0,0,0))
