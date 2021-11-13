@@ -1,4 +1,4 @@
-'email', (0, 38)
-'password', (512, 18)
+'email', (0, 29)
+'password', (512, 10)
 'name', (1024, 15)
 'class', (1536, 12)
