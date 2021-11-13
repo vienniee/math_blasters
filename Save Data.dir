@@ -1,11 +1,2 @@
-<<<<<<< HEAD
-'email', (0, 29)
-'password', (512, 10)
-'name', (1024, 15)
-'class', (1536, 12)
-=======
-'email', (0, 10)
-'password', (512, 10)
-'name', (1024, 10)
-'class', (1536, 10)
->>>>>>> 03d70bfbbf3abeeb69f0c7e6ad8a4220a3a8a896
+'email', (0, 38)
+'password', (512, 18)
