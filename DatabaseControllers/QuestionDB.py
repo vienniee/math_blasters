@@ -30,14 +30,20 @@ class QuestionDB:
         questiondb =  questionList.val()
 
         for subject in questiondb:
-            print(subject)
+            #print(subject)
             for level in questiondb[subject]:
-                print(level)
+                #print(level)
                 for question_id in questiondb[subject][level]:
-                    print(question_id)
+                    #print(question_id)
                     temp[question_id] = questiondb[subject][level][question_id]
 
         return temp
+
+    def get_single_question(self,questionID):
+        db = QuestionDB()
+        temp = db.get_all_questions()
+
+        return temp[f'{questionID}']
 
     # db.child("users").child("Morty").update({"name": "Mortiest Morty"})
     def update_questions(self, subject, level, questionID, newQuestion):

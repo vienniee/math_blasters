@@ -46,10 +46,14 @@ class QuestDB:
         return -1
 
     def add_questionID(self,questID,questionID):
-        quest = self.get_single_quest(self,questID)
-        questionList = quest["listofQuestionID"]
-        questionList.append(questionID)
-        db.child("quests").child(questID).update({"listofQuestionID":questionList})
+        # quest = self.get_single_quest(questID)
+
+        # questionList = quest["listofQuestionID"]
+        # questionList.append(questionID)
+        # db.child("quests").child(questID).update({"listofQuestionID":questionList})
+
+        db.child("quests").child(questID).child(
+            "listofQuestionID").push(questionID)
 
     def add_studentID(self,questID,studentID):
         db.child("quests").child(questID).child("listofStudentID").child(studentID).set(0)
@@ -72,8 +76,11 @@ if __name__ == "__main__":
         "createdBy":"Mr chua"
     }
     questdb = QuestDB()
-    questdb.add_quest(emptyQuest)
-    # get_single_quest()
-
-
-
+    # questdb.add_questionID(questID="-MoCiI66M8xDFvM-ThOJ",questionID= "-MoDE0mqW3ulxILVN1Ao")
+    emptyQuest = {
+        "listofQuestionID": [],
+        "listofStudentID": [],
+        "subject": "algebra",
+        "createdBy": "kelvin"
+    }
+    questdb.add_questionID("-MoNDiN_4yQxF0_G1Bkq", "-MoDE0mqW3ulxILVN1Ao")
