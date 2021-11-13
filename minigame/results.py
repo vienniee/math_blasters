@@ -51,7 +51,7 @@ class Button():
 
         return action
 
-def results(topic, level, score, passingmark):
+def results(studentID,topic, level, score, passingmark):
     print(os.getcwd())
     cont = pygame.image.load('Image\cont.png').convert_alpha()
 
@@ -104,14 +104,9 @@ def results(topic, level, score, passingmark):
             showResults(scoreTextX,scoreTextY,False)
 
         #add to database
-        studentScore = {
-            "minigame":topic,
-            "level":level,
-            "TotalScore":score
-        }
 
         test = ScoreDB()
-        test.add_or_update_score("student1",topic,level,studentScore)
+        test.add_or_update_score(studentID, topic, level, score)
 
         if contButton.draw() == True:
             print('continue button selected')
