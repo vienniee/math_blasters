@@ -54,6 +54,7 @@ questions = None
 isMinigame= False
 isQuest = False
 questID=None
+passingmark=None
 #Login()
 # Registration = Registration()
 
@@ -97,7 +98,8 @@ while True:
     print(state)
     if state == States.login:
         result, userID, gender_logined = LoginUser()
-        gender = gender_logined.lower()
+        if gender != None:
+            gender = gender_logined.lower()
         teleportCooldownState = True
         pygame.time.set_timer(teleportCooldownTimer, 3000)
         print("teleportCooldownState True")
@@ -135,8 +137,9 @@ while True:
         teacherDashboard.main_menu()
         
     elif state == States.minigame:
-        score, completion = Game(
+        score, completion, passing_mark = Game(
             gender, username, questions, isMinigame)
+        passingmark = passing_mark
         if completion:
             if isMinigame:
                 # update scores for minigame
@@ -190,7 +193,7 @@ while True:
 
     elif state == States.scorepage:
         isMinigame=False
-        cont = results(subject,level,score)
+        cont = results(subject,level,score,passingmark)
         if cont:
             state=States.world_select
 

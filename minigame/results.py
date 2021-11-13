@@ -51,7 +51,7 @@ class Button():
 
         return action
 
-def results(topic, level, score):
+def results(topic, level, score, passingmark):
     print(os.getcwd())
     cont = pygame.image.load('Image\cont.png').convert_alpha()
 
@@ -64,7 +64,7 @@ def results(topic, level, score):
     #pygame.display.set_icon(icon)
 
     #score text
-    passScore = 3
+    passScore = passingmark
     quizScore = score
     font = pygame.font.Font('freesansbold.ttf', 42)
     resultFont = pygame.font.Font('freesansbold.ttf', 58)
