@@ -43,8 +43,8 @@ teleportCooldownTimer = pygame.USEREVENT + 1
 
 
 # global variable like student gender and name
-gender = "male"
-studentID = "-Mmi7qF_6VTIpe46sLEn"
+gender = None
+studentID = None
 level = None
 STUDENT_DATA = None
 subject = None #put to none 
