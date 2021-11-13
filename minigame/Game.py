@@ -14,7 +14,7 @@ screen_width = 1000
 screen_height = 400 +bottom_panel
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Battle')
+pygame.display.set_caption('CZ3003 Pygame')
 
 #define fonts
 bigfont = pygame.font.SysFont('Times New Roman',40)
