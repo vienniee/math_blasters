@@ -79,12 +79,11 @@ class States(Enum):
     student_menu = 4
     teacher_menu = 5
     minigame =6
-    quest_menu = 7
-    world_select = 8
-    scorepage = 9
-    achievement = 10
-    leaderboard = 11
-    difficulty_select = 12
+    world_select = 7
+    scorepage = 8
+    achievement = 9
+    leaderboard = 10
+    difficulty_select = 11
 
 state = States.world_select
 
@@ -98,8 +97,9 @@ while True:
     print(state)
     if state == States.login:
         result, userID, gender_logined = LoginUser()
-        if gender != None:
+        if gender_logined != None:
             gender = gender_logined.lower()
+            print("Gender: "+ gender)
         teleportCooldownState = True
         pygame.time.set_timer(teleportCooldownTimer, 3000)
         print("teleportCooldownState True")
@@ -154,8 +154,6 @@ while True:
         else:
             # abandon
             state = States.difficulty_select
-    elif state == States.quest_menu:
-        pass
     elif state == States.world_select:
         print(gender)
         result, data = subject_Chapter_selection(gender, studentID)
@@ -196,18 +194,4 @@ while True:
         cont = results(subject,level,score,passingmark)
         if cont:
             state=States.world_select
-
-
-
-# login screen or register
-
-
-# main menu or teacher Main menu
-# minigame = subject_chapter_selection.subject_Chapter_selection("male")
-# level = levelselect.levelselect() #'algebra'
-# score = Game.Game(minigame,level) #'algebra' #Game(questions,gender,name,quest/minigame*) #quest/minigames doesnt matter if main.py specify the logic
-# results.results(minigame,level,score)
-# teacherdashboard = teacherDashboard.main_menu()
-
-
         

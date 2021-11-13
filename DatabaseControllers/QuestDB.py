@@ -55,6 +55,13 @@ class QuestDB:
         db.child("quests").child(questID).child(
             "listofQuestionID").push(questionID)
 
+        # questionList = quest["listofQuestionID"]
+        # questionList.append(questionID)
+        # db.child("quests").child(questID).update({"listofQuestionID":questionList})
+
+        db.child("quests").child(questID).child(
+            "listofQuestionID").push(questionID)
+
     def add_studentID(self,questID,studentID):
         db.child("quests").child(questID).child("listofStudentID").child(studentID).set(0)
 

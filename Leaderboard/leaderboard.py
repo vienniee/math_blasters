@@ -53,7 +53,11 @@ def Leaderboard():
         student_info = studentDB.get_single_student(key)
         total_score = 0
         for subjects in student_scores:
-            total_score += list(student_scores[subjects].values())[0]
+            level_scores = list(student_scores[subjects].values())
+            # print(level_scores)
+            for level in range(0,len(level_scores)):
+                # print(level)
+                total_score += level_scores[level]
         positions.append((student_info["name"], total_score))
     positions.sort(key=lambda x:(-x[-1],x[1]))
 

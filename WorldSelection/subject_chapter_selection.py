@@ -295,14 +295,11 @@ def subject_Chapter_selection(character_gender,studentID):
                         current_page +=1
                 
                 if Quest1.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
-                    print(currentdata[0])
                     return 0, currentdata[0] 
                     
                 if Quest2.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
-                    print(currentdata[1])
                     return 0, currentdata[1]
                 if Quest3.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
-                    print(currentdata[2])
                     return 0, currentdata[2]
         
 
