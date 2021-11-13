@@ -44,9 +44,9 @@ def Achievements(studentID):
     def reward_check(subject_scores):
         scoring_chart = []
         for subject in subject_scores:
-            if subject_scores[subject] < 20:
+            if subject_scores[subject] < 15:
                 scoring_chart.append((subject,0))
-            elif 20 <= subject_scores[subject] < 40:
+            elif 15 <= subject_scores[subject] < 28:
                 scoring_chart.append((subject,1))
             else:
                 scoring_chart.append((subject,2))
