@@ -79,12 +79,11 @@ class States(Enum):
     student_menu = 4
     teacher_menu = 5
     minigame =6
-    quest_menu = 7
-    world_select = 8
-    scorepage = 9
-    achievement = 10
-    leaderboard = 11
-    difficulty_select = 12
+    world_select = 7
+    scorepage = 8
+    achievement = 9
+    leaderboard = 10
+    difficulty_select = 11
 
 state = States.login
 
@@ -154,8 +153,6 @@ while True:
         else:
             # abandon
             state = States.difficulty_select
-    elif state == States.quest_menu:
-        pass
     elif state == States.world_select:
         print(gender)
         result, data = subject_Chapter_selection(gender, studentID)
