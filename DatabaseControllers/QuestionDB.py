@@ -1,8 +1,8 @@
 
-# from DatabaseControllers.FirebaseConfig import db
-import FirebaseConfig
+from DatabaseControllers.FirebaseConfig import db
+# import FirebaseConfig
 
-db = FirebaseConfig.db
+# db = FirebaseConfig.db
 
 emptyQuestion = {
     "subject":"",
