@@ -193,18 +193,4 @@ while True:
         cont = results(subject,level,score,passingmark)
         if cont:
             state=States.world_select
-
-
-
-# login screen or register
-
-
-# main menu or teacher Main menu
-# minigame = subject_chapter_selection.subject_Chapter_selection("male")
-# level = levelselect.levelselect() #'algebra'
-# score = Game.Game(minigame,level) #'algebra' #Game(questions,gender,name,quest/minigame*) #quest/minigames doesnt matter if main.py specify the logic
-# results.results(minigame,level,score)
-# teacherdashboard = teacherDashboard.main_menu()
-
-
         
