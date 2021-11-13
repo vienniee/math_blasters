@@ -33,6 +33,7 @@ def Registration():
     font = pygame.font.SysFont("Consolas", 24)
     # Create own manager with custom input validator
 
+    isRegistrationError = False
     white = (255, 255, 255)
     black = (0, 0, 0)
     slategrey = (112,128,144)
@@ -57,7 +58,8 @@ def Registration():
     background_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'registration_images', 'background.png')).convert()
     registrationImage = pygame.image.load(os.path.join(os.path.dirname(__file__), 'registration_images', 'img0.png')).convert_alpha()
     back_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'registration_images', 'backButton.png')).convert_alpha()
-
+    
+    registrationErrorMsg = ""
     
     def backButton_clicked():
         print("Back Button Clicked")
@@ -91,8 +93,10 @@ def Registration():
             return 2, STUDENT_DATA
         except Exception as e:
             print("Exception")
-            print(e)
-            return 3,None
+            print(type(e))
+            # print(e.response())
+            # registrationErrorMsg = e["error"]["message"]
+            return 3, None
                         
 
            
@@ -128,6 +132,9 @@ def Registration():
                 print(a, b)
                 if a!=3:
                     return a,b
+                else:
+                    isRegistrationError = True
+                    
                 
             if backButton.draw():
                 if backButton_clicked():
@@ -147,12 +154,24 @@ def Registration():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if nameBorder.collidepoint(event.pos):
                     nameActive = True
+                    emailActive = False
+                    classNumActive = False
+                    passwordActive = False
                 elif emailBorder.collidepoint(event.pos):
                     emailActive = True
+                    nameActive = False
+                    classNumActive = False
+                    passwordActive = False
                 elif classNumBorder.collidepoint(event.pos):
                     classNumActive = True
+                    emailActive = False
+                    nameActive = False
+                    passwordActive = False
                 elif passwordBorder.collidepoint(event.pos):
                     passwordActive = True
+                    emailActive = False
+                    nameActive = False
+                    classNumActive = False
                 else:
                     nameActive = False
                     emailActive = False
@@ -231,7 +250,14 @@ def Registration():
                 SAVE_DATA['class'] = classNum
             else:
                 pass
-           
+        
+        if isRegistrationError:
+            test_font = pygame.font.Font(os.path.join(
+                os.path.dirname(__file__), 'font', 'Pixeltype.ttf'), 30)
+            invalid_registration_text = test_font.render(
+                "Try a different email/password", False, (255, 0, 0))
+            screen.blit(invalid_registration_text, (350, 75))
+
         pygame.display.update()
         mainClock.tick(60)
 

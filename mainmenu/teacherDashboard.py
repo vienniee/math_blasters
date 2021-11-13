@@ -83,10 +83,12 @@ def main_menu():
     buttonimage1 = pygame.image.load(os.path.join(os.path.dirname(__file__),  'teacherdashboard_img1.png')).convert_alpha()
     buttonimage2 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'teacherdashboard_img0.png')).convert_alpha()
     buttonimage3 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'teacherdashboard_img2.png')).convert_alpha()
+    logout_img = pygame.image.load(os.path.join(os.path.dirname(__file__), 'logout_button.png')).convert_alpha()
 
     button_1 = Button(w/2-160, 260, buttonimage1, 1)
     button_2 = Button(w/2-160, 330, buttonimage2, 1)
     button_3 = Button(w/2-160, 400, buttonimage3, 1)
+    button_4 = Button(w/2-280, 180, logout_img, 0.5)
 
     while True:
         screen.fill((255, 255, 255))
@@ -101,6 +103,8 @@ def main_menu():
         if button_3.draw() == True and click:
             import Quest.manageQuest as manageQuest
             manageQuest.manageQuest()
+        if button_4.draw() == True and click:
+            return 1
 
         click = False
 
@@ -110,8 +114,7 @@ def main_menu():
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
+                    pass
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True

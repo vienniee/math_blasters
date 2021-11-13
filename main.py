@@ -134,7 +134,9 @@ while True:
         if result == 4:
             state = States.login
     elif state == States.teacher_menu:
-        teacherDashboard.main_menu()
+        result = teacherDashboard.main_menu()
+        if result == 1:
+            state = States.login
         
     elif state == States.minigame:
         score, completion, passing_mark = Game(
@@ -191,7 +193,7 @@ while True:
 
     elif state == States.scorepage:
         isMinigame=False
-        cont = results(subject,level,score,passingmark)
+        cont = results(studentID,subject,level,score,passingmark)
         if cont:
             state=States.world_select
         

@@ -44,9 +44,9 @@ def Achievements(studentID):
     def reward_check(subject_scores):
         scoring_chart = []
         for subject in subject_scores:
-            if subject_scores[subject] < 20:
+            if subject_scores[subject] < 15:
                 scoring_chart.append((subject,0))
-            elif 20 <= subject_scores[subject] < 40:
+            elif 15 <= subject_scores[subject] < 28:
                 scoring_chart.append((subject,1))
             else:
                 scoring_chart.append((subject,2))
@@ -85,7 +85,7 @@ def Achievements(studentID):
     #student ID (no subjects)
     #"-Mm8fShiNigSh-PCK--C" (4 subjects)
     #"-Mm8fTpbu4sZxWmEKBb4" (2 subjects)
-    student_score = scoreDB.get_single_score("-Mm8fShiNigSh-PCK--C")
+    student_score = scoreDB.get_single_score(studentID)
     
     if student_score is None:
         Message = myfont.render("No Achievements Yet", False, (0,0,0))
