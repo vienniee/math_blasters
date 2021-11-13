@@ -97,8 +97,8 @@ while True:
     print(state)
     if state == States.login:
         result, userID, gender_logined = LoginUser()
-        if gender != None:
-            gender = gender_logined.lower()
+        gender = gender_logined.lower()
+        print("Gender: "+ gender)
         teleportCooldownState = True
         pygame.time.set_timer(teleportCooldownTimer, 3000)
         print("teleportCooldownState True")
