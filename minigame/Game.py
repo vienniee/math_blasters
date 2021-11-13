@@ -464,6 +464,11 @@ def Game(gender,Pname,questions,isMinigame):
             questions[questionnum].draw()
 
         #draw button
+        try:
+            print(reorderQlist[questionnum])
+        except:
+            print("nothing")
+        # print(int(reorderQlist[questionnum]["correctAnswer"]))
         if questionbuttonlist1[questionnum].draw() == True and game_over == 0:
             # currentanswer = answers[questionnum]
             currentanswer = 1
@@ -494,8 +499,8 @@ def Game(gender,Pname,questions,isMinigame):
         if questionbuttonlist2[questionnum].draw() == True and game_over == 0:
             # currentanswer = answers[questionnum]
             currentanswer = 2
-            print(type(currentanswer),currentanswer)
-            print(reorderQlist[questionnum])
+            # print(type(currentanswer),currentanswer)
+            # print(reorderQlist[questionnum])
             if currentanswer == int(reorderQlist[questionnum]["correctAnswer"]):
                 score += 1
                 while action_cd < action_wait_time:
@@ -564,6 +569,7 @@ def Game(gender,Pname,questions,isMinigame):
                 if action_cd >= action_wait_time:
                     enemies.attack(player)
                     action_cd = 0
+                    
             questionnum += 1
             if questionnum >= len(questions):
                 if score >= passingmark:

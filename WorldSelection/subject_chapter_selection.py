@@ -7,6 +7,7 @@ from WorldSelection.chapter_level import load_assets as load_assets_chapter, cha
 from WorldSelection.Quest_Select_Modal import load_asset as load_assets_quest, quest_selection
 from enum import Enum
 import os
+from DatabaseControllers.ScoresDB import ScoreDB
 
 class States(Enum):
         SUBJECT_LEVEL = 1
@@ -22,6 +23,8 @@ def subject_Chapter_selection(character_gender,studentID):
             return True
         else:
             return False
+
+    
 
 
 
@@ -51,16 +54,50 @@ def subject_Chapter_selection(character_gender,studentID):
     player.add(Player(character_gender))
 
     portals, portal_names,exitButton = load_assets_subject()
+
+    score_db = ScoreDB()
+    student_score = score_db.get_single_score(studentID)
+
+    subject_level = {}
+
+    try:
+
+        for subject in student_score:
+            for level in student_score[subject]:
+                
+                if student_score[subject][level] > 5:
+                    if level == "level 1":
+                        level = 1
+                    elif level == "level 2":
+                        level = 2
+                    elif level == "level 3":
+                        level = 3
+                    if level == 3:
+                        subject_level[subject] = level
+                    else:
+                        subject_level[subject] = level + 1
+    except:
+        print("student score not in database")
+    if "fraction" not in subject_level:
+        subject_level["fraction"] = 1
+    if "algebra" not in subject_level:
+        subject_level["algebra"] = 1
+    if "physics" not in subject_level:   
+        subject_level["physics"] = 1
+    if "chemistry" not in subject_level:
+        subject_level["chemistry"] = 1
+                
+
     math_castles, math_castleName, math_backPortal, math_questHouse, math_exitButton = load_assets_chapter(
-        "Fractions",2, "Algebra",3)
+        "Fractions", subject_level["fraction"], "Algebra", subject_level["algebra"])
     sci_castles, sci_castleName, sci_backPortal, sci_questHouse, sci_exitButton = load_assets_chapter(
-        "Physics",1, "Chemistry",3)
+        "Physics", subject_level["physics"], "Chemistry", subject_level["chemistry"])
 
     teleportCooldownState = False
     teleportCooldownTimer = pygame.USEREVENT + 1
     currentdata = []
     current_page = 1
-
+    
 
     while True:
         keys = pygame.key.get_pressed()

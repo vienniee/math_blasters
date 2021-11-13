@@ -43,8 +43,8 @@ teleportCooldownTimer = pygame.USEREVENT + 1
 
 
 # global variable like student gender and name
-gender = None
-studentID = None
+gender = "male"
+studentID = "-Mmi7qF_6VTIpe46sLEn"
 level = None
 STUDENT_DATA = None
 subject = None #put to none 
@@ -86,7 +86,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.login
+state = States.world_select
 
 while True:
     for event in pygame.event.get():
