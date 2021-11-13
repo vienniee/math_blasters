@@ -193,7 +193,7 @@ while True:
 
     elif state == States.scorepage:
         isMinigame=False
-        cont = results(subject,level,score,passingmark)
+        cont = results(studentID,subject,level,score,passingmark)
         if cont:
             state=States.world_select
         
