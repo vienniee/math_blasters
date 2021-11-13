@@ -1,6 +1,6 @@
 
 from posixpath import ismount
-from tkinter.constants import E
+from tkinter.constants import E, NONE
 from pyasn1.codec.ber.decoder import SetDecoder
 import pygame, sys
 # from pygame.locals import *
@@ -43,8 +43,8 @@ teleportCooldownTimer = pygame.USEREVENT + 1
 
 
 # global variable like student gender and name
-gender = "male"
-studentID = "hDhNkZR4CSct81bQA6oX6drdZHo2"
+gender = None
+studentID = None
 level = None
 STUDENT_DATA = None
 subject = None #put to none 
@@ -86,7 +86,7 @@ class States(Enum):
     leaderboard = 11
     difficulty_select = 12
 
-state = States.teacher_menu
+state = States.login
 
 while True:
     for event in pygame.event.get():
@@ -98,7 +98,8 @@ while True:
     print(state)
     if state == States.login:
         result, userID, gender_logined = LoginUser()
-        gender = gender_logined.lower()
+        if gender != None:
+            gender = gender_logined.lower()
         teleportCooldownState = True
         pygame.time.set_timer(teleportCooldownTimer, 3000)
         print("teleportCooldownState True")
