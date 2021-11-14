@@ -37,27 +37,35 @@ def Achievements(studentID):
     screen.blit(textsurface,(380,20))
     backButton = assets.Button(screen=screen,id='buttonRegistration',image=back_img,scale=1,x=20,y=20)
 
+    #function for back button
     def backButton_clicked():
         print("Back Button Clicked")
         return True
     
+    #To check the awards to be given out based on the student scores
     def reward_check(subject_scores):
         scoring_chart = []
         for subject in subject_scores:
+            #To check if he falls under the bronze category for that subject
             if subject_scores[subject] < 15:
                 scoring_chart.append((subject,0))
+            #To check if he falls under the silver category for that subject
             elif 15 <= subject_scores[subject] < 28:
                 scoring_chart.append((subject,1))
             else:
+            #To check if he falls under the gold category for that subject
                 scoring_chart.append((subject,2))
         return scoring_chart
 
+    #Determine the reward picture to display and the position of the achievements on the page
+    #input from reward_check
     def reward_display(scoring_chart):
         for i in range(len(scoring_chart)):
             display_position = (40,150)
             Message_position = (110,380)
             display_pic_size = (280,230)
 
+            #Based on reward_check, retrieve relevant images to display as achievements
             if scoring_chart[i][1] == 1:
                 display_pic = "achievement_silver.png"
                 display_message = str(scoring_chart[i][0])
@@ -68,8 +76,11 @@ def Achievements(studentID):
                 display_pic = "achievement_bronze.png"
                 display_message = str(scoring_chart[i][0])
 
+            #Determine the position of the achievement on the page depending on the subject
             display_position = ((display_position[0]+(i*220)),150)
             Message_position = ((Message_position[0]+(i*220)),380)
+
+            #Loading of actual achievements on the page
             reward = pygame.image.load(os.path.join(os.path.dirname(
                      __file__), display_pic)).convert_alpha()
             reward = pygame.transform.scale(reward, display_pic_size)
@@ -87,9 +98,11 @@ def Achievements(studentID):
     #"-Mm8fTpbu4sZxWmEKBb4" (2 subjects)
     student_score = scoreDB.get_single_score(studentID)
     
+    #if student has not attempted anything
     if student_score is None:
         Message = myfont.render("No Achievements Yet", False, (0,0,0))
         screen.blit(Message,(320,300))
+    #if student has attempting some quizzes
     else:
         subject_scores = {}
         for subjects in student_score:

@@ -48,6 +48,9 @@ def Leaderboard():
     studentDB = StudentDB()
     result = scoreDB.get_all_score()
     positions = []
+
+    #Iterating through the scores of all students
+    #Summing the total score of each student from all subjects
     for key in result:
         student_scores = result[key]
         student_info = studentDB.get_single_student(key)
@@ -58,9 +61,12 @@ def Leaderboard():
             for level in range(0,len(level_scores)):
                 # print(level)
                 total_score += level_scores[level]
+        #Holding the student info and total scores in a list
         positions.append((student_info["name"], total_score))
+    #Sorting the list in descending oder to be displayed
     positions.sort(key=lambda x:(-x[-1],x[1]))
 
+    #Selecting the top 5 students in the list to be displayed
     for i in range(5):
         #convert data to string to be displayed
         student_names = namefont.render(str(positions[i][0]),False,(0,0,0))
